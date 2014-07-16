@@ -1,0 +1,25 @@
+$(document).ready(function() {
+    
+    $("#owl-1").owlCarousel({
+        items: 1, //2 items above 1000px browser width
+        itemsDesktop: [1199, 1], //5 items between 1199px and 979px
+        itemsDesktopSmall: [979, 1], // betweem 979px and 601px
+        itemsTablet: [768, 1], //1 items between 768 and 0
+        itemsMobile: false, // itemsMobile disabled - inherit from itemsTablet option
+
+        lazyLoad: true,
+        autoPlay: true,
+        navigation: true,
+        navigationText: ["", ""],
+        rewindNav: true,
+        scrollPerPage: true,
+        //Pagination
+        pagination: true,
+        paginationNumbers: false,
+    });
+});
+$(document).on('click', '.navbar-collapse.in', function(e) {
+    if ($(e.target).is('a')) {
+        $(this).collapse('hide');
+    }
+});
