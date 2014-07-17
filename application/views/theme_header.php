@@ -7,9 +7,10 @@
         <meta name="description" content="Site of Kum Krong Dek KhonKean">
         <meta name="author" content="VoRDcs">
 
-        <?php echo css('bootstrap.css'); ?>
+        <?php echo css('bootstrap.min.css'); ?>
         <?php echo css('bootstrap-theme.css'); ?>
         <?php echo css('font-awesome.css'); ?>
+
 
         <?php echo css('style.css'); ?>
 
@@ -27,26 +28,13 @@
         <header class="masthead">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <h1><a href="#" title="Bootstrap Template">Happy Scroll</a>
-                            <p class="lead">{A Bootstrap Template}</p></h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="pull-right  hidden-xs">    
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><h3><i class="glyphicon glyphicon-cog"></i></h3></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><i class="glyphicon glyphicon-chevron-right"></i> Link</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-user"></i> Link</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Link</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Link</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h2><a href="#" title="Bootstrap Template">สถานคุ้มครองสวัสดิภาพเด็ก</a>
+                        <p class="lead">{A Bootstrap Template}</p></h2>
                 </div>
             </div>
         </header>
 
-        <!--Fixed navbar--> 
+        <!--Fixed navbar id="nav" class="navbar navbar-default" role="navigation" data-spy="affix"--> 
         <nav id="nav" class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100">
             <div class="container">
                 <!--Brand and toggle get grouped for better mobile display--> 
@@ -63,7 +51,23 @@
                 <!--Collect the nav links, forms, and other content for toggling--> 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="#"><span class="fa fa-home fa-2x"></span></a></li>
+                        <li><a href="<?= base_url('') ?>"><i class="fa fa-home fa-lg"></i> หน้าเเรก</a></li>                        
+                        <li class="dropdown" >
+                            <a href="<?= base_url('AboutUs/') ?>" class="dropdown-toggle" data-toggle="dropdown">&nbsp;เกี่ยวกับเรา&nbsp;<b class="caret"></b></a>
+                            <ul class="dropdown-menu multi-column">    
+                                <li><a href="<?= base_url('AboutUs/') ?>">ประวัติความเป็นมา</a></li>
+                                <li><a href="<?= base_url('AboutUs/#vison') ?>">วิสัยทัศน์</a></li>
+                                <li><a href="#">ค่านิยม</a></li>
+                                <li><a href="#">วัฒนธรรม</a></li>
+                                <li><a href="#">ปรัชญา</a></li>
+                                <li><a href="#">วัตถุประสงค์</a></li> 
+                                <li><a href="#">การดำเนินงาน</a></li>
+                                <li><a href="#">เด็กที่ได้รับการสงเคราะห์และคุ้มครองสวัสดิภาพ</a></li>
+                                <li><a href="#">การนำเด็กเข้ารับการสงเคาราะห์หรือคุ้มครองสวัสดิภาพ</a></li>
+                                <li><a href="#">กระบวนการรับเด็ก</a></li>
+
+                            </ul>
+                        </li>
                         <li><a href="#">Link</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-android fa-lg"></i>&nbsp;Dropdown <b class="caret"></b></a>

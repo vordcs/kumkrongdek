@@ -4,6 +4,8 @@
     width: 100%;
     position:static;
     top:-32px;
+    padding: 10px;
+    margin: 0%
 }
 
 #nav.affix {
@@ -12,9 +14,100 @@
     z-index:10;
     -webkit-transition: all .6s ease-in-out;
 }
-/*end for nav*/
-a, a:visited, a:hover, a:active {
-  color: inherit;
+#nav .dropdown ul li a {
+    color: #2d2d2d;
+    display: block;
+    font-size: 1.1em;
+    padding: 13px 20px;
+    text-transform: capitalize;
+    transition: all 0.3s ease-in-out 0s;
+}
+#nav ul li.active a {
+    color: #57c5a0;
+}
+#nav ul li a:hover {
+    color: #57c5a0;
+}
+/*end for nav */
+#content{
+    margin-top: 2%;
+}
+/* start title */
+.title_bg{
+    background: #242424;
+}
+.title_top{
+    padding: 10px;
+    padding-left: 4%;
+}
+.title_top h2{
+    color:#57c5a0;
+}
+
+
+
+/*page*/
+/* Scroll top */
+/* Scroll top */
+.scroll-top {
+   position:fixed;
+   bottom:0;
+   right:6%;
+   z-index:100;
+   background: #f2f3f2;
+   font-size:24px;
+   border-top-left-radius:3px;
+   border-top-right-radius:3px;
+}
+.scroll-top a:link,.scroll-top a:visited {
+  color:#222;
+} 
+
+
+/* start main */
+.main_bg{
+    background: #EBE7DF;
+}
+
+.main{
+    /*padding:4%;*/
+    padding-bottom: 4%;
+    padding-top: 4%;
+
+}
+.top_main{
+    margin:3% 0%;
+}
+.top_main:first-child{
+    margin-top: 0;
+}
+.top_main h2{
+    float: left;
+    text-transform: capitalize;
+    color: #242424;
+    font-size: 1.5em;
+    text-shadow: 0 1px 0 #ffffff;
+    line-height: 1.8em;
+}
+.top_main a{
+    font-size: 1em;
+    float: right;
+    text-transform: capitalize;
+    padding: 8px 20px;
+    color: #BCB4A7;
+    border: 1px solid #BCB4A7;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.top_main a:hover{
+    background:#BCB4A7;
+    color: #fff;
+}
+
+a, a:visited,a:hover,a:active {
+    color: inherit;
 }
 
 
@@ -72,6 +165,7 @@ a, a:visited, a:hover, a:active {
     padding-top: 20px;
     padding-bottom: 10px;
 }
+/*test*/
 
 
 
