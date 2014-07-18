@@ -1,0 +1,32 @@
+@charset "UTF-8";
+.description {
+    font-size: 1.18em;
+    border-top: 1px solid #cdcdcd;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+.description p, .product-info .description ul {
+    margin-bottom: 10px;
+}
+.description ul {
+    font-size: 1.4em;
+}
+.description ul li {
+    /*background: url("_ui/theme-default/images/backgrounds/bg_bullet.png") no-repeat scroll 0 6px rgba(0, 0, 0, 0);*/
+    line-height: 1.42857;
+    padding-left: 15px;
+}
+.description ul li a:hover {
+    background: none repeat rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #333333;
+}
+
+#itemp-slide{
+    
+}
+#itemp-slide .thumbnail img{
+    width: 100%;
+}
+#itemp-slide .slide-link{
+    padding-top: 50%;
+}

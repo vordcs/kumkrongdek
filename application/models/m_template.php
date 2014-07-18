@@ -39,20 +39,20 @@ Class m_template extends CI_Model {
         $this->load->view('theme_footer');
     }
 
-//    function showTemplateAdmin() {
-//         //--- Redirect to current page ---//
-//        $data['page'] = $this->uri->segment(1);
-//        
-//        //--- Alert System ---//
-//        $data['alert'] = $this->session->userdata('alert');
-//        $this->session->unset_userdata('alert');
-//        
-//        $data['title'] = $this->title;
-//        $data['debug'] = $this->debud_data;
-//        
-//        $this->load->view('admin/theme_header_admin.php',$data);
-//        $this->load->view($this->view_name, $this->set_data);
-//        $this->load->view('admin/theme_footer_admin.php');
-//    }
+    function showTemplateAdmin() {
+         //--- Redirect to current page ---//
+        $data['page'] = $this->uri->segment(1);
+        
+        //--- Alert System ---//
+        $data['alert'] = $this->session->userdata('alert');
+        $this->session->unset_userdata('alert');
+        
+        $data['title'] = $this->title;
+        $data['debug'] = $this->debud_data;
+        
+        $this->load->view('admin/theme_header_admin.php',$data);
+        $this->load->view($this->view_name, $this->set_data);
+        $this->load->view('admin/theme_footer_admin.php');
+    }
 
 }

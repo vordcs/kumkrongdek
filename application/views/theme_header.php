@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Site of Kum Krong Dek KhonKean">
         <meta name="author" content="VoRDcs">
-
+        <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.jpg'; ?>">
         <?php echo css('bootstrap.min.css'); ?>
         <?php echo css('bootstrap-theme.css'); ?>
         <?php echo css('font-awesome.css'); ?>
-
+        <?php echo css('docs.min.css'); ?> 
 
         <?php echo css('style.css'); ?>
 
@@ -34,8 +34,8 @@
             </div>
         </header>
 
-        <!--Fixed navbar id="nav" class="navbar navbar-default" role="navigation" data-spy="affix"--> 
-        <nav id="nav" class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100">
+        <!--Fixed navbar id="nav" class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100"--> 
+        <nav id="nav-static" class="navbar navbar-default navbar-static-side"  role="navigation">
             <div class="container">
                 <!--Brand and toggle get grouped for better mobile display--> 
                 <div class="navbar-header">
@@ -51,7 +51,8 @@
                 <!--Collect the nav links, forms, and other content for toggling--> 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?= base_url('') ?>"><i class="fa fa-home fa-lg"></i> หน้าเเรก</a></li>                        
+                        <li><a href="<?= base_url('') ?>"><i class="fa fa-home fa-lg"></i>&nbsp;หน้าเเรก</a></li>
+                        <li><a href="<?= base_url('') ?>">&nbsp;ข่าวสาร&nbsp;</a></li>
                         <li class="dropdown" >
                             <a href="<?= base_url('AboutUs/') ?>" class="dropdown-toggle" data-toggle="dropdown">&nbsp;เกี่ยวกับเรา&nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-column">    
@@ -68,19 +69,11 @@
 
                             </ul>
                         </li>
-                        <li><a href="#">Link</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-android fa-lg"></i>&nbsp;Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="<?= base_url('Personnel/') ?>">&nbsp;บุคลากร&nbsp;</a></li>
+                        <li><a href="<?= base_url('Activety/') ?>">&nbsp;กิจกรรม&nbsp;</a></li>
+                        <li><a href="<?= base_url('') ?>">&nbsp;ผู้ใหญ่ใจดี&nbsp;</a></li>
+                        <li><a href="<?= base_url('') ?>">&nbsp;วารสาร&nbsp;</a></li>
+                        <li><a href="<?= base_url('ContactUs/') ?>">&nbsp;ติดต่อเรา&nbsp;</a></li>   
                     </ul>                    
                 </div> 
                 <!--navbar-collapse--> 

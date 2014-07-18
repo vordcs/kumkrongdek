@@ -7,12 +7,12 @@
                     if ($i % 2 == 0) {
                         ?>
                         <div class="item">
-                            <img data-src="holder.js/900x300/auto/sky" class="img-responsive" width="100%" alt="Generic placeholder thumbnail">
+                            <img data-src="holder.js/900x500/auto/sky" class="img-responsive" width="100%" alt="Generic placeholder thumbnail">
                         </div>   
                     <?php } else {
                         ?>
                         <div class="item">
-                            <img data-src="holder.js/900x300/auto/vine" class="img-responsive" width="100%" alt="Generic placeholder thumbnail">
+                            <img data-src="holder.js/900x500/auto/vine" class="img-responsive" width="100%" alt="Generic placeholder thumbnail">
                         </div>   
                         <?php
                     }
@@ -22,13 +22,22 @@
         </div>
 
     </section>
-    <section id="news_hightlight">
+    <section id="hightlight">
 
+    </section>
+    
+    <section id="news">
+        
     </section>
 
     <section id="activety">
 
     </section>
+    <section id="kindness">
+        
+    </section>
+    
+    
 
     <section id="test">
         <div class="title_bg">

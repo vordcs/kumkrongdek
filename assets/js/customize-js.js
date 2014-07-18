@@ -7,10 +7,10 @@ $(document).ready(function() {
     $(window).scroll(function() {
         var pt_scroll = $(this).scrollTop() + 80;
         if (pt_scroll >= $('#mainContent').offset().top) {
-//                $('#scroll-top').removeClass('hidden');
+            $('#scroll-top').removeClass('hidden');
             $('#scroll-top').fadeIn();
         } else {
-//                $('#scroll-top').addClass('hidden');
+//            $('#scroll-top').addClass('hidden');
             $('#scroll-top').fadeOut();
         }
     });
@@ -39,14 +39,13 @@ $(document).ready(function() {
         pagination: true,
         paginationNumbers: false,
     });
+    $('body').scrollspy({
+        target: '.bs-docs-sidebar',
+        offset: 100
+    });
 });
 $(document).on('click', '.navbar-collapse.in', function(e) {
     if ($(e.target).is('a')) {
         $(this).collapse('hide');
     }
 });
-function scollTo(target) {
-    $('html, body').animate({
-        scrollTop: $("#" + target).offset().top
-    }, 1000);
-}

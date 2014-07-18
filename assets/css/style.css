@@ -1,20 +1,21 @@
 @charset "UTF-8";
 /*start for nav*/
-#nav {
+#nav-static {
     width: 100%;
     position:static;
     top:-32px;
-    padding: 10px;
+    padding-bottom:10px;
+    padding-top: 10px;
     margin: 0%
 }
 
-#nav.affix {
+/*#nav.affix {
     position: fixed;
     top: 0;
     z-index:10;
     -webkit-transition: all .6s ease-in-out;
-}
-#nav .dropdown ul li a {
+}*/
+#nav-static .dropdown ul li a {
     color: #2d2d2d;
     display: block;
     font-size: 1.1em;
@@ -22,45 +23,83 @@
     text-transform: capitalize;
     transition: all 0.3s ease-in-out 0s;
 }
-#nav ul li.active a {
+#nav-static ul li.active a {
     color: #57c5a0;
 }
-#nav ul li a:hover {
+#nav-static ul li a:hover {
     color: #57c5a0;
 }
 /*end for nav */
+
+/*for menu each page*/ 
+
+
+/*end for menu*/
+
+/*for page content*/
 #content{
     margin-top: 2%;
+    margin-bottom: 2%; 
+
 }
+#content .row{
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+/*end for page content*/
+
 /* start title */
 .title_bg{
     background: #242424;
 }
 .title_top{
     padding: 10px;
-    padding-left: 4%;
+    padding-left: 2%;
 }
 .title_top h2{
     color:#57c5a0;
 }
 
+/*box contact us*/
+.box-contact_us {
+    border: 4px solid #fff;
+    margin-bottom: 5%; 
+    padding: 3% 4%;
+    overflow: hidden;
+    width: 100%;
 
+    background-image: -moz-linear-gradient(top, #f6f2ec, #e2dbce); /* FF3.6 */
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f6f2ec),color-stop(1, #e2dbce)); /* Saf4+, Chrome */
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#f6f2ec', EndColorStr='#e2dbce'); /* IE6,IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f6f2ec', EndColorStr='#e2dbce')"; /* IE8 */
+
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 180px 0 #fff, 0 12px 8px -5px rgba(0, 0, 0, 0.85); /* FF3.5+ */
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 810px -68px #fff, 0 12px 8px -5px rgba(0, 0, 0, 0.65); /* Saf3.0+, Chrome */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 180px 0 #fff, 0 12px 8px -5px rgba(0, 0, 0, 0.85); /* Opera 10.5, IE 9.0 */
+
+}
+.reveal {
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 180px 0 #f90, 0 12px 8px -5px rgba(0, 0, 0, 0.85); /* FF3.5+ */
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 810px -68px #f90, 0 12px 8px -5px rgba(0, 0, 0, 0.65); /* Saf3.0+, Chrome */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.35), 0 85px 180px 0 #f90, 0 12px 8px -5px rgba(0, 0, 0, 0.85); /* Opera 10.5, IE 9.0 */			
+}
+/*end*/
 
 /*page*/
 /* Scroll top */
-/* Scroll top */
 .scroll-top {
-   position:fixed;
-   bottom:0;
-   right:6%;
-   z-index:100;
-   background: #f2f3f2;
-   font-size:24px;
-   border-top-left-radius:3px;
-   border-top-right-radius:3px;
+    position:fixed;
+    bottom:0;
+    right:6%;
+    z-index:100;
+    background: #f2f3f2;
+    font-size:24px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
 }
 .scroll-top a:link,.scroll-top a:visited {
-  color:#222;
+    color:#222;
 } 
 
 
@@ -112,7 +151,13 @@ a, a:visited,a:hover,a:active {
 
 
 .footer{
-    padding: 2%;
+    /*padding: 2%;*/
+    /*position: static;*/
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    /*background-color: #f5f5f5;*/
 }
 .footer_bg{    
     background: #2e2e2e;
