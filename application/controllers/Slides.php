@@ -23,7 +23,6 @@ class Slides extends CI_Controller {
 
     public function add() {
         if ($this->input->post('save') != NULL) {
-//            $data['form_data'] = $this->m_slides->get_post();
             if ($this->m_slides->validation_add() && $this->form_validation->run() == TRUE) {
                 $form_data = $this->m_slides->get_post_form_add();
                 //Insert data
@@ -39,21 +38,15 @@ class Slides extends CI_Controller {
         $this->m_template->showTemplateAdmin();
     }
 
-    public function edit($id) {
-        $this->m_slides->set_id($id);
-//        $data['path'] = $this->m_slides->get_image_path($id);
-
+    public function edit($id) {        
         if ($this->m_slides->validation_edit() && $this->form_validation->run() == TRUE) {
-            $form_data = $this->m_slides->get_post_set_form_edit();
+            $form_data = $this->m_slides->get_post_form_edit($id);
             //Update data
-            $this->m_slides->update_slide($form_data);
+            $this->m_slides->update_slide($id,$form_data);
             redirect('Slides');
         }
-
-
 //      get detail and sent to load form
-
-        $detail = $this->m_slides->get_silde($id);
+        $detail = $this->m_slides->get_slides($id);
         if ($detail[0] != NULL) {
             $data['form'] = $this->m_slides->set_form_edit($detail[0]);
             $data['detail'] = $detail[0];
@@ -72,12 +65,12 @@ class Slides extends CI_Controller {
         redirect('Slides');
     }
 
-    public function cancle($slide_id) {
+    public function unactive($slide_id) {
         $data = array(
-            'status_slide' => '0',
+            'slide_status' => '1',
         );
 
-        $this->db->where('id', $slide_id);
+        $this->db->where('slide_id', $slide_id);
         $this->db->update('slides', $data);
 
         redirect('Slides', 'refresh');
@@ -85,10 +78,10 @@ class Slides extends CI_Controller {
 
     public function active($slide_id) {
         $data = array(
-            'status_slide' => '1',
+            'slide_status' => '2',
         );
 
-        $this->db->where('id', $slide_id);
+        $this->db->where('slide_id', $slide_id);
         $this->db->update('slides', $data);
 
         redirect('Slides', 'refresh');

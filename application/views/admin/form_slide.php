@@ -3,14 +3,8 @@
         <h1><?= $title ?></h1>
     </div>
 </div>
-<hr>
-<div class="row">
-    <?= form_open() ?>
 
-    <?= form_close() ?>
-</div>
-
-<div class="row">
+<div class="row content">
     <?php echo $form['form']; ?>
     <div class="form-group <?= (form_error('slide_title')) ? 'has-error' : '' ?>">
         <label class="col-sm-2 control-label">ชื่อเรื่อง</label>
@@ -65,7 +59,7 @@
     <div class="form-group" align="center">
         <label class="col-sm-2 control-label"></label>
         <div class="col-sm-9">
-            <input type="submit" class="btn btn-success btn-lg" name="save" value="บันทึก" >
+            <input type="submit"  class="btn btn-success btn-lg" name="save" value="บันทึก" >
             <?= anchor('Slides', 'ยกเลิก', 'class="btn btn-danger btn-lg"'); ?>   
         </div>
     </div>

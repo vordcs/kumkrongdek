@@ -72,7 +72,7 @@
                         <li><a href="<?= base_url('Personnel/') ?>">&nbsp;บุคลากร&nbsp;</a></li>
                         <li><a href="<?= base_url('Activety/') ?>">&nbsp;กิจกรรม&nbsp;</a></li>
                         <li><a href="<?= base_url('') ?>">&nbsp;ผู้ใหญ่ใจดี&nbsp;</a></li>
-                        <li><a href="<?= base_url('') ?>">&nbsp;วารสาร&nbsp;</a></li>
+                        <li><a href="<?= base_url('') ?>">&nbsp;จดหมายข่าว&nbsp;</a></li>
                         <li><a href="<?= base_url('ContactUs/') ?>">&nbsp;ติดต่อเรา&nbsp;</a></li>   
                     </ul>                    
                 </div> 
