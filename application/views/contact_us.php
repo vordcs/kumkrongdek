@@ -13,13 +13,18 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2" style="height: 600px">
                 <section id="info" class="box-contact_us">
-                    <p>Matching mask shadow color blends to solid background.</p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Excepteur sint occaecat cupidatat non proident, 
-                        sunt in culpa qui officia deserunt mollit anim id est laborum
-                    </p>
+                <address>
+                    <strong><h3>สถานคุ้มครองสวัสดิภาพเด็กฯ จังหวัดขอนแก่น</h3></strong>
+                        <br>36 หมู่ 9 ตำบลโคกสูง   อำเภออุบลรัตน์    
+                        <br>จังหวัดขอนแก่น  40250
+                        <br>
+                        <abbr title="Phone"><i class="fa fa-phone"></i></abbr> 043-421251 <br>
+                        <abbr title="Fax"><i class="fa fa-fax"></i></abbr> 043-421200 
+                </address>
+                <address>
+                    <strong>E-Mail</strong><br>
+                        <a href="mailto:#">Security8899@hotmail.com</a>
+                </address>
                 </section>
 
                 <section id="fb" class="text-center ">

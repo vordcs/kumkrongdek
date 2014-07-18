@@ -10,7 +10,7 @@
         <?php echo css('bootstrap.min.css'); ?>
         <?php echo css('bootstrap-theme.css'); ?>
         <?php echo css('font-awesome.css'); ?>
-        <?php echo css('docs.min.css'); ?> 
+        <?php // echo css('docs.min.css'); ?> 
 
         <?php echo css('style.css'); ?>
 

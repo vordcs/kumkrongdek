@@ -24,12 +24,62 @@
                 </div>
 
             </div>
-            <div class="col-md-7">
+            <div class="col-md-9">
 
+                <section id="per">
+                    <?php 
+                    $img_propr = array(
+                        'class'=>'img-responsive',
+                        'width'=>'100%'
+                    )
+                    ?>
+                    <?=  img('per.png',$img_propr); ?>
+                </section>
+                
+                <section id="all">
+                    <?php 
+                    $img_propr = array(
+                        'class'=>'img-responsive',
+                        'width'=>'100%'
+                    )
+                    ?>
+                    <?=  img('all.png',$img_propr); ?>
+                </section>
+                
+                <section id="a">
+                    <?php 
+                    $img_propr = array(
+                        'class'=>'img-responsive',
+                        'width'=>'100%'
+                    )
+                    ?>
+                     <?=  img('a.png',$img_propr); ?>
+                </section>
+                
+                <section id="b">
+                    <?php 
+                    $img_propr = array(
+                        'class'=>'img-responsive',
+                        'width'=>'100%'
+                    )
+                    ?>
+                     <?=  img('b.png',$img_propr); ?>
+                </section>
+                
+                <section id="c">
+                    <?php 
+                    $img_propr = array(
+                        'class'=>'img-responsive',
+                        'width'=>'100%'
+                    )
+                    ?>
+                      <?=  img('c.png',$img_propr); ?>
+                </section>
+                
             </div>
-            <div class="col-md-2">
+            
 
-            </div>
+            
         </div>
     </div>
 </div>
