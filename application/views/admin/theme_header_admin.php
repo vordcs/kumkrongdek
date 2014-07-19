@@ -73,29 +73,53 @@
                             <li>
                                 <?= anchor('Slides', '<i class="fa fa-play fa-fw"></i>&nbsp;สไลด์') ?>
                             </li>
+                            <!--News-->
+                            <li>
+                                <a href="#"><i class="fa fa-bullhorn fa-fw"></i>&nbsp;ข่าว<span class="fa arrow"></span></a> 
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <?= anchor('News_ad/add', '<i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;เพิ่มข่าว'); ?>                                        
+                                    </li>
+                                     <li>
+                                        <?= anchor('News_ad/highlight', '<i class="fa fa fa-bookmark fa-fw"></i>&nbsp;ข่าวเด่น') ?>                           
+                                    </li>
+                                    <li>
+                                        <?= anchor('News_ad', '<i class="fa fa-list fa-fw"></i>&nbsp;ข่าวทั้งหมด') ?>                           
+                                    </li>
+                                   
+
+                                </ul>
+
+                            </li>
+
+
                             <!--Activity--> 
                             <li>
                                 <a href="#"><i class="fa fa-expand fa-fw"></i>&nbsp;กิจกรรม<span class="fa arrow"></span></a> 
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <?= anchor('Activity_ad/add', '<i class="fa fa-plus-circle fa-fw"></i>&nbsp;เพิ่มกิจกรรม'); ?>                                        
+                                        <?= anchor('Activity_ad/add', '<i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;เพิ่มกิจกรรม'); ?>                                        
                                     </li>
                                     <li>
-                                        <?= anchor('Activity_ad', '<i class="fa fa-file-text-o fa-fw"></i>&nbsp;กิจกรรมทั้งหมด') ?>                           
+                                        <?= anchor('Activity_ad', '<i class="fa fa-list fa-fw"></i>&nbsp;กิจกรรมทั้งหมด') ?>                           
                                     </li>
 
                                 </ul>
 
                             </li>
+                            <!--Kindness-->
+                            <li>  
+                                <?= anchor('Kindness_ad', '<i class="fa fa-play fa-fw"></i>&nbsp;ผู้ใหญ่ใจดี') ?>
+                            </li>
                             <!--Newsletter-->
                             <li>
-                                <a href="#"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;จดหมายข่าว<span class="fa arrow"></span></a> 
+                                <a href="#"><i class="fa fa-envelope-o fa-fw"></i>&nbsp;จดหมายข่าว<span class="fa arrow"></span></a> 
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <?= anchor('Journals/add', '<i class="fa fa-plus-circle fa-fw"></i>&nbsp;เพิ่มจดหมายข่าว'); ?>                                        
+                                        <?= anchor('Journals/add', '<i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;เพิ่มจดหมายข่าว'); ?>                                        
                                     </li>
                                     <li>
-                                        <?= anchor('Journals', '<i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;จดหมายข่าวทั้งหมด') ?>                           
+                                        <?= anchor('Journals', '<i class="fa fa-list fa-fw"></i>&nbsp;จดหมายข่าวทั้งหมด') ?>                           
                                     </li>
 
                                 </ul>
