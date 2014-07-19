@@ -27,10 +27,19 @@
         <?php echo js('customize-js.js'); ?> 
         <header class="masthead">
             <div class="container">
+                <?php 
+                    $img_propr = array(
+                        'class'=>'img-responsive',
+                        'width'=>'100%'
+                    )
+                    ?>
+                <?=  img('head.png',$img_propr); ?>
+                <!--
                 <div class="row">
                     <h2><a href="#" title="Bootstrap Template">สถานคุ้มครองสวัสดิภาพเด็ก</a>
                         <p class="lead">{A Bootstrap Template}</p></h2>
                 </div>
+                -->
             </div>
         </header>
 
