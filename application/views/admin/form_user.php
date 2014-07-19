@@ -24,7 +24,7 @@
             <?php echo $form['last_name']; ?> 
         </div>
         <div class="col-sm-4" id="error">                
-<?php echo form_error('last_name', '<font color="error">', '</font>'); ?>
+            <?php echo form_error('last_name', '<font color="error">', '</font>'); ?>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
         <label class="col-sm-2 control-label">ชื่อเข้าใช้ระบบ</label>
         <div class="col-sm-4">
             <?php echo $form['username']; ?> 
-             <?php echo $form['old_username']; ?> 
+            <?php echo $form['old_username']; ?> 
         </div> 
         <div class="col-sm-4" id="error">
             <?php echo form_error('username', '<font color="error">', '</font>'); ?>

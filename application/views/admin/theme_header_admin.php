@@ -15,7 +15,7 @@
 
         <?php echo css('admin-style.css'); ?>        
 
-        <!-- Page-Level Plugin CSS - Blank -->
+
 
         <!-- SB Admin CSS - Include with every page -->        
         <?php echo css('sb-admin.css'); ?>
@@ -28,7 +28,11 @@
         <?php echo js('bootstrap-datepicker.js'); ?>  
         <?php echo js('bootstrap-datepicker-thai.js'); ?>  
         <?php echo js('/locales/bootstrap-datepicker.th.js'); ?>  
-        
+
+        <!--edittor-->        
+        <?php echo js('nicEdit-latest.js'); ?>  
+        <!--pdf view-->
+        <?php echo js('pdfobject.js'); ?> 
 
     </head>
 
@@ -69,7 +73,21 @@
                             <li>
                                 <?= anchor('Slides', '<i class="fa fa-play fa-fw"></i>&nbsp;สไลด์') ?>
                             </li>
+                            <!--Activity--> 
+                            <li>
+                                <a href="#"><i class="fa fa-expand fa-fw"></i>&nbsp;กิจกรรม<span class="fa arrow"></span></a> 
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <?= anchor('Activity_ad/add', '<i class="fa fa-plus-circle fa-fw"></i>&nbsp;เพิ่มกิจกรรม'); ?>                                        
+                                    </li>
+                                    <li>
+                                        <?= anchor('Activity_ad', '<i class="fa fa-file-text-o fa-fw"></i>&nbsp;กิจกรรมทั้งหมด') ?>                           
+                                    </li>
 
+                                </ul>
+
+                            </li>
+                            <!--Newsletter-->
                             <li>
                                 <a href="#"><i class="fa fa-file-pdf-o fa-fw"></i>&nbsp;จดหมายข่าว<span class="fa arrow"></span></a> 
                                 <ul class="nav nav-second-level">

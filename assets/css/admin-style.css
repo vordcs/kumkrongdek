@@ -21,3 +21,36 @@
     border-bottom: 1px solid #333333;
 }
 
+.icon{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+dl {
+    /*font-size: 1.4em;*/
+    line-height: 1.43;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+dl dt {
+    float: left;
+    width: 145px;
+}
+.des-ul ul{
+    margin: 0px ! important;
+    padding-left: 5px ! important;
+}
+#pdf {
+    height: 700px;	
+}
+
+#pdf p {
+    padding: 1em;
+}
+
+#pdf object {
+    display: block;
+    border: solid 1px #666;
+}
+
+
+

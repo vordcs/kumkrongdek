@@ -7,7 +7,7 @@
 <!-- /#wrapper -->
 
 <div class="modal fade bs-example-modal-sm" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -34,7 +34,7 @@
 <script>
     $(document).ready(function() {          
 
-    });
+    }); 
     $('#confirm').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
         var title = $(e.relatedTarget).data('title');

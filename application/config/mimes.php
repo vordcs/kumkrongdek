@@ -22,7 +22,7 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'sea'	=>	'application/octet-stream',
 				'dll'	=>	'application/octet-stream',
 				'oda'	=>	'application/oda',
-				'pdf'	=>	array('application/pdf', 'application/x-download'),
+				'pdf'   =>      array('application/pdf', 'application/x-pdf'),
 				'ai'	=>	'application/postscript',
 				'eps'	=>	'application/postscript',
 				'ps'	=>	'application/postscript',
@@ -93,12 +93,12 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'avi'	=>	'video/x-msvideo',
 				'movie'	=>	'video/x-sgi-movie',
 				'doc'	=>	'application/msword',
-				'docx'	=>	array('application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip'),
+				'docx'	=>	array('application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip'),
 				'xlsx'	=>	array('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/zip'),
 				'word'	=>	array('application/msword', 'application/octet-stream'),
 				'xl'	=>	'application/excel',
 				'eml'	=>	'message/rfc822',
-				'json' => array('application/json', 'text/json')
+				'json' => array('application/json', 'text/json') 
 			);
 
 

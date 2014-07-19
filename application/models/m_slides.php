@@ -256,7 +256,7 @@ Class m_slides extends CI_Model {
                     $this->deleteImage($id);
                     $this->db->where('image_id', $id);
                     $this->db->update('images', $data_img);
-                    return;
+                    return $id;
                 }
             }
         }
