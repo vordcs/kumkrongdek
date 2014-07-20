@@ -32,9 +32,12 @@
 </div>
 
 <script>
-    $(document).ready(function() {          
-
-    }); 
+    $(document).ready(function() {
+        $('.datepicker').datepicker({
+//            language: 'th-th', 
+            format: 'yyyy-m-d',
+        });
+    });
     $('#confirm').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
         var title = $(e.relatedTarget).data('title');

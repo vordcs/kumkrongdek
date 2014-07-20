@@ -18,14 +18,14 @@
     </div> 
     <div class="form-group <?= (form_error('kindness_content')) ? 'has-error' : '' ?>">
         <label class="col-sm-3 control-label">เนื่อหา</label>
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <?php echo $form['kindness_content']; ?>                 
         </div>
-        <div class="col-sm-4" id="error">                
+        <div class="col-sm-3" id="error">                
             <?php echo form_error('kindness_content', '<font color="error">', '</font>'); ?>
         </div>
     </div>
-    <div class="form-group <?= (form_error('kindness_img')) ? 'has-error' : '' ?>">
+    <div class="form-group <?= (form_error('kindness_img')) ? 'has-error' : '' ?>" id="img_add">
         <label class="col-sm-3 control-label">รูปภาพ</label>
         <div class="col-sm-5">
             <?php echo $form['kindness_img']; ?>                 
@@ -35,6 +35,16 @@
         </div>
     </div>
 
+    <div class="form-group" id="img_show">
+        <label class="col-sm-3 control-label">รูปภาพ</label>        
+        <div class="col-sm-4">
+            <div class="pull-right">                     
+                <button type="button" class="btn btn-outline btn-circle btn-danger btn-xs" id="del_img" ><i class="fa fa-times fa-lg" ></i></button>                             
+            </div>
+            <?= img($form['image'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px')) ?>                
+        </div>  
+    </div>
+
     <div class="form-group <?= (form_error('kindness_highlight')) ? 'has-error' : '' ?>">
         <label class="col-sm-3 control-label">ความสำคัญ</label>
         <div class="col-sm-4">
@@ -42,16 +52,6 @@
         </div>
         <div class="col-sm-4" id="error">                
             <?php echo form_error('kindness_highlight', '<font color="error">', '</font>'); ?>
-        </div>
-    </div>
-
-    <div class="form-group <?= (form_error('kindness_status')) ? 'has-error' : '' ?>">
-        <label class="col-sm-3 control-label">สถานะ</label>
-        <div class="col-sm-4">
-            <?php echo $form['kindness_status']; ?>                 
-        </div>        
-        <div class="col-sm-4" id="error">                
-            <?php echo form_error('kindness_status', '<font color="error">', '</font>'); ?>
         </div>
     </div>
     <div class="form-group <?= (form_error('publish_date')) ? 'has-error' : '' ?>">
@@ -73,3 +73,27 @@
 
     <?= form_close() ?>
 </div>
+<script>
+    $(document).ready(function() {
+
+        //<![CDATA[
+        bkLib.onDomLoaded(function() {
+            new nicEditor().panelInstance('content');        
+        });
+
+
+
+        var img = '<?= $form['image'] ?>';
+        if (img != '') {
+            $('#img_add').hide();
+        } else {
+            $('#img_show').hide(true);
+        }
+        $("#del_img").click(function() {
+//            alert("delete");
+            $('#img_add').show();
+            $('#img_show').hide(true);
+        });
+
+    });
+</script> 

@@ -24,7 +24,7 @@ class Activitys_ad extends CI_Controller {
 
         if ($this->m_activitys->validation_add() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_activitys->get_post_form_add();
-            $this->m_template->set_Debug($form_data);
+//            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_activitys->insert_activity($form_data);
             redirect('Activitys_ad');
