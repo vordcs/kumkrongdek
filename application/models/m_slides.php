@@ -124,7 +124,7 @@ Class m_slides extends CI_Model {
             'slide_link' => form_input($f_link),
             'slide_img' => form_upload($f_img),
             'slide_status' => form_dropdown('slide_status', $f_status, (set_value('slide_status') == NULL) ? $data ['slide_status'] : set_value('slide_status'), 'class="form-control"'),
-            'image' => img($data ['image_full'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px')),
+            'image' => img($data ['image_small'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px')),
         );
         //Unset img if NULL        
         if ($form_edit['slide_img'] == NULL)

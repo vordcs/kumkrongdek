@@ -15,6 +15,9 @@
 
         <?php echo css('admin-style.css'); ?>        
 
+        <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+        <?= css('jquery.fileupload.css') ?>
+        <?= css('jquery.fileupload-ui.css') ?>
 
 
         <!-- SB Admin CSS - Include with every page -->        
@@ -33,6 +36,38 @@
         <?php echo js('nicEdit-latest.js'); ?>  
         <!--pdf view-->
         <?php echo js('pdfobject.js'); ?> 
+
+        <!--upload multi-->
+        <?php echo js('uploadify/jquery.uploadify.min.js'); ?> 
+
+        <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+        <?= js('fileupload/vendor/jquery.ui.widget.js') ?>
+        <!-- The Templates plugin is included to render the upload/download listings -->
+        <?= js('fileupload/tmpl.min.js') ?>
+        <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+        <?= js('fileupload/load-image.min.js') ?>
+        <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+        <?= js('fileupload/canvas-to-blob.min.js') ?>
+        <!-- blueimp Gallery script -->
+        <?= js('fileupload/jquery.blueimp-gallery.min.js') ?>
+        <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+        <?= js('fileupload/jquery.iframe-transport.js') ?>
+        <!-- The basic File Upload plugin -->
+        <?= js('fileupload/jquery.fileupload.js') ?>
+        <!-- The File Upload processing plugin -->
+        <?= js('fileupload/jquery.fileupload-process.js') ?>
+        <!-- The File Upload image preview & resize plugin -->
+        <?= js('fileupload/jquery.fileupload-image.js') ?>
+        <!-- The File Upload validation plugin -->
+        <?= js('fileupload/jquery.fileupload-validate.js') ?>
+        <!-- The File Upload user interface plugin -->
+        <?= js('fileupload/jquery.fileupload-ui.js') ?>
+        <!-- The main application script -->
+        <?= js('fileupload/main.js') ?>
+        <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+        <!--[if (gte IE 8)&(lt IE 10)]>
+        <?= js('fileupload/jquery.xdr-transport.js') ?>
+        <![endif]-->
 
     </head>
 
@@ -69,6 +104,10 @@
                                 </div>
                                 <!-- /input-group -->
                             </li>
+                             <!-- Slides -->                            
+                            <li>
+                                <?= anchor('Upload', '<i class="fa fa-file fa-fw"></i>&nbsp;Upload') ?>
+                            </li>
                             <!-- Slides -->                            
                             <li>
                                 <?= anchor('Slides', '<i class="fa fa-play fa-fw"></i>&nbsp;สไลด์') ?>
@@ -80,13 +119,13 @@
                                     <li>
                                         <?= anchor('News_ad/add', '<i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;เพิ่มข่าว'); ?>                                        
                                     </li>
-                                     <li>
+                                    <li>
                                         <?= anchor('News_ad/highlight', '<i class="fa fa fa-bookmark fa-fw"></i>&nbsp;ข่าวเด่น') ?>                           
                                     </li>
                                     <li>
                                         <?= anchor('News_ad', '<i class="fa fa-list fa-fw"></i>&nbsp;ข่าวทั้งหมด') ?>                           
                                     </li>
-                                   
+
 
                                 </ul>
 
@@ -98,10 +137,10 @@
                                 <a href="#"><i class="fa fa-expand fa-fw"></i>&nbsp;กิจกรรม<span class="fa arrow"></span></a> 
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <?= anchor('Activity_ad/add', '<i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;เพิ่มกิจกรรม'); ?>                                        
+                                        <?= anchor('Activitys_ad/add', '<i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;เพิ่มกิจกรรม'); ?>                                        
                                     </li>
                                     <li>
-                                        <?= anchor('Activity_ad', '<i class="fa fa-list fa-fw"></i>&nbsp;กิจกรรมทั้งหมด') ?>                           
+                                        <?= anchor('Activitys_ad', '<i class="fa fa-list fa-fw"></i>&nbsp;กิจกรรมทั้งหมด') ?>                           
                                     </li>
 
                                 </ul>
