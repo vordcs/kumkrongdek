@@ -130,7 +130,7 @@ Class m_activitys extends CI_Model {
         );
         $f_publish_date = array(
             'name' => 'publish_date',
-            'class' => 'form-control',
+            'class' => 'form-control datepicker',
             'value' => (set_value('publish_date') == NULL) ? $data['publish_date'] : set_value('publish_date')
         );
 

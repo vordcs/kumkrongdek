@@ -4,26 +4,77 @@ class News_ad extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('m_template');  
-        $this->load->model('m_news'); 
+        $this->load->model('m_template');
+        $this->load->model('m_news');
     }
 
     public function index() {
         $data = array();
+
+        $data['news'] = $this->m_news->get_news();
+
+        $this->m_template->set_Debug($data);
         $this->m_template->set_Title('ข่าว');
         $this->m_template->set_Content('admin/news.php', $data);
         $this->m_template->showTemplateAdmin();
     }
-    
-    public function add(){
+
+    public function add() {
         $data = array();
-        
-        $data['form']=$this->m_news->set_form_add();
-        
+        if ($this->m_news->validation_add() && $this->form_validation->run() == TRUE) {
+            $form_data = $this->m_news->get_post_form_add();
+//            $this->m_template->set_Debug($form_data);
+            //insert data
+            $this->m_news->insert_news($form_data);
+            redirect('News_ad');
+        }
+        //Load form add  
+        $data['form'] = $this->m_news->set_form_add();
+
         $this->m_template->set_Title('เพิ่มข่าว');
         $this->m_template->set_Content('admin/form_news.php', $data);
         $this->m_template->showTemplateAdmin();
-        
+    }
+
+    public function edit($id) {
+        $data = array();
+        if ($this->m_news->validation_edit() && $this->form_validation->run() == TRUE) {
+            $form_data = $this->m_news->get_post_form_edit($id);
+//            $this->m_template->set_Debug($form_data);
+            //update data
+            $this->m_news->update_news($form_data);
+            redirect('News_ad');
+        }
+        //      get detail and sent to load form
+        $detail = $this->m_news->get_news($id);
+        $name = $detail[0]['news_title'];
+        if ($detail[0] != NULL) {
+            $data['form'] = $this->m_news->set_form_edit($detail[0]);
+        } else {
+            redirect('News_ad');
+        }
+
+        $this->m_template->set_Title('แก้ไขข่าว : ' . $name);
+        $this->m_template->set_Content('admin/form_news.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    public function textarea_check($str) {
+        if ($str == '<br>') {
+            $this->form_validation->set_message('textarea_check', 'ใส่ข้อมูล %s');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    public function type_check() {
+        if ($this->input->post('news_type') === '0') {
+            $this->form_validation->set_message('type_check', 'เลือกประเภทกิจกรรม');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
 }
