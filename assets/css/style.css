@@ -171,6 +171,7 @@ a, a:visited,a:hover,a:active {
 }
 /* start footer_top */
 .footer_top{
+    padding-top: 2%;
     background: #242424;
 }
 .footer_top h3{
@@ -207,6 +208,10 @@ a, a:visited,a:hover,a:active {
 
 /* start footer_mid */
 .footer_mid{
+    
+    padding-top: 2%;
+    padding-bottom: 1%;
+    color: #fff;
     border-top:1px solid #141414;
     background: #242424;
 }
