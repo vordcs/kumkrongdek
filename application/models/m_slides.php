@@ -4,15 +4,41 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 Class m_slides extends CI_Model {
+
     function getDatetimeNow() {
         return date('Y-m-d H:i:s');
-    } 
+    }
+
+//view mode
+    function get_slides($id = NULL) {
+        $this->db->select('*');
+        $this->db->from('slides');
+        $this->db->join('images', 'image_id = slide_img');
+        if ($id != NULL) {
+            $this->db->where('slide_id', $id);
+        }
+        $rs = $this->db->get();
+        $itemp = $rs->result_array();
+        return $itemp;
+    }
+
+    function get_slides_by_status($status) {
+        $this->db->select('*');
+        $this->db->from('slides');
+        $this->db->join('images', 'image_id = slide_img');
+        $this->db->where('slide_status', 2);
+        $rs = $this->db->get();
+        $itemp = $rs->result_array();
+        return $itemp;
+    }
+
+//    end view mode
 
     public function insert_slide($f_data) {
         $this->db->insert('slides', $f_data);
     }
 
-    public function update_slide($slide_id,$f_data) {
+    public function update_slide($slide_id, $f_data) {
         $this->db->where('slide_id', $slide_id);
         $this->db->update('slides', $f_data);
     }
@@ -32,25 +58,13 @@ Class m_slides extends CI_Model {
         $this->db->delete('images');
     }
 
-    function get_slides($id = NULL) {
-        $this->db->select('*');
-        $this->db->from('slides');
-        $this->db->join('images', 'image_id = slide_img');
-        if ($id != NULL) {
-            $this->db->where('slide_id', $id);
-        }
-        $rs = $this->db->get();
-        $itemp = $rs->result_array();
-        return $itemp;
-    }
-
     function set_form_add() {
         $f_title = array(
             'name' => 'slide_title',
             'class' => 'form-control',
             'placeholder' => 'ชื่อเรื่อง',
             'value' => set_value('slide_title')
-            );
+        );
 
         $f_sub_title = array(
             'name' => 'slide_subtitle',
@@ -67,7 +81,7 @@ Class m_slides extends CI_Model {
         $f_img = array(
             'name' => 'slide_img',
             'class' => 'form-control'
-            );
+        );
 
         $f_status = array(
             '2' => 'ใช้งาน',
@@ -165,12 +179,11 @@ Class m_slides extends CI_Model {
         return $get_page_data;
     }
 
-
     function get_post_form_edit($slide_id) {
         $get_page_data = array(
             'slide_title' => $this->input->post('slide_title'),
             'slide_subtitle' => $this->input->post('slide_subtitle'),
-            'slide_link' => $this->input->post('slide_link'),            
+            'slide_link' => $this->input->post('slide_link'),
             'slide_status' => $this->input->post('slide_status'),
             'update_date' => $this->getDatetimeNow(),
         );
@@ -180,7 +193,7 @@ Class m_slides extends CI_Model {
         }
         return $get_page_data;
     }
-    
+
     function get_image($id) {
         $this->db->select('images.image_full');
         $this->db->from('slides');
@@ -192,11 +205,10 @@ Class m_slides extends CI_Model {
         return $row['img_full'];
     }
 
-
     function get_image_id($slide_id) {
         $this->db->select('image_id');
         $this->db->from('slides');
-       $this->db->join('images', 'image_id = slide_img');
+        $this->db->join('images', 'image_id = slide_img');
         $this->db->where('slide_id', $slide_id);
         $query = $this->db->get();
         $row = $query->row_array();
@@ -272,5 +284,5 @@ Class m_slides extends CI_Model {
         unlink($row['image_path'] . $row['image_name']);
         unlink($row['image_path'] . 'thumbs/' . $row['image_name']);
     }
-   
+
 }

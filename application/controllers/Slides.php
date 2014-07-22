@@ -8,13 +8,36 @@ class Slides extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('m_template');
-        $this->load->model('m_slides');
+        $this->load->model('m_slides');        
     }
 
-    public function index() {        
+    public function index() {
 
-        $data['slides'] = $this->m_slides->get_slides();
+        $f_status = array(
+            '0' => 'ทั้งหมด',
+            '1' => 'ไม่ใช้งาน',
+            '2' => 'ใช้งาน',
+            
+        );
+        $data ['status'] = form_dropdown('status', $f_status, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control" onchange="myform.submit();"');
 
+        if ($this->input->post('status') == null || $this->input->post('status') == 0) {
+            $data['slides'] = $this->m_slides->get_slides();
+        } else {
+            $data['slides'] = $this->m_slides->get_slides_by_status($this->input->post('status'));
+        }
+        $this->m_template->set_Debug($this->input->post('status'));
+        $this->m_template->set_Title('สไลด์');
+        $this->m_template->set_Content('admin/slides.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    public function search() {
+        if ($this->input->post('status') == null || $this->input->post('status') == 0) {
+            $data['slides'] = $this->m_slides->get_slides();
+        } else {
+            $data['slides'] = $this->m_slides->get_slides_by_status($this->input->post('status'));
+        }
 //        $this->m_template->set_Debug($data);
         $this->m_template->set_Title('สไลด์');
         $this->m_template->set_Content('admin/slides.php', $data);
@@ -38,11 +61,11 @@ class Slides extends CI_Controller {
         $this->m_template->showTemplateAdmin();
     }
 
-    public function edit($id) {        
+    public function edit($id) {
         if ($this->m_slides->validation_edit() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_slides->get_post_form_edit($id);
             //Update data
-            $this->m_slides->update_slide($id,$form_data);
+            $this->m_slides->update_slide($id, $form_data);
             redirect('Slides');
         }
 //      get detail and sent to load form
