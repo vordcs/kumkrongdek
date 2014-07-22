@@ -84,7 +84,7 @@
 
         <!-- #### jQuery Upload File #### -->
         <!-- The file upload form used as target for the file upload widget -->
-        <?= form_open_multipart('upload/do_upload', array('id' => 'fileupload')) ?>
+        <?= form_open_multipart('Upload/do_upload', array('id' => 'fileupload')) ?>
         <h3>รูปภาพอื่นๆ <small>จัดการก่อนทำการ บันทึกสินค้า</small></h3>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">

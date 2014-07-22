@@ -6,6 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="VoRDcs">
+        <base href="<?php echo base_url(); ?>"> 
         <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.jpg'; ?>">
         <title>ระบบจัดการหน้าเว็ปไซต์</title>
 
@@ -104,7 +105,7 @@
                                 </div>
                                 <!-- /input-group -->
                             </li>
-                             <!-- Slides -->                            
+                            <!-- Slides -->                            
                             <li>
                                 <?= anchor('Upload', '<i class="fa fa-file fa-fw"></i>&nbsp;Upload') ?>
                             </li>

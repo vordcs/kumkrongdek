@@ -39,7 +39,7 @@ class Upload extends CI_Controller {
                     $foundFiles[$f]['url'] = $upload_path_url . $fileName;
                     $foundFiles[$f]['thumbnailUrl'] = $upload_path_url . 'thumbs/' . $fileName;
                     $foundFiles[$f]['deleteUrl'] = base_url() . 'Upload/deleteImage/' . $fileName;
-                    $foundFiles[$f]['deleteType'] = 'POST';
+                    $foundFiles[$f]['deleteType'] = 'GET';
                     $foundFiles[$f]['error'] = null;
 
                     $f++;
@@ -92,7 +92,7 @@ class Upload extends CI_Controller {
             // I set this to original file since I did not create thumbs.  change to thumbnail directory if you do = $upload_path_url .'/thumbs' .$data['file_name']
             $info->thumbnailUrl = $upload_path_url . 'thumbs/' . $data['file_name'];
             $info->deleteUrl = base_url() . 'Upload/deleteImage/' . $data['file_name'];
-            $info->deleteType = 'POST';
+            $info->deleteType = 'GET';
             $info->error = null;
 
             $files[] = $info;
