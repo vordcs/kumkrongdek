@@ -146,8 +146,6 @@
 
         bkLib.onDomLoaded(function() {
             new nicEditor({buttonList: ['ol','ul', 'html']}).panelInstance('adviser');
-
-
         });
 
     });

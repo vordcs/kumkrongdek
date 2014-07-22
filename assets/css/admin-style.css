@@ -1,4 +1,9 @@
 @charset "UTF-8";
+
+span{
+    font-size: 20px ! important;
+}
+
 .description {
     font-size: 1.18em;
     border-top: 1px solid #cdcdcd;

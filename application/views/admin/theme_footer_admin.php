@@ -8,23 +8,23 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modal_content" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">title</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-          <div class="pull-left" id="date">
-              
-          </div>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>       
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">title</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left" id="date">
+
+                </div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>       
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade bs-example-modal-sm" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -47,9 +47,17 @@
 
 <script>
     $(document).ready(function() {
+        //<![CDATA[
+        bkLib.onDomLoaded(function() {
+//            new nicEditor().panelInstance('area1');
+            new nicEditor({fullPanel: true}).panelInstance('content');
+//            new nicEditor({iconsPath: '../nicEditorIcons.gif'}).panelInstance('area3');
+//            new nicEditor({buttonList: ['fontSize', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'html', 'image']}).panelInstance('area4');
+//            new nicEditor({maxHeight: 100}).panelInstance('content');
+        });
         $('.datepicker').datepicker({
-//            language: 'th-th', 
-            language: 'en', 
+            language: 'th-th', 
+//            language: 'en',
             format: 'yyyy-mm-d',
         });
     });
@@ -61,7 +69,7 @@
         $('.modal-body').html(info);
         $('#date').html(date);
     });
-    
+
     $('#confirm').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
         var title = $(e.relatedTarget).data('title');

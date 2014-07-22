@@ -38,9 +38,7 @@
         <!--pdf view-->
         <?php echo js('pdfobject.js'); ?> 
 
-        <!--upload multi-->
-        <?php echo js('uploadify/jquery.uploadify.min.js'); ?> 
-
+        <!--upload multi-->    
         <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
         <?= js('fileupload/vendor/jquery.ui.widget.js') ?>
         <!-- The Templates plugin is included to render the upload/download listings -->

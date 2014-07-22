@@ -1,9 +1,12 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">
-            <?= $title; ?>
-        </h1>
+        <div class="page-header">
+            <h1>
+                <?= $title; ?>   
+            </h1>
+
+        </div>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -48,15 +51,31 @@
         }
     }
 
-//    for ($i = 0; $i < 5; $i++) {
-    foreach ($activitys as $row) {
+    if (count($activitys) <= 0) {
         ?>
-        <div class="col-md-6 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <div class="row">                            
-                            <?php echo $row['activity_title']; ?>
+        <div class="well">        
+            <h3>
+                <p class="text-center" style="padding: 2% ;">
+                    ไม่พบข้อมูล
+                </p>
+            </h3>        
+        </div>
+        <?php
+    } else {
+//    for ($i = 0; $i < 5; $i++) {
+        foreach ($activitys as $row) {
+            $controller = "Activitys_ad";
+            $id = $row['activity_id'];
+            $title = $row['activity_title'];
+            $subtitle = $row['activity_subtitle'];
+            $content = $row['activity_content'];
+            $date = DateThai($row['publish_date']);
+            $status = $row['activity_status'];
+            ?>
+            <div class="col-md-8 col-md-offset-2 col-xs-12">                
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">   
                             <p class="pull-right">
                                 <?php
                                 $edit = array(
@@ -67,35 +86,35 @@
                                     'type' => "button",
                                     'class' => "btn btn-danger btn-xs",
                                     'data-id' => "2",
-                                    'data-title' => "ลบกิจกรรม",
-                                    'data-info' => $row['activity_title'],
+                                    'data-title' => "ลบข่าว",
+                                    'data-info' => $title,
                                     'data-toggle' => "modal",
                                     'data-target' => "#confirm",
-                                    'data-href' => 'Activitys_ad/delete/' . $row['activity_id'],
+                                    'data-href' => $controller . '/delete/' . $id,
                                 );
                                 $cancle = array(
                                     'type' => "button",
                                     'class' => "btn btn-warning btn-xs",
                                     'data-id' => "3",
-                                    'data-title' => "ยกเลิกกิจกรรม",
-                                    'data-info' => $row['activity_title'],
+                                    'data-title' => "ยกเลิกข่าว",
+                                    'data-info' => $title,
                                     'data-toggle' => "modal",
                                     'data-target' => "#confirm",
-                                    'data-href' => 'Activitys_ad/unactive/' . $row['activity_id'],
+                                    'data-href' => $controller . '/unactive/' . $id,
                                 );
                                 $active = array(
                                     'type' => "button",
                                     'class' => "btn btn-success btn-xs",
                                     'data-id' => "4",
-                                    'data-title' => "ใช้งานกิจกรรม",
-                                    'data-info' => $row['activity_title'],
+                                    'data-title' => "ใช้งานข่าว",
+                                    'data-info' => $title,
                                     'data-toggle' => "modal",
                                     'data-target' => "#confirm",
-                                    'data-href' => 'Activitys_ad/active/' . $row['activity_id'],
+                                    'data-href' => $controller . '/active/' . $id,
                                 );
 
-                                echo '<span class="icon">' . anchor('Activitys_ad/edit/' . $row['activity_id'], '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', $edit) . '</span>';
-                                if ($row['activity_status'] == 'active') {
+                                echo '<span class="icon">' . anchor($controller . '/edit/' . $id, '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', $edit) . '</span>';
+                                if ($status == 'active') {
                                     echo '<span class="icon">' . anchor('#', '<i class="fa fa-times fa-lg"></i>&nbsp;ยกเลิก', $cancle) . '</span>';
                                 } else {
 
@@ -105,36 +124,64 @@
                                 ?>
                             </p>
                         </div> 
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <?= img($row['image_small'], array('class' => 'img-responsive', 'width' => '200px', 'height' => '200px')); ?>
-                        </a>
-                        <div class="media-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-4">
+                                <a class="text-center" href="#">
+                                    <?= img($row['image_small'], array('class' => 'img-responsive', 'width' => '100%')); ?>
+                                </a>
+                            </div>  
+                            <div class="col-xs-12 col-md-8">
+                                <div class="row">
+                                    <h3>
+                                        <?= $title ?>
+                                        <div class="text-muted"><small><?= $date ?></small></div>
+                                    </h3> 
+                                    <div class="description">                                   
+                                        <p>
+                                            <?= $subtitle ?>  
+                                            <!-- Button trigger modal -->
+                                            <button class="btn btn-link pull-right" 
+                                                    style="font-size: 0.91em;"
+                                                    data-toggle="modal" 
+                                                    data-target="#modal_content" 
+                                                    data-title="<?= $title ?>" 
+                                                    data-info="<?= $content ?>"
+                                                    data-date="<?= $date ?>"
+                                                    >
+                                                อ่านเพิ่ม... 
+                                            </button>
+                                        </p>  
+                                    </div>
+                                    <div class="text-center">
+                                        <?php
+                                        for ($i = 0; $i < 20; $i++) {
+                                            ?>
+                                        <img data-src='holder.js/50x50' style="padding-top: 3px;">
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div> 
 
-                            <div class="text">
-                                <?php echo $row['activity_content']; ?> 
-                            </div> 
-                            <br>
-                            <p class="text-center"><?php echo 'เผยแพร่วันที่ ' . DateThai($row['publish_date']); ?> </p>
-                        </div>
                     </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="pull-right">
-                            <?php
-                            $crate = '  | สร้าง : ' . DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
-                            $update = 'แก้ไข : ' . DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
-                            echo $update . $crate;
-                            ?>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="pull-right">
+        <?php
+        $crate = '  | สร้าง : ' . DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+        $update = 'แก้ไข : ' . DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+        echo $update . $crate;
+        ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <?php } ?>
+        <?php
+    }
+}
+?>
 </div>
 

@@ -27,11 +27,18 @@ Class m_activitys extends CI_Model {
 
     public function insert_activity($f_data) {
         $this->db->insert('activitys', $f_data);
+        $this->insert_img_to_database($this->db->insert_id());
+        return TRUE;
     }
 
     public function update_activity($activity_id, $f_data) {
         $this->db->where('activity_id', $activity_id);
         $this->db->update('activitys', $f_data);
+        
+        //Delete old images
+        $this->delect_img_in_database($activity_id);
+        //Insert new images in temp
+        $this->insert_img_to_database($activity_id);
     }
 
     public function delete_activity($id) {
@@ -49,6 +56,10 @@ Class m_activitys extends CI_Model {
     }
 
     public function set_form_add() {
+        //Clear folder temp
+        if ($this->form_validation->error_string() == NULL && $this->form_validation->run() != TRUE) {
+            $this->clear_upload_temp();
+        }
 
         $f_activity_title = array(
             'name' => 'activity_title',
@@ -56,10 +67,18 @@ Class m_activitys extends CI_Model {
             'placeholder' => 'ชื่อเรื่อง',
             'value' => set_value('activity_title')
         );
-
+        $f_activity_subtitle = array(
+            'name' => 'activity_subtitle',
+            'class' => 'form-control',
+            'placeholder' => 'ชื่อเรื่องรอง',
+            'value' => set_value('activity_subtitle')
+        );
         $f_activity_content = array(
             'name' => 'activity_content',
             'class' => 'form-control',
+            'id' => 'content',
+            'rows' => '5',
+            'cols' => '30',
             'value' => set_value('activity_content')
         );
 
@@ -90,6 +109,7 @@ Class m_activitys extends CI_Model {
         $form_add = array(
             'form' => form_open_multipart('Activitys_ad/add', array('class' => 'form-horizontal', 'id' => 'form_activity')),
             'activity_title' => form_input($f_activity_title),
+            'activity_subtitle' => form_input($f_activity_subtitle),
             'activity_content' => form_textarea($f_activity_content),
             'activity_type' => form_dropdown('activity_type', $f_activity_type, set_value('activity_type'), 'class="form-control"'),
             'activity_img' => form_upload($f_activity_img),
@@ -101,17 +121,26 @@ Class m_activitys extends CI_Model {
     }
 
     public function set_form_edit($data) {
-
+ //Prepare folder temp
+        if ($this->form_validation->error_string() == NULL && $this->form_validation->run() != TRUE) {
+            $this->load_img_to_temp($data['activity_id']);
+        }
         $f_activity_title = array(
             'name' => 'activity_title',
             'class' => 'form-control',
             'placeholder' => 'ชื่อเรื่อง',
             'value' => (set_value('activity_title') == NULL) ? $data['activity_title'] : set_value('activity_title')
         );
-
+        $f_activity_subtitle = array(
+            'name' => 'activity_subtitle',
+            'class' => 'form-control',
+            'placeholder' => 'ชื่อเรื่องรอง',
+            'value' => (set_value('activity_subtitle')== NULL) ? $data['activity_subtitle'] : set_value('activity_subtitle')
+        );
         $f_activity_content = array(
             'name' => 'activity_content',
             'class' => 'form-control',
+            'id' => 'content',
             'value' => (set_value('activity_content') == NULL) ? $data['activity_content'] : set_value('activity_content')
         );
 
@@ -137,6 +166,7 @@ Class m_activitys extends CI_Model {
         $form_edit = array(
             'form' => form_open_multipart('Activitys_ad/edit/' . $data['activity_id'], array('class' => 'form-horizontal', 'id' => 'form_activity')),
             'activity_title' => form_input($f_activity_title),
+            'activity_subtitle' => form_input($f_activity_subtitle),
             'activity_content' => form_textarea($f_activity_content),
             'activity_type' => form_dropdown('activity_type', $f_activity_type, (set_value('activity_type') == NULL) ? $data['activity_type'] : set_value('activity_type'), 'class="form-control"'),
             'activity_img' => form_upload($f_activity_img),
@@ -149,6 +179,7 @@ Class m_activitys extends CI_Model {
 
     public function validation_add() {
         $this->form_validation->set_rules('activity_title', 'ชื่อเรื่อง', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('activity_subtitle', 'ชื่อเรื่อง', 'required|trim|xss_clean');
         $this->form_validation->set_rules('activity_content', 'รายละเอียด', 'required|trim|xss_clean|callback_textarea_check');
         $this->form_validation->set_rules('activity_type', 'ประเภทกิจกรรม', 'required|trim|xss_clean|callback_type_check');
         $this->form_validation->set_rules('publish_date', 'วันเผยแพร่', 'required|trim|xss_clean');
@@ -175,6 +206,7 @@ Class m_activitys extends CI_Model {
 
     public function validation_edit() {
         $this->form_validation->set_rules('activity_title', 'ชื่อเรื่อง', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('activity_subtitle', 'ชื่อเรื่อง', 'required|trim|xss_clean');
         $this->form_validation->set_rules('activity_content', 'รายละเอียด', 'required|trim|xss_clean|callback_textarea_check');
         $this->form_validation->set_rules('activity_type', 'ประเภทกิจกรรม', 'required|trim|xss_clean|callback_type_check');
         $this->form_validation->set_rules('publish_date', 'วันเผยแพร่', 'required|trim|xss_clean');
@@ -190,6 +222,7 @@ Class m_activitys extends CI_Model {
         $img_id = $this->m_upload->upload_image('activitys', 'activity_img');
         $page_data = array(
             'activity_title' => $this->input->post('activity_title'),
+            'activity_subtitle' => $this->input->post('activity_subtitle'),
             'activity_content' => $this->input->post('activity_content'),
             'activity_type' => $this->input->post('activity_type'),
             'activity_img' => $img_id,
@@ -203,6 +236,7 @@ Class m_activitys extends CI_Model {
     public function get_post_form_edit($id) {
         $page_data = array(
             'activity_title' => $this->input->post('activity_title'),
+            'activity_subtitle' => $this->input->post('activity_subtitle'),
             'activity_content' => $this->input->post('activity_content'),
             'activity_type' => $this->input->post('activity_type'),
             'activity_highlight' => $this->input->post('activity_highlight'),
@@ -233,26 +267,27 @@ Class m_activitys extends CI_Model {
         $query = $this->db->get('activity_types');
         return $query->result_array();
     }
-    ///
 
-    function insert_img_to_database($product_id) {
+///
+
+    function insert_img_to_database($activity_id) {
         $data_images = array();
         //Prepare image and insert to images
         $img = $this->get_img_from_temp();
         foreach ($img as $row) {
             $this->db->insert('images', $row);
             $temp = array(
-                'product_id' => $product_id,
+                'activity_id' => $activity_id,
                 'image_id' => $this->db->insert_id()
             );
             array_push($data_images, $temp);
             //Move img to products
-            rename(img_path() . 'temp/' . $row['img_name'], $row['img_path']);
-            rename(img_path() . 'temp/thumbs/' . $row['img_name'], img_path() . 'products/thumbs/' . $row['img_name']);
+            rename(img_path() . 'temp/' . $row['image_name'], $row['image_path']);
+            rename(img_path() . 'temp/thumbs/' . $row['image_name'], img_path() . 'activitys/thumbs/' . $row['image_name']);
         }
         //Insert to products_has_images
         if ($data_images != NULL)
-            $this->db->insert_batch('products_has_images', $data_images);
+            $this->db->insert_batch('activitys_has_images', $data_images);
         return TRUE;
     }
 
@@ -264,8 +299,8 @@ Class m_activitys extends CI_Model {
         //Read images of activitys
         $this->db->select();
         $this->db->from('activitys_has_images');
-        $this->db->join('images', 'activitys_has_images.image_id=images.image_id', 'left');
-        $this->db->where('activitys_has_images.$activity_id', $activity_id);
+        $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
+        $this->db->where('activity_id', $activity_id);
         $query = $this->db->get();
         $data = $query->result_array();
 
@@ -280,15 +315,16 @@ Class m_activitys extends CI_Model {
         //Delect image in folder product
         $this->db->select();
         $this->db->from('activitys_has_images');
-        $this->db->join('images', 'activitys_has_images.image_id=images.image_id', 'left');
-        $this->db->where('activitys_has_images.activity_id', $activity_id);
-        $query = $this->db->get();
+        $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
+        $this->db->where('activity_id', $activity_id);
+        $query = $this->db->get();        
         $data = $query->result_array();
+        
         foreach ($data as $row) {
             unlink(img_path() . 'activitys/' . $row['image_name']);
-            unlink(img_path() . 'activitys/thumbs/' . $row['imag_name']);
+            unlink(img_path() . 'activitys/thumbs/' . $row['image_name']);
             //Delect image in images
-            $this->db->delete('images', array('id' => $row['image_id']));
+            $this->db->delete('images', array('image_id' => $row['image_id']));
         }
         //Delect image in activitys_has_images
         $this->db->delete('activitys_has_images', array('activity_id' => $activity_id));
