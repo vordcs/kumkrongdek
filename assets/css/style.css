@@ -22,7 +22,7 @@
     padding: 13px 20px;
     text-transform: capitalize;
     transition: all 0.3s ease-in-out 0s;
-    font-size: 18px;
+    font-size: 22px;
 }
 #nav-static ul li.active a {
     color: #57c5a0;
@@ -236,7 +236,7 @@ min-width:768px){
 .bs-docs-sidebar .nav>li>a{
     display:block;
     padding:4px 20px;
-    font-size:13px;
+    font-size:20px;
     font-weight:500;
     color:#999
 }
