@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Site of Kum Krong Dek KhonKean">
         <meta name="author" content="VoRDcs">
-        <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.jpg'; ?>">
+        <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.png'; ?>">
         <?php echo css('bootstrap.min.css'); ?>
         <?php echo css('bootstrap-theme.css'); ?>
         <?php echo css('font-awesome.css'); ?>

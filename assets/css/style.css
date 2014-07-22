@@ -250,9 +250,9 @@ min-width:768px){
 .bs-docs-sidebar .nav>.active>a,.bs-docs-sidebar .nav>.active:hover>a,.bs-docs-sidebar .nav>.active:focus>a{
     padding-left:18px;
     font-weight:700;
-    color:#563d7c;
+    color:#57c5a0;
     background-color:transparent;
-    border-left:2px solid #563d7c
+    border-left:2px solid #57c5a0
 }
 .bs-docs-sidebar .nav .nav{
     display:none;
