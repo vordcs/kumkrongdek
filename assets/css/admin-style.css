@@ -26,10 +26,10 @@
     margin-left: 5px;
 }
 dl {
-    /*font-size: 1.4em;*/
+    font-size: 0.9em;
     line-height: 1.43;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 dl dt {
     float: left;

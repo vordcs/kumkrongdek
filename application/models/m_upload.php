@@ -2,7 +2,7 @@
 
 Class m_upload extends CI_Model {
 
-    function upload_image($folder, $input_file, $img_id = NULL) {
+    public function upload_image($folder, $input_file, $img_id = NULL) {
 
         if (!empty($_FILES[$input_file]['name'])) {
 
@@ -69,6 +69,141 @@ Class m_upload extends CI_Model {
 
         unlink($row['image_path'] . $row['image_name']);
         unlink($row['image_path'] . 'thumbs/' . $row['image_name']);
+    }
+
+    public function upload_file($name, $id = NULL) {
+
+        if (!empty($_FILES[$name]['name'])) {
+
+            $config['upload_path'] = "assets/upload";
+            // set allowed file types
+            $config['allowed_types'] = "pdf";
+            // set upload limit, set 0 for no limit
+            $config['max_size'] = 0;
+            $config['encrypt_name'] = TRUE;
+
+
+            $this->load->library('upload', $config);
+
+
+            if (!$this->upload->do_upload($name)) {
+                return $this->upload->display_errors();
+            } else {
+                //insert to database
+                $finfo = $this->upload->data();
+
+                $data_file = array(
+                    'file_name' => $finfo['file_name'],
+                    'file_path' => $finfo['file_path'],
+                    'file_full_path' => $finfo['full_path'],
+                );
+//                unlink($finfo['full_path']);
+                if ($id == NULL) {
+                    $this->db->trans_start();
+                    $this->db->insert('files', $data_file);
+                    $file_id = $this->db->insert_id();
+                    $this->db->trans_complete();
+                    return $file_id;
+                } else {
+                    $this->deleteFile($id);
+                    $this->db->where('file_id', $id);
+                    $this->db->update('files', $data_file);
+                    return $id;
+                }
+            }
+        }
+    }
+
+    public function upload_multi_file($id, $input_name, $file_id = NULL) {
+        $this->load->library('upload');
+
+        $_FILES = $this->multifile($_FILES[$input_name]);
+        $i = 0;
+        foreach ($_FILES as $file => $file_data) {
+            $this->upload->initialize($this->set_upload_file());
+            if (!$this->upload->do_upload($file)) {
+                continue;
+            } else {
+                $finfo = $this->upload->data();
+                //insert to database
+                $data_file = array(
+                    'file_name' => $finfo['file_name'],
+                    'file_path' => $finfo['file_path'],
+                    'file_full_path' => $finfo['full_path'],
+                );
+                if ($file_id == NULL) {
+                    $this->db->trans_start();
+                    $this->db->insert('files', $data_file);
+                    $file_id = $this->db->insert_id();
+                    $this->db->trans_complete();
+                    $t = $this->input->post('txtTitle');
+                    if ($t[$i] == NULL || $t[$i] == '') {
+                        $title = $finfo['orig_name'];
+                    } else {
+                        $title = $t[$i];
+                    }
+                    $f = array(
+                        'news_id' => $id,
+                        'file_id' => $file_id,
+                        'title' => $title,
+                    );
+                    $this->db->insert('news_has_files', $f);
+                } else {
+                    $this->deleteFile($file_id);
+                    $this->db->where('file_id', $file_id);
+                    $this->db->update('files', $data_file);
+//                        return $file_id;
+                }
+            }
+            $i++;
+        }
+    }
+
+    private function set_upload_file() {
+//  upload an image options
+        $config = array();
+        $config['upload_path'] = "assets/upload";
+        $config['allowed_types'] = 'pdf|gif|jpg|png|doc|docx';
+        $config['max_size'] = 0;
+//        $config['overwrite'] = FALSE;
+        $config['encrypt_name'] = TRUE;
+
+
+        return $config;
+    }
+
+// Codeigniter Upload Multiple File
+    public function multifile($filedata) { // $_FILES['files'];
+        if (count($filedata) == 0)
+            return NULL;
+
+        $files = array();
+        $all_files = $filedata['name'];
+        $i = 0;
+
+        foreach ($all_files as $filename) {
+            $files[++$i]['name'] = $filename;
+            $files[$i]['type'] = current($filedata['type']);
+            next($filedata['type']);
+            $files[$i]['tmp_name'] = current($filedata['tmp_name']);
+            next($filedata['tmp_name']);
+            $files[$i]['error'] = current($filedata['error']);
+            next($filedata['error']);
+            $files[$i]['size'] = current($filedata['size']);
+            next($filedata['size']);
+        }
+
+        return $files;
+    }
+
+    public function deleteFile($file_id) {
+        $this->db->select('file_full_path');
+        $this->db->from('files');
+        $this->db->where('file_id', $file_id);
+        $query = $this->db->get();
+        $row = $query->row_array();
+
+        unlink($row['file_full_path']);
     }
 
 }

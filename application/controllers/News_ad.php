@@ -6,15 +6,29 @@ class News_ad extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_news');
+        $this->load->model('m_upload');
     }
 
     public function index() {
         $data = array();
 
         $data['news'] = $this->m_news->get_news();
+        $data['file'] = $this->m_news->get_news_file();
 
-        $this->m_template->set_Debug($data);
+//        $this->m_template->set_Debug($data['file']);
         $this->m_template->set_Title('ข่าว');
+        $this->m_template->set_Content('admin/news.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    public function highlight() {
+        $data = array();
+
+        $data['news'] = $this->m_news->get_news_highlight();
+        $data['file'] = $this->m_news->get_news_file();
+
+//        $this->m_template->set_Debug($data);
+        $this->m_template->set_Title('ข่าวเด่น');
         $this->m_template->set_Content('admin/news.php', $data);
         $this->m_template->showTemplateAdmin();
     }
@@ -42,8 +56,9 @@ class News_ad extends CI_Controller {
             $form_data = $this->m_news->get_post_form_edit($id);
 //            $this->m_template->set_Debug($form_data);
             //update data
-            $this->m_news->update_news($form_data);
+            $this->m_news->update_news($id, $form_data);
             redirect('News_ad');
+//            $this->m_upload->upload_multi_file(2);
         }
         //      get detail and sent to load form
         $detail = $this->m_news->get_news($id);
@@ -59,6 +74,33 @@ class News_ad extends CI_Controller {
         $this->m_template->showTemplateAdmin();
     }
 
+    public function delete($id) {
+        $this->m_news->delete_news($id);
+        redirect('News_ad');
+    }
+
+    public function unactive($id) {
+        $data = array(
+            'news_status' => '1',
+        );
+
+        $this->db->where('news_id', $id);
+        $this->db->update('News', $data);
+
+        redirect('News_ad', 'refresh');
+    }
+
+    public function active($id) {
+        $data = array(
+            'news_status' => '2',
+        );
+
+        $this->db->where('news_id', $id);
+        $this->db->update('News', $data);
+
+        redirect('News_ad', 'refresh');
+    }
+
     public function textarea_check($str) {
         if ($str == '<br>') {
             $this->form_validation->set_message('textarea_check', 'ใส่ข้อมูล %s');
@@ -70,7 +112,7 @@ class News_ad extends CI_Controller {
 
     public function type_check() {
         if ($this->input->post('news_type') === '0') {
-            $this->form_validation->set_message('type_check', 'เลือกประเภทกิจกรรม');
+            $this->form_validation->set_message('type_check', 'เลือกประเภทข่าว');
             return FALSE;
         } else {
             return TRUE;

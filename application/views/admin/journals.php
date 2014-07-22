@@ -67,7 +67,7 @@
                     </div>
                     <div class="row">
                         <div class="media">  
-                            <a class="pull-left" href="#" data-toggle="modal" data-target="#view_pdf" data-title="<?= $name ?>" data-file="<?= $row['file_name'] ?>" >
+                            <a class="pull-left thumbnail" href="#" data-toggle="modal" data-target="#view_pdf" data-title="<?= $name ?>" data-file="<?= $row['file_name'] ?>" >
                                 <img class="media-object"  data-src="holder.js/100x100/vine/text:view" alt="<?= $month_th[$row['journal_mounth']] ?>">
                             </a>
                             <div class="media-body">
