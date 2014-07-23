@@ -9,14 +9,65 @@ class Activitys_ad extends CI_Controller {
         $this->load->model('m_upload');
     }
 
+    private $month_th = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+
     public function index() {
+        $this->m_activitys->clear_upload_temp();
         $data = array();
-
         $data['activitys'] = $this->m_activitys->get_activitys();
-
-//        $this->m_template->set_Debug($data);
+        $data['images_activity'] = $this->m_activitys->get_image_activity();
+        $data['form'] = $this->m_activitys->set_form_search();
+//        $this->m_template->set_Debug($data['form']);
         $this->m_template->set_Title('กิจกรรม');
         $this->m_template->set_Content('admin/activitys.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    public function search_by_date() {
+        $data = array();
+        $data['form'] = $this->m_activitys->set_form_search();
+        
+        $data['activitys'] = $this->m_activitys->get_activitys();
+        $data['images_activity'] = $this->m_activitys->get_image_activity();
+
+        $this->m_template->set_Debug($this->input->post('date_search'));
+        $this->m_template->set_Title('ผลลัพธ์');
+        $this->m_template->set_Content('admin/activitys.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    public function view_more($id) {
+
+        $activitys = $this->m_activitys->get_activitys($id);
+        foreach ($activitys as $row) {
+            $img = $row['image_small'];
+            $title = $row['activity_title'];
+            $subtitle = $row['activity_subtitle'];
+            $content = $row['activity_content'];
+            $date = $this->DateThai($row['publish_date']);
+            $status = $row['activity_status'];
+            $create = '  | สร้าง : ' . $this->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+        }
+
+        $data = array(
+            'controller' => 'Activitys_ad',
+            'img' => $img,
+            'id' => $id,
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'date' => $date,
+            'status' => $status,
+            'content' => $content,
+            'create' => $create,
+            'update' => $update,
+        );
+
+        $data['images'] = $this->m_activitys->get_image_activity($id);
+
+//        $this->m_template->set_Debug($data);
+        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Content('admin/detail.php', $data);
         $this->m_template->showTemplateAdmin();
     }
 
@@ -102,6 +153,40 @@ class Activitys_ad extends CI_Controller {
             return FALSE;
         } else {
             return TRUE;
+        }
+    }
+
+    function DateThai($strDate) {
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $date = new DateTime($strDate);
+            $strYear = date("Y", strtotime($strDate)) + 543;
+            $strMonth = date("n", strtotime($strDate));
+            $strDay = date("j", strtotime($strDate));
+            $strHour = date("H", strtotime($strDate));
+            $strMinute = date("i", strtotime($strDate));
+            $strSeconds = date("s", strtotime($strDate));
+            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+            $strMonthThai = $strMonthCut[$strMonth];
+            return "$strDay $strMonthThai $strYear";
+        }
+    }
+
+    function DateTimeThai($strDate) {
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $date = new DateTime($strDate);
+            $strYear = date("Y", strtotime($strDate)) + 543;
+            $strMonth = date("n", strtotime($strDate));
+            $strDay = date("j", strtotime($strDate));
+            $strHour = date("H", strtotime($strDate));
+            $strMinute = date("i", strtotime($strDate));
+            $strSeconds = date("s", strtotime($strDate));
+            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+            $strMonthThai = $strMonthCut[$strMonth];
+            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
         }
     }
 

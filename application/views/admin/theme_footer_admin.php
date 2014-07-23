@@ -1,5 +1,7 @@
+<ul class="nav pull-right scroll-top hidden" id="scroll-top">
+    <li><a title="กลับด้านบน" style="color:#222;"><i class="fa fa-angle-double-up fa-lg"></i></a></li>
+</ul>
 <div class="footer">
-
 </div>
 </div>
 <!-- /#page-wrapper -->
@@ -47,6 +49,7 @@
 
 <script>
     $(document).ready(function() {
+        $(".fancybox").fancybox();
         //<![CDATA[
         bkLib.onDomLoaded(function() {
 //            new nicEditor().panelInstance('area1');
@@ -56,9 +59,13 @@
 //            new nicEditor({maxHeight: 100}).panelInstance('content');
         });
         $('.datepicker').datepicker({
-            language: 'th-th', 
+            language: 'th-th',
 //            language: 'en',
             format: 'yyyy-mm-d',
+        });
+        $('.date-search').datepicker({
+            language: 'th-th',
+            format: 'MM yyyy',
         });
     });
     $('#modal_content').on('show.bs.modal', function(e) {

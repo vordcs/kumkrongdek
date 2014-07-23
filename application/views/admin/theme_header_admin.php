@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="VoRDcs">
         <base href="<?php echo base_url(); ?>"> 
-        <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.jpg'; ?>">
+        <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.png'; ?>">
         <title>ระบบจัดการหน้าเว็ปไซต์</title>
 
         <!-- Core CSS - Include with every page --> 
@@ -20,12 +20,19 @@
         <?= css('jquery.fileupload.css') ?>
         <?= css('jquery.fileupload-ui.css') ?>
 
-
         <!-- SB Admin CSS - Include with every page -->        
         <?php echo css('sb-admin.css'); ?>
         <?php echo js('jquery.js'); ?>
         <?php echo js('bootstrap.min.js'); ?>    
         <?php echo js('docs.min.js'); ?>  
+
+        <!--fancybox-->
+        <?php echo css('jquery.fancybox.css'); ?>
+        <?php echo js('jquery.fancybox.pack.js'); ?>
+
+        <!--semantic-->
+        <?php echo css('semantic.css'); ?>
+        <?php echo js('semantic.min.js'); ?>  
 
         <!--datetime picker-->    
         <?php echo css('datepicker.css'); ?>  
@@ -67,6 +74,27 @@
         <!--[if (gte IE 8)&(lt IE 10)]>
         <?= js('fileupload/jquery.xdr-transport.js') ?>
         <![endif]-->
+
+        <script>
+            $(document).ready(function() {     
+                $(window).scroll(function() {
+                    var pt_scroll = $(this).scrollTop() + 80;
+                    if (pt_scroll >= $('.content').offset().top) {
+                        $('#scroll-top').removeClass('hidden');
+//                        $('#scroll-top').fadeIn();
+                    } else {
+                        $('#scroll-top').addClass('hidden');
+//                        $('#scroll-top').fadeOut();
+                    }
+                });
+                $('#scroll-top').click(function() {
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, 600);
+                    return false;
+                });
+            });
+        </script>
 
     </head>
 

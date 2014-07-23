@@ -25,6 +25,18 @@ Class m_activitys extends CI_Model {
         return $itemp;
     }
 
+    public function get_image_activity($activity_id = NULL) {
+        $this->db->select();
+        $this->db->from('activitys_has_images');
+        $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
+        if($activity_id!=NULL){
+            $this->db->where('activity_id', $activity_id);
+        }        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        return $data;
+    }
+
     public function insert_activity($f_data) {
         $this->db->insert('activitys', $f_data);
         $this->insert_img_to_database($this->db->insert_id());
@@ -34,11 +46,13 @@ Class m_activitys extends CI_Model {
     public function update_activity($activity_id, $f_data) {
         $this->db->where('activity_id', $activity_id);
         $this->db->update('activitys', $f_data);
-        
+
         //Delete old images
         $this->delect_img_in_database($activity_id);
         //Insert new images in temp
         $this->insert_img_to_database($activity_id);
+        
+//        $this->clear_upload_temp();
     }
 
     public function delete_activity($id) {
@@ -95,11 +109,6 @@ Class m_activitys extends CI_Model {
             '0' => 'ทั่วไป',
             '1' => 'เด่น',
         );
-
-        $f_status = array(
-            '2' => 'ใช้งาน',
-            '1' => 'ไม่ใช้งาน',
-        );
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
@@ -121,8 +130,8 @@ Class m_activitys extends CI_Model {
     }
 
     public function set_form_edit($data) {
- //Prepare folder temp
-        if ($this->form_validation->error_string() == NULL && $this->form_validation->run() != TRUE) {
+        //Prepare folder temp
+        if ($this->form_validation->error_string() == NULL && $this->form_validation->run() != TRUE) {            
             $this->load_img_to_temp($data['activity_id']);
         }
         $f_activity_title = array(
@@ -135,7 +144,7 @@ Class m_activitys extends CI_Model {
             'name' => 'activity_subtitle',
             'class' => 'form-control',
             'placeholder' => 'ชื่อเรื่องรอง',
-            'value' => (set_value('activity_subtitle')== NULL) ? $data['activity_subtitle'] : set_value('activity_subtitle')
+            'value' => (set_value('activity_subtitle') == NULL) ? $data['activity_subtitle'] : set_value('activity_subtitle')
         );
         $f_activity_content = array(
             'name' => 'activity_content',
@@ -177,6 +186,21 @@ Class m_activitys extends CI_Model {
         return $form_edit;
     }
 
+    public function set_form_search() {
+         $f_search = array(
+            'name' => 'date_search',
+            'class' => 'form-control date-search',
+             'placeholder' => 'ค้นหา...',
+//            'value' => set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
+        );
+        $form_search = array(
+             'form' => form_open('Activitys_ad/search_by_date', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'date' => form_input($f_search),
+        );
+        
+        return $form_search;
+    }
+    
     public function validation_add() {
         $this->form_validation->set_rules('activity_title', 'ชื่อเรื่อง', 'required|trim|xss_clean');
         $this->form_validation->set_rules('activity_subtitle', 'ชื่อเรื่อง', 'required|trim|xss_clean');
@@ -317,9 +341,9 @@ Class m_activitys extends CI_Model {
         $this->db->from('activitys_has_images');
         $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
         $this->db->where('activity_id', $activity_id);
-        $query = $this->db->get();        
+        $query = $this->db->get();
         $data = $query->result_array();
-        
+
         foreach ($data as $row) {
             unlink(img_path() . 'activitys/' . $row['image_name']);
             unlink(img_path() . 'activitys/thumbs/' . $row['image_name']);
