@@ -444,6 +444,6 @@ min-width:768px){
 }
 @media (min-width:1200px){
     .bs-docs-sidebar.affix-bottom,.bs-docs-sidebar.affix{
-        width:263px
+        width:242px
     }
 }
