@@ -15,14 +15,15 @@
 </div>
 <div class="row content">
 
-    <div class="col-md-4 col-md-offset-4 col-xs-12">         
+    <div class="col-md-8 col-md-offset-2 col-xs-12">         
         <!--<form role="form" class="form-horizontal center-block" action="">-->  
         <?php echo $form['form']; ?>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="inputSuccess3">ค้นหา</label>
+            <label class="control-label col-sm-3" for="">ค้นหา</label>
             <div class="col-sm-9">
                 <div class="input-group custom-search-form">
-                    <input type="text" class="form-control date-search" placeholder="Search...">
+                    <!--<input type="text" class="form-control date-search" placeholder="Search...">-->
+                    <?=$form['date']?>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">
                             <i class="fa fa-search"></i>
@@ -110,7 +111,7 @@
             $create = '  | สร้าง : ' . DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
             ?>
-            <div class="col-md-8 col-md-offset-2 col-xs-12">                
+            <div class="col-md-10 col-md-offset-1 col-xs-12">                
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">   

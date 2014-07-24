@@ -9,8 +9,6 @@ class Activitys_ad extends CI_Controller {
         $this->load->model('m_upload');
     }
 
-    private $month_th = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-
     public function index() {
         $this->m_activitys->clear_upload_temp();
         $data = array();
@@ -23,18 +21,28 @@ class Activitys_ad extends CI_Controller {
         $this->m_template->showTemplateAdmin();
     }
 
-    public function search_by_date() {
+    public function search() {
         $data = array();
         $data['form'] = $this->m_activitys->set_form_search();
-        
-        $data['activitys'] = $this->m_activitys->get_activitys();
-        $data['images_activity'] = $this->m_activitys->get_image_activity();
+        $date = $this->input->post('date_search');
+        if ($date == NULL) {
+            redirect('Activitys_ad');
+        }
 
-        $this->m_template->set_Debug($this->input->post('date_search'));
-        $this->m_template->set_Title('ผลลัพธ์');
+//        $data['activitys'] = $this->m_activitys->get_activitys();
+        $data['activitys'] = $this->m_activitys->get_activitys_by_date($date);
+        $data['images_activity'] = $this->m_activitys->get_image_activity();
+        
+//        $d['send']=$date_[0];
+//        $d['return']=$month;
+        
+//        $this->m_template->set_Debug($d);
+        $this->m_template->set_Title('ผลการค้นหา ​: '.$date);
         $this->m_template->set_Content('admin/activitys.php', $data);
         $this->m_template->showTemplateAdmin();
     }
+
+   
 
     public function view_more($id) {
 

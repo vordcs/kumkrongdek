@@ -23,6 +23,24 @@
 </div>
 <div class="row content">
     <?php
+
+    function DateTimeThai($strDate) {
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $date = new DateTime($strDate);
+            $strYear = date("Y", strtotime($strDate)) + 543;
+            $strMonth = date("n", strtotime($strDate));
+            $strDay = date("j", strtotime($strDate));
+            $strHour = date("H", strtotime($strDate));
+            $strMinute = date("i", strtotime($strDate));
+            $strSeconds = date("s", strtotime($strDate));
+            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+            $strMonthThai = $strMonthCut[$strMonth];
+            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
+        }
+    }
+
     if (count($slides) <= 0) {
         ?>
         <div class="well">        
@@ -36,25 +54,34 @@
     } else {
 //    for ($i = 0; $i < 5; $i++) { 
         foreach ($slides as $row) {
-            ?>
-            <div id="itemp-slide" class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <?= img($row['image_small'], array('class' => 'img-responsive', 'width' => '100%', 'height' => '200px')); ?>
-                    <!--<img data-src="holder.js/900x500/auto/vine" alt="..." width="100%" class="img-responsive">-->
+            $controller = "Slides";
+            $id = $row['slide_id'];
+            $title = $row['slide_title'];
+            $subtitle = $row['slide_subtitle'];
+            $img = $row['image_small'];
+            $status = $row['slide_status'];
 
+            $create = 'สร้าง : ' . DateTimeThai($row['create_date']);
+            $update = 'แก้ไข : ' . DateTimeThai($row['update_date']);
+            ?>
+            <div id="itemp-slide" class="col-sm-6 col-md-4">  
+                <div class="thumbnail"> 
+                    <a class="fancybox" rel="gallery<?= $id ?>" href="<?= img_url() . $img ?>">
+                        <?= img($img, array('class' => 'img-responsive', 'width' => '100%', 'height' => '200px')); ?>
+                    </a>
                     <div class="caption">  
                         <span class="pull-right"><?= ($row['slide_link'] == NULL) ? $row['slide_link'] : anchor($row['slide_link'], '<i class="fa fa-link fa-2x"></i>', ''); ?></span> 
-                        <h4><?= $row['slide_title'] ?></h4>                    
+                        <h3><?= $row['slide_title'] ?></h3>                    
                         <div class="description">
-                            <p>
-                                <?= $row['slide_subtitle'] ?>
-                            </p> 
+
+                            <?= $row['slide_subtitle'] ?>
+
                         </div>                   
 
                         <?php
                         $delete = array(
                             'type' => "button",
-                            'class' => "btn btn-danger btn-xs",
+                            'class' => "btn btn-danger",
                             'data-id' => "2",
                             'data-title' => "ลบสไลด์",
                             'data-info' => $row['slide_title'],
@@ -64,7 +91,7 @@
                         );
                         $cancle = array(
                             'type' => "button",
-                            'class' => "btn btn-warning btn-xs",
+                            'class' => "btn btn-warning",
                             'data-id' => "3",
                             'data-title' => "ยกเลิกสไลด์",
                             'data-info' => $row['slide_title'],
@@ -74,7 +101,7 @@
                         );
                         $active = array(
                             'type' => "button",
-                            'class' => "btn btn-success btn-xs",
+                            'class' => "btn btn-success",
                             'data-id' => "4",
                             'data-title' => "ใช้งานสไลด์",
                             'data-info' => $row['slide_title'],
@@ -83,7 +110,7 @@
                             'data-href' => 'Slides/active/' . $row['slide_id'],
                         );
                         echo '<p class="text-center">';
-                        echo anchor('Slides/edit/' . $row['slide_id'], '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', 'type="button" class="btn btn-info btn-xs"') . '&nbsp;&nbsp';
+                        echo anchor('Slides/edit/' . $row['slide_id'], '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', 'type="button" class="btn btn-info"') . '&nbsp;&nbsp';
                         if ($row['slide_status'] == 'active') {
                             echo anchor('#', '<i class="fa fa-minus fa-lg"></i>&nbsp;ยกเลิก', $cancle);
                         } else {
@@ -91,10 +118,23 @@
                             echo anchor('#', '<i class="fa fa-trash-o fa-lg"></i>&nbsp;ลบ', $delete);
                         }
                         echo '</p>';
-                        ?>                  
+                        ?>
+                        <hr>
+                        <div>
+                            <p class="text-muted">
+                                <small>
+                                    <?= $update ?>
+                                </small>                                
+                                <br>
+                                <small>
+                                    <?= $create ?>
+                                </small>                                
+                            </p>
+                        </div>
                     </div>
+
                 </div>
-            </div>
+            </div>        
             <?php
         }
     }

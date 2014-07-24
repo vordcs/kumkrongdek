@@ -49,23 +49,29 @@
 
 <script>
     $(document).ready(function() {
-        $(".fancybox").fancybox();
+        $(".fancybox").fancybox({
+            openEffect: 'none',
+            closeEffect: 'none'
+        });
         //<![CDATA[
-        bkLib.onDomLoaded(function() {
+//        bkLib.onDomLoaded(function() {
 //            new nicEditor().panelInstance('area1');
-            new nicEditor({fullPanel: true}).panelInstance('content');
+//            new nicEditor({fullPanel: true}).panelInstance('content');
 //            new nicEditor({iconsPath: '../nicEditorIcons.gif'}).panelInstance('area3');
 //            new nicEditor({buttonList: ['fontSize', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'html', 'image']}).panelInstance('area4');
 //            new nicEditor({maxHeight: 100}).panelInstance('content');
-        });
+//        });
         $('.datepicker').datepicker({
             language: 'th-th',
 //            language: 'en',
-            format: 'yyyy-mm-d',
+            format: 'yyyy-m-d',
         });
         $('.date-search').datepicker({
             language: 'th-th',
+//            language: 'en',
             format: 'MM yyyy',
+            viewMode: "months",
+            minViewMode: "months",
         });
     });
     $('#modal_content').on('show.bs.modal', function(e) {

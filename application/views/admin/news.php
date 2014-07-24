@@ -47,6 +47,7 @@
             return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
         }
     }
+    
     ?>
 
     <?php if (count($news) <= 0) { ?>

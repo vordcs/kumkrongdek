@@ -22,11 +22,11 @@ Class m_slides extends CI_Model {
         return $itemp;
     }
 
-    function get_slides_by_status($status) {
+    function get_slides_by_status($status) {        
         $this->db->select('*');
         $this->db->from('slides');
         $this->db->join('images', 'image_id = slide_img');
-        $this->db->where('slide_status', 2);
+        $this->db->where('slide_status', $status);
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
@@ -80,7 +80,7 @@ Class m_slides extends CI_Model {
 
         $f_img = array(
             'name' => 'slide_img',
-            'class' => 'form-control'
+//            'class' => 'form-control'
         );
 
         $f_status = array(
@@ -114,9 +114,6 @@ Class m_slides extends CI_Model {
             'placeholder' => 'ชื่อเรื่องรอง',
             'value' => (set_value('slide_subtitle') == NULL) ? $data ['slide_subtitle'] : set_value('slide_subtitle'));
 
-        $f_img = array(
-            'name' => 'slide_img',
-            'class' => 'form-control');
 
         $f_link = array(
             'name' => 'slide_link',
@@ -126,7 +123,8 @@ Class m_slides extends CI_Model {
 
         $f_img = array(
             'name' => 'slide_img',
-            'class' => 'form-control');
+//            'class' => 'form-control'
+            );
         $f_status = array(
             '2' => 'ใช้งาน',
             '1' => 'ไม่ใช้งาน',

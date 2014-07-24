@@ -13,6 +13,21 @@ Class m_activitys extends CI_Model {
         return date('Y-m-d');
     }
 
+    function setDateFomat($input_date) {
+        $d = new DateTime($input_date);
+        $date = $d->format('Y-m-d');
+        return $date;
+    }
+
+    function getMonthFromTH($str_date_th) {
+        $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+        for ($i = 0; $i < count($month_th); $i++) {
+            if ($month_th[$i] == $str_date_th) {
+                return $i;
+            }
+        }
+    }
+
     public function get_activitys($id = NULL) {
         $this->db->select('*');
         $this->db->from('activitys');
@@ -29,12 +44,25 @@ Class m_activitys extends CI_Model {
         $this->db->select();
         $this->db->from('activitys_has_images');
         $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
-        if($activity_id!=NULL){
+        if ($activity_id != NULL) {
             $this->db->where('activity_id', $activity_id);
-        }        
+        }
         $query = $this->db->get();
         $data = $query->result_array();
         return $data;
+    }
+
+    public function get_activitys_by_date($str_th_date) {
+        $date = explode(' ', $str_th_date);
+        $month = $this->getMonthFromTH($date[0]);
+
+        $this->db->select('*');
+        $this->db->from('activitys');
+        $this->db->join('images', 'image_id = activity_img');
+        $this->db->where('MONTH(publish_date)', $month);
+        $rs = $this->db->get();
+        $itemp = $rs->result_array();
+        return $itemp;
     }
 
     public function insert_activity($f_data) {
@@ -51,7 +79,7 @@ Class m_activitys extends CI_Model {
         $this->delect_img_in_database($activity_id);
         //Insert new images in temp
         $this->insert_img_to_database($activity_id);
-        
+
 //        $this->clear_upload_temp();
     }
 
@@ -131,7 +159,7 @@ Class m_activitys extends CI_Model {
 
     public function set_form_edit($data) {
         //Prepare folder temp
-        if ($this->form_validation->error_string() == NULL && $this->form_validation->run() != TRUE) {            
+        if ($this->form_validation->error_string() == NULL && $this->form_validation->run() != TRUE) {
             $this->load_img_to_temp($data['activity_id']);
         }
         $f_activity_title = array(
@@ -187,20 +215,20 @@ Class m_activitys extends CI_Model {
     }
 
     public function set_form_search() {
-         $f_search = array(
+        $f_search = array(
             'name' => 'date_search',
             'class' => 'form-control date-search',
-             'placeholder' => 'ค้นหา...',
+            'placeholder' => 'ค้นหา...',
 //            'value' => set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
         );
         $form_search = array(
-             'form' => form_open('Activitys_ad/search_by_date', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'form' => form_open('Activitys_ad/search', array('class' => 'form-horizontal', 'id' => 'form_search')),
             'date' => form_input($f_search),
         );
-        
+
         return $form_search;
     }
-    
+
     public function validation_add() {
         $this->form_validation->set_rules('activity_title', 'ชื่อเรื่อง', 'required|trim|xss_clean');
         $this->form_validation->set_rules('activity_subtitle', 'ชื่อเรื่อง', 'required|trim|xss_clean');
@@ -251,7 +279,7 @@ Class m_activitys extends CI_Model {
             'activity_type' => $this->input->post('activity_type'),
             'activity_img' => $img_id,
             'activity_highlight' => $this->input->post('activity_highlight'),
-            'publish_date' => $this->getDateToday(),
+            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
             'create_date' => $this->getDatetimeNow(),
         );
         return $page_data;

@@ -24,22 +24,11 @@ class Slides extends CI_Controller {
         if ($this->input->post('status') == null || $this->input->post('status') == 0) {
             $data['slides'] = $this->m_slides->get_slides();
         } else {
-            $data['slides'] = $this->m_slides->get_slides_by_status($this->input->post('status'));
+            $data['slides'] = $this->m_slides->get_slides_by_status((int)$this->input->post('status'));
         }
-        $this->m_template->set_Debug($this->input->post('status'));
-        $this->m_template->set_Title('สไลด์');
-        $this->m_template->set_Content('admin/slides.php', $data);
-        $this->m_template->showTemplateAdmin();
-    }
-
-    public function search() {
-        if ($this->input->post('status') == null || $this->input->post('status') == 0) {
-            $data['slides'] = $this->m_slides->get_slides();
-        } else {
-            $data['slides'] = $this->m_slides->get_slides_by_status($this->input->post('status'));
-        }
-//        $this->m_template->set_Debug($data);
-        $this->m_template->set_Title('สไลด์');
+        $status=array('ทั้งหมด','ไม่ใช้งาน','ใช้งาน');
+//        $this->m_template->set_Debug($this->input->post('status'));
+        $this->m_template->set_Title('สไลด์ : '.$status[(int)$this->input->post('status')]);
         $this->m_template->set_Content('admin/slides.php', $data);
         $this->m_template->showTemplateAdmin();
     }
