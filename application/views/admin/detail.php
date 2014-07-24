@@ -63,15 +63,7 @@
                         ?>
                     </p>
                 </div> 
-                <div class="row" hidden="">
-                    <div class="ui segment">
-                        <img class="ui small left floated image" data-src="holder.js/50x50/sky" width="100%">
-                        <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
-                        <img class="ui small right floated image" data-src="holder.js/50x50/vine">
-                        <p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatis in.</p>
-                        <p>Eu quo homero blandit intellegebat. Incorrupte consequuntur mei id. Mei ut facer dolores adolescens, no illum aperiri quo, usu odio brute at. Qui te porro electram, ea dico facete utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi convenire mnesarchum eu per, quas minimum postulant per id.</p>
-                    </div>
-                </div>
+
                 <div class="row"> 
                     <div>
                         <!--<img class="ui small left floated image" data-src="holder.js/100x100/sky" width="100px" height="100px">-->                        
@@ -86,17 +78,19 @@
                             <?= $content ?>                                 
                         </p>  
                     </div>
-                </div>   
-                <div class="row" id="gallery" style="margin-top: 3%;" > 
-                    <h3><strong>รูปภาพอื่นๆ</strong></h3>
-                    <?php
-                    if (count($images) > 0) {
+                </div>  
+                <?php
+                if (count($images) > 0) {
+                    ?>
+                    <div class="row" id="gallery" style="margin-top: 3%;" > 
+                        <h3><strong>รูปภาพอื่นๆ</strong></h3>
+                        <?php
                         foreach ($images as $row_img) {
                             echo '<a class="fancybox" rel="gallery' . $id . '" href="' . img_url() . $row_img['image_full'] . '"><img src="' . img_url() . $row_img['image_full'] . '"alt="..." width="100%" ></a>';
                         }
-                    }
-                    ?>  
-                </div>
+                        ?>  
+                    </div>
+                <?php } ?>
                 <div class="row" style="padding-top: 2%;">
                     <div class="pull-right">
                         <?php

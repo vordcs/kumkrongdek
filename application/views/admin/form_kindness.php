@@ -16,6 +16,15 @@
             <?php echo form_error('kindness_title', '<font color="error">', '</font>'); ?>
         </div>
     </div> 
+    <div class="form-group <?= (form_error('kindness_subtitle')) ? 'has-error' : '' ?>">
+        <label class="col-sm-3 control-label">ชื่อเรื่องรอง</label>
+        <div class="col-sm-5">
+            <?php echo $form['kindness_subtitle']; ?>                 
+        </div>
+        <div class="col-sm-4" id="error">                
+            <?php echo form_error('kindness_title', '<font color="error">', '</font>'); ?>
+        </div>
+    </div> 
     <div class="form-group <?= (form_error('kindness_content')) ? 'has-error' : '' ?>">
         <label class="col-sm-3 control-label">เนื่อหา</label>
         <div class="col-sm-6">
