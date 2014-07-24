@@ -13,6 +13,21 @@ Class m_kindness extends CI_Model {
         return date('Y-m-d');
     }
 
+    function setDateFomat($input_date) {
+        $d = new DateTime($input_date);
+        $date = $d->format('Y-m-d');
+        return $date;
+    }
+
+    function monthTHtoDB($str_date_th) {
+        $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+        for ($i = 0; $i < count($month_th); $i++) {
+            if ($month_th[$i] == $str_date_th) {
+                return $i;
+            }
+        }
+    }
+
     public function get_kindness($id = NULL) {
         $this->db->select('*');
         $this->db->from('kindness');
@@ -39,7 +54,7 @@ Class m_kindness extends CI_Model {
         $img_id = $this->get_image_id($id);
         $this->deleteImage($img_id);
 
-        //delete slide
+        //delete kindness
         $this->db->where('kindness_id', $id);
         $this->db->delete('kindness');
 
@@ -50,17 +65,16 @@ Class m_kindness extends CI_Model {
 
     public function search_kindness($status, $str_th_date = NULL) {
 
-
         $this->db->select('*');
-        $this->db->from('activitys');
-        $this->db->join('images', 'image_id = activity_img');
+        $this->db->from('kindness');
+        $this->db->join('images', 'image_id = kindness_img');
         if ($str_th_date != NULL) {
             $date = explode(' ', $str_th_date);
-            $month = $this->m_datetimeTH->monthTHtoDB($date[0]);
+            $month = $this->monthTHtoDB($date[0]);
             $this->db->where('MONTH(publish_date)', $month);
         }
         if ($status != 0) {
-            $this->db->where('slide_status', $status);
+            $this->db->where('kindness_status', $status);
         }
         $rs = $this->db->get();
         $itemp = $rs->result_array();
@@ -91,14 +105,10 @@ Class m_kindness extends CI_Model {
 //            'class' => 'form-control',
         );
 
-
-
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
-            'id' => 'publish_date',
-            'placeholder' => '',
-            'value' => set_value('publish_date')
+            'value' => (set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
         );
 //         $f_ = array(
 //            'name' => '',
@@ -157,15 +167,13 @@ Class m_kindness extends CI_Model {
 //            'class' => 'form-control',
             'value' => (set_value('kindness_img') == NULL) ? $data['kindness_img'] : set_value('kindness_img')
         );
-
-
+        
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
-            'id' => 'publish_date',
-            'placeholder' => '',
             'value' => (set_value('publish_date') == NULL) ? $data['publish_date'] : set_value('publish_date')
         );
+
         $f_highlight = array(
             '0' => 'ทั่วไป',
             '1' => 'เด่น',
@@ -188,7 +196,7 @@ Class m_kindness extends CI_Model {
         $f_date_search = array(
             'name' => 'date_search',
             'class' => 'form-control date-search',
-            'placeholder' => 'ค้นหา...',
+            'placeholder' => 'เดือน ปี',
             'value' => (set_value('publish_date') == NULL) ? $this->input->post('date_search') : set_value('publish_date')
         );
         $f_status_search = array(
@@ -198,20 +206,12 @@ Class m_kindness extends CI_Model {
         );
 
         $form_search = array(
-            'form' => form_open('Activitys_ad/search', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'form' => form_open('Kindness_ad/search', array('class' => 'form-horizontal', 'id' => 'form_search')),
             'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
             'date' => form_input($f_date_search),
         );
 
         return $form_search;
-
-
-        //         $f_ = array(
-//            'name' => '',
-//            'class' => 'form-control',
-//            'placeholder' => '',
-//            'value' => set_value('')
-//        );
     }
 
     public function validation_add() {
@@ -242,7 +242,7 @@ Class m_kindness extends CI_Model {
             'kindness_title' => $this->input->post('kindness_title'),
             'kindness_subtitle' => $this->input->post('kindness_subtitle'),
             'kindness_content' => $this->input->post('kindness_content'),
-            'publish_date' => $this->input->post('publish_date'),
+            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
             'kindness_img' => $img_id,
             'kindness_highlight' => $this->input->post('kindness_highlight'),
             'create_date' => $this->getDatetimeNow(),
@@ -257,8 +257,8 @@ Class m_kindness extends CI_Model {
             'kindness_title' => $this->input->post('kindness_title'),
             'kindness_subtitle' => $this->input->post('kindness_subtitle'),
             'kindness_content' => $this->input->post('kindness_content'),
-            'kindness_status' => $this->input->post('kindness_status'),
             'kindness_highlight' => $this->input->post('kindness_highlight'),
+            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
             'update_date' => $this->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );

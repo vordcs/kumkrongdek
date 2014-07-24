@@ -5,6 +5,12 @@ if (!defined('BASEPATH'))
 
 Class m_datetime extends CI_Model {
 
+    function setDateFomatToDB($input_date) {
+        $d = new DateTime($input_date);
+        $date = $d->format('Y-m-d');
+        return $date;
+    }
+
     public function monthTHtoDB($str_date_th) {
         $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
         for ($i = 0; $i < count($month_th); $i++) {

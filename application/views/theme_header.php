@@ -24,6 +24,15 @@
         
         <?php echo js('jquery.easy-ticker.min.js'); ?>  
 
+           <!--fancybox-->
+        <?php echo css('jquery.fancybox.css'); ?>
+        <?php echo js('jquery.fancybox.pack.js'); ?>
+
+        <!--semantic-->
+        <?php echo css('semantic.css'); ?>
+        <?php echo js('semantic.min.js'); ?>  
+        
+        
     </head>
     <body>
         <?php echo js('customize-js.js'); ?> 

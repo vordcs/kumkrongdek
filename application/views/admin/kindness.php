@@ -8,32 +8,32 @@
 <div class="row"> 
     <?= anchor('Kindness_ad/add', '<i class="fa fa-plus fa-lg"></i>&nbsp;เพิ่มผู้ใหญ่ใจดี', 'type="button" class="btn btn-success pull-right btn-lg"') ?>
 </div>
-<div class="row">
 
-    <div class="col-sm-4 col-sm-offset-4 col-xs-12">         
-        <!--<form role="form" class="form-horizontal center-block" action="">-->  
-        <?php echo $form['form']; ?>
-        <div class="row">            
-            <?= $form['status'] ?>
-        </div>
-        <div class="row">             
-            <div class="input-group custom-search-form">
-                <input type="text" class="form-control date-search" placeholder="Search...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default">
-                        <i class="fa fa-calendar fa-lg"></i>
-                    </button>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 col-xs-12" style="padding: 3%">  
+        <div class="text-center">        
+            <?php echo $form['form']; ?>
+            <div class="form-group">            
+                <?= $form['status'] ?>
+            </div>     
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
                     <?= $form['date'] ?>
-                </span>
-               
+                </div>
             </div>
+
+            <button type="submit" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
+
+            <?php echo form_close() ?>
         </div>
-    </div>
-    <?php echo form_close() ?>
+    </div> 
 </div>
 
-<div class="row content">
+<div class="row">
     <?php
+
     function DateThai($strDate) {
         if ($strDate == NULL) {
             return '-';
@@ -143,14 +143,14 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
+                    <div class="row">                        
                         <div class="col-xs-12 col-md-4">
-                            <a class="pull-left" href="#">
+                            <a class="text-center" href="#">
                                 <?= img($img, array('class' => 'img-responsive', 'width' => '100%')); ?>
                             </a>
                         </div>  
                         <div class="col-xs-12 col-md-8">
-                            <div class="row">
+                            <div class="row">                                
                                 <h3>
                                     <?= $title ?>
                                     <div class="text-muted"><small><?= $date ?></small></div>
@@ -160,16 +160,12 @@
                                         <?= $subtitle ?> 
                                         <?= anchor($controller . '/view_more/' . $id, 'อ่านเพิ่ม... ', $view_more) ?>                                           
                                     </p>  
-                                </div> 
-                            </div>
-                            <div class="row" style="margin: 0px;padding: 0px">
-
-
-                            </div>
-
+                                </div>    
+                            </div>                            
                         </div>
                     </div> 
-                </div>
+                </div> 
+
                 <div class="panel-footer">
                     <div class="row">
                         <div class="pull-right">
@@ -184,4 +180,5 @@
             </div>
         </div>
     <?php } ?>
+
 </div>

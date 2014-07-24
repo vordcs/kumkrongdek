@@ -67,6 +67,31 @@ class Kindness_ad extends CI_Controller {
         redirect('Kindness_ad');
     }
 
+    public function search() {
+
+        $data = array();
+
+        $status = (int) $this->input->post('status');
+        $date = $this->input->post('date_search');
+
+        if ($status == 0 && $date == NULL) {
+            redirect('Kindness_ad');
+        }
+        $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+        if ($date == NULL) {
+            $title = $s[$status];
+        } else {
+            $title = $date;
+        };
+
+        $data['kindness'] = $this->m_kindness->search_kindness($status, $date);
+        $data['form'] = $this->m_kindness->set_form_search();
+
+        $this->m_template->set_Title('ผลการค้นหา : ' . $title);
+        $this->m_template->set_Content('admin/kindness.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
     public function unactive($kindness_id) {
         $data = array(
             'kindness_status' => '1',
