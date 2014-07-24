@@ -164,7 +164,61 @@
 }
 
 /*end activity*/
+.name{
+    font-size: 1.58em;
+}
+.description {
+    font-size: 1.18em;
+    border-top: 1px solid #cdcdcd;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+.description p, .product-info .description ul {
+    margin-bottom: 10px;
+}
+.description ul {
+    font-size: 1.4em;
+}
+.description ul li {
+    /*background: url("_ui/theme-default/images/backgrounds/bg_bullet.png") no-repeat scroll 0 6px rgba(0, 0, 0, 0);*/
+    line-height: 1.22857;
+    padding-left: 15px;
+}
+.description ul li a:hover {
+    background: none repeat rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #333333;
+}
 
+.icon{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+dl {
+    font-size: 0.9em;
+    line-height: 1.43;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+dl dt {
+    float: left;
+    width: 145px;
+}
+.des-ul ul{
+    margin: 0px ! important;
+    padding-left: 5px ! important;
+}
+#pdf {
+    height: 700px;	
+}
+
+#pdf p {
+    padding: 1em;
+}
+
+#pdf object {
+    display: block;
+    border: solid 1px #666;
+}
 
 
 /* start title */
@@ -342,6 +396,62 @@ a, a:visited,a:hover,a:active {
     padding-top: 20px;
     padding-bottom: 10px;
 }
+
+#gallery  {
+   /* Prevent vertical gaps */
+   line-height: 0;   
+   -webkit-column-count: 4;
+   -webkit-column-gap:   0px;
+   -moz-column-count:    4;
+   -moz-column-gap:      0px;
+   column-count:         4;
+   column-gap:           0px;
+   padding-bottom: 10%;
+   
+}
+
+#gallery a img {
+  /* Just in case there are inline attributes */
+  /*width: 100% !important;*/
+  background-color: #57c5a0;
+  display: block;
+  height: auto !important;
+  padding: 1%;
+}
+/*itemsDesktop1199*/
+@media (max-width: 1200px) {
+  #gallery {
+  -moz-column-count:    4;
+  -webkit-column-count: 4;
+  column-count:         4;
+  }
+}
+/*itemsDesktopSmall 973*/
+@media (max-width: 1000px) {
+  #gallery {
+  -moz-column-count:    3;
+  -webkit-column-count: 3;
+  column-count:         3;
+  }
+}
+/*itemsTablet 768*/
+@media (max-width: 800px) {
+  #gallery {
+  -moz-column-count:    2;
+  -webkit-column-count: 2;
+  column-count:         2;
+  }
+}
+/*itemsMobile*/
+@media (max-width: 400px) {
+  #gallery {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+}
+
+/*end for Gallery*/
 /*test*/
 /**********************/
 .bs-docs-sidebar.affix{

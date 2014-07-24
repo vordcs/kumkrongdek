@@ -4,7 +4,7 @@
         $("#menu_side").on("activate.bs.scrollspy", function() {
             var currentItem = $(".nav li.active > a").text();
             $("#info").empty().html("Currently " + currentItem);
-        })
+        });
 
     });
 </script>
@@ -34,7 +34,7 @@
                         <li><a href="#t1" class="list-group-item">เด็กที่ได้รับการสงเคราะห์</a></li>
                         <li><a href="#t2" class="list-group-item">การนำเด็กเข้ารับการสงเคราะห์</a></li>
                     </ul>
-                    <h4 id="info" class="text-info">Currently you are viewing - Section 1</h4>
+                    <!--<h4 id="info" class="text-info">Currently you are viewing - Section 1</h4>-->
                 </div>
 
             </div>
