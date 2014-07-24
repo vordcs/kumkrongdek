@@ -44,11 +44,11 @@
     -o-transition:0.5s all;
 }
 .item a.btn{
-    font-size: 1.2em;
-    background: #3CC395;
+    font-size: em;
+    /*background: #3CC395;*/
     display: inline-block;
     padding: 10px 20px;
-    color: #ffffff;
+    /*color: #ffffff;*/
 }
 /*---//--*/
 /* Styling Next and Prev buttons */

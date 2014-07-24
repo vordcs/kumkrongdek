@@ -136,7 +136,7 @@
 .ticker li {
     border-bottom: 1px solid #ccc;
     margin: 0;
-    padding: 20px;
+    padding: 20px 20px 40px 20px;
 }
 .ticker li.odd {
     background: none repeat scroll 0 0 #fafafa;
@@ -157,6 +157,7 @@
     margin: 0;
     font-size: 1.2548em;
     font-weight: bold;
+    float:right;
 }
 .ticker p {
     font-size: 0.8em;

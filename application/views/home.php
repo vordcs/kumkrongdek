@@ -90,111 +90,118 @@ function DateThai($strDate) {
                     <?php } else {
                         ?>
                         <div class="item">
+                        <div class="image">
                             <img data-src="holder.js/900x400/auto/vine" class="img-responsive"  alt="Generic placeholder thumbnail">
-                        </div>   
-                        <?php
-                    }
-                }
-                ?> 
-
-            </div>           
-        </div>
-        <script>
-            $(document).ready(function() {
-                $("#owl-demo").owlCarousel({
-                    autoPlay: 3000, //Set AutoPlay to 3 seconds
-
-                    items: 5,
-                    itemsDesktop: [1199, 4],
-                    itemsDesktopSmall: [979, 4]
-                });
-
-            });
-        </script>
-    </section>
-
-    <section id="news">
-
-    </section>
-
-    <section id="activety">
-        <div class="title_bg">
-            <div class="container">
-                <div class="title_top">
-                    <h2>กิจกรรม</h2>
-                </div>
-            </div>
-        </div>  
-        <div class="container">
-            <div class="row">
-                <?php
-                foreach ($activity_types as $type) {
-                    if ($type['activity_type_id'] != 0) {
-                        $type_id = $type['activity_type_id'];
-                        $type_name = $type['activity_type_name'];
-                        ?>
-                        <div class="col-sm-6">
-                            <h2><?= $type_name ?></h2>
-                            <div class="ticker">
-                                <ul>
-                                    <?php
-                                    foreach ($activitys as $row) {
-                                        $controller = "Activitys";
-                                        $id = $row['activity_id'];
-                                        $title = $row['activity_title'];
-                                        $subtitle = $row['activity_subtitle'];
-                                        $img = $row['image_small'];
-                                        $date = DateThai($row['publish_date']);
-                                        if ($row['activity_type'] == $type_id && $i != 5) {
-                                            ?>
-
-                                            <li>
-                                                <!--<img data-src="holder.js/100x100/sky">-->
-                                                <?= img($img, array('class' => 'img-responsive')); ?>
-                                                <h3><?= $title ?></h3>
-                                                <p><?= $subtitle ?></p>
-                                                <a href="#">ดู..</a>
-                                            </li>                                         
-                                            <?php
-                                            $i++;
-                                        }
-                                    }
-                                    ?>  
-                                </ul>
+                        </div>
+                        <div class="content">
+                            <div class="name">Cute Dog</div>                               
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-link">
+                                    100 votes
+                                </a>
                             </div>
                         </div>
+                        </div>
 
-                        <?php
-                    }
+                            
+                    <?php
                 }
-                ?>
+            }
+            ?> 
+
+        </div>           
+</div>
+<script>
+    $(document).ready(function() {
+        $("#owl-demo").owlCarousel({
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+            items: 5,
+            itemsDesktop: [1199, 4],
+            itemsDesktopSmall: [979, 4]
+        });
+
+    });
+</script>
+</section>
+
+<section id="news">
+
+</section>
+
+<section id="activety">
+    <div class="title_bg">
+        <div class="container">
+            <div class="title_top">
+                <h2>กิจกรรม</h2>
             </div>
-            <div class="row">
-                <div class="pull-right">               
-                    <a href="#" class="btn btn-link"><h3>ดูกิจกรรมทั้งหมด...</h3></a>
-                </div>
-            </div>
-        </div>      
-    </section>
-    <section id="kindness">
-
-    </section>
-
-
-
-    <section id="test">
-        <div class="title_bg">
-            <div class="container">
-                <div class="title_top">
-                    <h2>เกี่ยวกับเรา</h2>
-                </div>
-            </div>
-        </div>  
-        <div id="content" class="container">
-
         </div>
+    </div>  
+    <div class="container">
+        <div class="row">
+            <?php
+            foreach ($activity_types as $type) {
+                if ($type['activity_type_id'] != 0) {
+                    $type_id = $type['activity_type_id'];
+                    $type_name = $type['activity_type_name'];
+                    ?>
+                    <div class="col-sm-6">
+                        <h2><?= $type_name ?></h2>
+                        <div class="ticker">
+                            <ul>
+                                <?php
+                                foreach ($activitys as $row) {
+                                    $controller = "Activitys";
+                                    $id = $row['activity_id'];
+                                    $title = $row['activity_title'];
+                                    $subtitle = $row['activity_subtitle'];
+                                    $img = $row['image_small'];
+                                    $date = DateThai($row['publish_date']);
+                                    if ($row['activity_type'] == $type_id && $i != 5) {
+                                        ?>
 
-    </section>
+                                        <li>
+                                            <!--<img data-src="holder.js/100x100/sky">-->
+                                            <?= img($img, array('class' => 'img-responsive')); ?>
+                                            <h3><?= $title ?></h3>
+                                            <p><?= $subtitle ?></p>
+                                            <a href="#">ดู..</a>
+                                        </li>                                         
+                                        <?php
+                                        $i++;
+                                    }
+                                }
+                                ?>  
+                            </ul>
+                        </div>
+                    </div>
+
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        <div class="row">
+            <div class="pull-right">               
+                <a href="#" class="btn btn-link"><h3>ดูกิจกรรมทั้งหมด...</h3></a>
+            </div>
+        </div>
+    </div>      
+</section>
+<section id="kindness">
+</section>
+
+
+
+<section id="test">
+    <div class="title_bg">
+        <div class="container">
+            <div class="title_top">
+                <h2>เกี่ยวกับเรา</h2>
+            </div>
+        </div>
+    </div>
+</section>
 
 </div>
 <script>
@@ -206,7 +213,7 @@ function DateThai($strDate) {
             paginationSpeed: 1000,
             goToFirstSpeed: 2000,
             singleItem: true,
-//            autoHeight: true,
+            //            autoHeight: true,
             transitionStyle: "fade"
         });
         $('.ticker').easyTicker({
