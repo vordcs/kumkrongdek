@@ -99,7 +99,7 @@ Class m_news extends CI_Model {
         //delete file in folder
         $file_id = $this->get_file_id($id);
         $this->deleteFile($file_id);
-        
+
         //delete
         $this->db->where('news_id', $id);
         $this->db->delete('news');
@@ -172,7 +172,7 @@ Class m_news extends CI_Model {
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
             'placeholder' => '',
-            'value' => (set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
+            'value' => set_value('publish_date')
         );
 
         $f_highlight = array(
@@ -259,10 +259,32 @@ Class m_news extends CI_Model {
             'news_status' => form_dropdown('news_status', $f_status, (set_value('news_status') == NULL) ? $data['news_status'] : set_value('news_status'), 'class="form-control"'),
             'news_highlight' => form_dropdown('news_highlight', $f_highlight, (set_value('news_highlight') == NULL) ? $data['news_highlight'] : set_value('news_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
-            'images' => NULL,
+            'image' => $data['image_small'],
         );
 
         return $form_edit;
+    }
+
+    public function set_form_search() {
+        $f_date_search = array(
+            'name' => 'date_search',
+            'class' => 'form-control date-search',
+            'placeholder' => 'เดือน ปี',
+            'value' => (set_value('publish_date') == NULL) ? $this->input->post('date_search') : set_value('publish_date')
+        );
+        $f_status_search = array(
+            '0' => 'ทั้งหมด',
+            '1' => 'ไม่ใช้งาน',
+            '2' => 'ใช้งาน',
+        );
+
+        $form_search = array(
+            'form' => form_open('News_ad/', array('class' => 'form-horizontal', 'id' => 'form_search', 'name' => 'form_search')),
+            'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
+            'date' => form_input($f_date_search),
+        );
+
+        return $form_search;
     }
 
     public function validation_add() {
@@ -298,8 +320,8 @@ Class m_news extends CI_Model {
             'news_type' => $this->input->post('news_type'),
             'news_img' => $img_id,
             'news_highlight' => $this->input->post('news_highlight'),
-            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
-            'create_date' => $this->getDatetimeNow(),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'create_date' => $this->m_datetime->getDatetimeNow(),
         );
 
         return $page_data;
@@ -311,8 +333,8 @@ Class m_news extends CI_Model {
             'news_subtitle' => $this->input->post('news_subtitle'),
             'news_content' => $this->input->post('news_content'),
             'news_highlight' => $this->input->post('news_highlight'),
-            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
-            'update_date' => $this->getDatetimeNow(),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'update_date' => $this->m_datetime->getDatetimeNow(),
         );
 
         if (!empty($_FILES['news_img']['name'])) {
@@ -343,7 +365,7 @@ Class m_news extends CI_Model {
         return $row['image_id'];
     }
 
-      function get_file_id($news_id) {
+    function get_file_id($news_id) {
         $this->db->select('file_id');
         $this->db->from('news_has_files');
 //        $this->db->join('files', 'file_id = journal_file');
@@ -353,7 +375,7 @@ Class m_news extends CI_Model {
 
         return $row['file_id'];
     }
-    
+
     public function check_news_file($news_id) {
         $this->db->select('file_id');
         $this->db->from('news');

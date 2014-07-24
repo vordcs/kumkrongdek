@@ -13,6 +13,7 @@ class Kindness_ad extends CI_Controller {
 
         $data['kindness'] = $this->m_kindness->get_kindness();
         $data['form'] = $this->m_kindness->set_form_search();
+        $data['strtitle'] = NULL;
 //        $this->m_template->set_Debug($data['form']);
         $this->m_template->set_Title('ผู้ใหญ่ใจดี');
         $this->m_template->set_Content('admin/kindness.php', $data);
@@ -23,10 +24,10 @@ class Kindness_ad extends CI_Controller {
         $data = array();
         if ($this->m_kindness->validation_add() == TRUE && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_kindness->get_post_form_add();
-            $this->m_template->set_Debug($form_data);
+//            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_kindness->insert_kindness($form_data);
-//            redirect('Kindness_ad');
+            redirect('Kindness_ad');
         }
 
 //        Load form add        
@@ -68,9 +69,7 @@ class Kindness_ad extends CI_Controller {
     }
 
     public function search() {
-
         $data = array();
-
         $status = (int) $this->input->post('status');
         $date = $this->input->post('date_search');
 
@@ -79,15 +78,17 @@ class Kindness_ad extends CI_Controller {
         }
         $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
         if ($date == NULL) {
-            $title = $s[$status];
+            $title = 'สถานะ  '. $s[$status];
         } else {
             $title = $date;
         };
 
+
         $data['kindness'] = $this->m_kindness->search_kindness($status, $date);
         $data['form'] = $this->m_kindness->set_form_search();
-
-        $this->m_template->set_Title('ผลการค้นหา : ' . $title);
+        $data['strtitle'] = 'ผลการค้นหา : ' . $title;
+//        $this->m_template->set_Debug($data);
+        $this->m_template->set_Title('ผู้ใหญ่ใจดี');
         $this->m_template->set_Content('admin/kindness.php', $data);
         $this->m_template->showTemplateAdmin();
     }

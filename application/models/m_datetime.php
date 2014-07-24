@@ -5,11 +5,20 @@ if (!defined('BASEPATH'))
 
 Class m_datetime extends CI_Model {
 
-    function setDateFomatToDB($input_date) {
+    function getDatetimeNow() {
+        return date('Y-m-d H:i:s');
+    }
+
+    function getDateToday() {
+        return date('Y-m-d');
+    }
+
+    function setDateFomat($input_date) {
         $d = new DateTime($input_date);
         $date = $d->format('Y-m-d');
         return $date;
     }
+    
 
     public function monthTHtoDB($str_date_th) {
         $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
@@ -17,6 +26,36 @@ Class m_datetime extends CI_Model {
             if ($month_th[$i] == $str_date_th) {
                 return $i;
             }
+        }
+    }
+
+    public function DateThai($strDate) {
+        $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $str = explode('-', $strDate);
+            $strYear = $str[0];
+            $strMonthThai = $month_th[(int) $str[1]];
+            $strDay = $str[2];
+            return "$strDay $strMonthThai $strYear";
+        }
+    }
+
+    public function DateTimeThai($strDate) {
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $date = new DateTime($strDate);
+            $strYear = date("Y", strtotime($strDate)) + 543;
+            $strMonth = date("n", strtotime($strDate));
+            $strDay = date("j", strtotime($strDate));
+            $strHour = date("H", strtotime($strDate));
+            $strMinute = date("i", strtotime($strDate));
+            $strSeconds = date("s", strtotime($strDate));
+            $strMonthCut = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+            $strMonthThai = $strMonthCut[$strMonth];
+            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
         }
     }
 

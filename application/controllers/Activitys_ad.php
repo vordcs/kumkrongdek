@@ -15,6 +15,8 @@ class Activitys_ad extends CI_Controller {
         $data['activitys'] = $this->m_activitys->get_activitys();
         $data['images_activity'] = $this->m_activitys->get_image_activity();
         $data['form'] = $this->m_activitys->set_form_search();
+        $data['strtitle'] = NULL;
+        
 //        $this->m_template->set_Debug($data['form']);
         $this->m_template->set_Title('กิจกรรม');
         $this->m_template->set_Content('admin/activitys.php', $data);
@@ -22,27 +24,34 @@ class Activitys_ad extends CI_Controller {
     }
 
     public function search() {
+
         $data = array();
-        $data['form'] = $this->m_activitys->set_form_search();
+
+        $status = (int) $this->input->post('status');
         $date = $this->input->post('date_search');
-        if ($date == NULL) {
+
+        if ($status == 0 && $date == NULL) {
             redirect('Activitys_ad');
         }
+        $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+        if ($date == NULL) {
+            $title = $s[$status];
+        } else {
+            $title = $date;
+        };
 
 //        $data['activitys'] = $this->m_activitys->get_activitys();
-        $data['activitys'] = $this->m_activitys->get_activitys_by_date($date);
+        $data['activitys'] = $this->m_activitys->search_activitys($status, $date);
         $data['images_activity'] = $this->m_activitys->get_image_activity();
-        
+        $data['form'] = $this->m_activitys->set_form_search();
+        $data['strtitle'] = 'ผลการค้นหา : ' . $title;
 //        $d['send']=$date_[0];
 //        $d['return']=$month;
-        
 //        $this->m_template->set_Debug($d);
-        $this->m_template->set_Title('ผลการค้นหา ​: '.$date);
+        $this->m_template->set_Title('กิจกรรม');
         $this->m_template->set_Content('admin/activitys.php', $data);
         $this->m_template->showTemplateAdmin();
     }
-
-   
 
     public function view_more($id) {
 

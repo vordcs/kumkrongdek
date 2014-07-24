@@ -52,17 +52,26 @@ Class m_activitys extends CI_Model {
         return $data;
     }
 
-    public function get_activitys_by_date($str_th_date) {
-        $date = explode(' ', $str_th_date);
-        $month = $this->getMonthFromTH($date[0]);
+    public function search_activitys($status, $str_th_date = NULL) {
+//        $date = explode(' ', $str_th_date);
+//        $month = $this->getMonthFromTH($date[0]);
 
         $this->db->select('*');
         $this->db->from('activitys');
         $this->db->join('images', 'image_id = activity_img');
-        $this->db->where('MONTH(publish_date)', $month);
+        if ($str_th_date != null) {
+            $date = explode(' ', $str_th_date);
+            $month = $this->m_datetime->monthTHtoDB($date[0]);
+            $this->db->where('MONTH(publish_date)', $month);
+        }
+        if ($status != 0) {
+            $this->db->where('activity_status', $status);
+        }
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
+
+
     }
 
     public function insert_activity($f_data) {
@@ -140,7 +149,7 @@ Class m_activitys extends CI_Model {
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
-            'value' => (set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
+            'value' => (set_value('publish_date') == NULL) ? $this->m_datetime->getDateToday() : set_value('publish_date')
         );
 
         $form_add = array(
@@ -215,15 +224,22 @@ Class m_activitys extends CI_Model {
     }
 
     public function set_form_search() {
-        $f_search = array(
+        $f_date_search = array(
             'name' => 'date_search',
             'class' => 'form-control date-search',
-            'placeholder' => 'ค้นหา...',
-//            'value' => set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
+            'placeholder' => 'เดือน ปี',
+            'value' => (set_value('publish_date') == NULL) ? $this->input->post('date_search') : set_value('publish_date')
         );
+        $f_status_search = array(
+            '0' => 'ทั้งหมด',
+            '1' => 'ไม่ใช้งาน',
+            '2' => 'ใช้งาน',
+        );
+
         $form_search = array(
             'form' => form_open('Activitys_ad/search', array('class' => 'form-horizontal', 'id' => 'form_search')),
-            'date' => form_input($f_search),
+            'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
+            'date' => form_input($f_date_search),
         );
 
         return $form_search;
@@ -280,7 +296,7 @@ Class m_activitys extends CI_Model {
             'activity_img' => $img_id,
             'activity_highlight' => $this->input->post('activity_highlight'),
             'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
-            'create_date' => $this->getDatetimeNow(),
+            'create_date' => $this->m_datetime->getDatetimeNow(),
         );
         return $page_data;
     }
@@ -293,7 +309,7 @@ Class m_activitys extends CI_Model {
             'activity_type' => $this->input->post('activity_type'),
             'activity_highlight' => $this->input->post('activity_highlight'),
             'publish_date' => $this->input->post('publish_date'),
-            'update_date' => $this->getDatetimeNow(),
+            'update_date' => $this->m_datetime->getDatetimeNow(),
         );
         //img if not NULL
         if (!empty($_FILES['activity_img']['name'])) {

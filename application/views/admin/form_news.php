@@ -45,7 +45,7 @@
     </div>
 
 
-    <div class="form-group <?= (form_error('news_img')) ? 'has-error' : 'news_img' ?>">
+    <div class="form-group <?= (form_error('news_img')) ? 'has-error' : 'news_img' ?>" id="img_add">
         <label class="col-sm-3 control-label">รูปภาพ</label>
         <div class="col-sm-4">
             <?php echo $form['news_img']; ?>                 
@@ -53,6 +53,16 @@
         <div class="col-sm-4" id="error">                
             <?php echo form_error('news_img', '<font color="error">', '</font>'); ?>
         </div>
+    </div>
+
+    <div class="form-group" id="img_show">
+        <label class="col-sm-3 control-label">รูปภาพ</label>        
+        <div class="col-sm-4">
+            <div class="pull-right">                     
+                <button type="button" class="btn btn-outline btn-circle btn-danger btn-xs" id="del_img" ><i class="fa fa-times fa-lg" ></i></button>                             
+            </div>
+            <?= img($form['image'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px')) ?>                
+        </div>  
     </div>
 
     <div class="form-group">
@@ -71,7 +81,7 @@
             </div>
         </div>        
     </div>
-<!--    <div class="form-group">
+    <div class="form-group">
         <label class="col-sm-3 control-label"></label>
         <div class="col-sm-6">
             <div class="col-sm-10 col-sm-offset-1" >
@@ -83,7 +93,7 @@
                 </button>
             </div>
         </div>
-    </div>-->
+    </div>
 
     <div class="form-group <?= (form_error('news_highlight')) ? 'has-error' : 'news_highlight' ?>">
         <label class="col-sm-3 control-label">ความสำคัญ</label>
@@ -116,65 +126,70 @@
 </div>
 
 <script language="javascript">
+    $(document).ready(function() {
+
+        var img = '<?= $form['image'] ?>';
+        if (img != '') {
+            $('#img_add').hide();
+        } else {
+            $('#img_show').hide(true);
+        }
+        $("#del_img").click(function() {
+//            alert("delete");
+            $('#img_add').show();
+            $('#img_show').hide(true);
+        });
+
+        bkLib.onDomLoaded(function() {
+            new nicEditor({fullPanel: true}).panelInstance('content');
+        });
+    });
     function addInputFile() {
+
         var num = $('#file .row').length;
-        var row = '';
-        row += '<div class="row" id="row_file" >';
-        row += '<div class="row" id="row_file" >';
-        row += '< div class = "col-sm-6" >';
-        row += '< input type = "text" class = "form-control" name = "txtTitle[]" >';
-        row += '< /div>';
-        row += '< div class = "col-sm-3" >';
-        row += '< input type = "file" name = "file[]" required >';
-        row += ' < /div>';
-        row += '< /div>';
 
-        $('#file').append(row);
+        var row = document.getElementById('file');
 
-//        var num = $('#file .row').length;
-//
-//        var row = document.getElementById('file');
-//
-//        //create div class = row        
-//        var row_file = document.createElement('div');
-//        row_file.setAttribute('style', 'padding-top:10px;');
-//        row_file.setAttribute('class', 'row');
-//        row_file.setAttribute('id', 'row_file' + num);
-//        row.appendChild(row_file);
-//        var div_row = document.getElementById('row_file' + num);
-//
-//        //create div class  col-sm-6 for input title
-//        var div_6 = document.createElement('div');
-//        div_6.setAttribute('class', 'col-sm-6');
-//        div_6.setAttribute('id', 'div_title' + num);
-//        div_row.appendChild(div_6);
-//        var div_title = document.getElementById('div_title' + num);
-//
-//        // Create input text
-//        var title = document.createElement('input');
-//        title.setAttribute('type', "text");
+        //create div class = row        
+        var row_file = document.createElement('div');
+        row_file.setAttribute('style', 'padding-top:10px;');
+        row_file.setAttribute('class', 'row');
+        row_file.setAttribute('id', 'row_file' + num);
+        row.appendChild(row_file);
+        var div_row = document.getElementById('row_file' + num);
+
+        //create div class  col-sm-6 for input title
+        var div_6 = document.createElement('div');
+        div_6.setAttribute('class', 'col-sm-6');
+        div_6.setAttribute('id', 'div_title' + num);
+        div_row.appendChild(div_6);
+        var div_title = document.getElementById('div_title' + num);
+
+        // Create input text
+        var title = document.createElement('input');
+        title.setAttribute('type', "text");
+        title.setAttribute('class', "form-control");
+        title.setAttribute('name', "txtTitle[]");
+        title.setAttribute('id', "txt" + num);
+        div_title.appendChild(title);
+
+        //create div class col-sm-3 foe input file
+        var div_3 = document.createElement('div');
+        div_3.setAttribute('class', 'col-sm-3');
+        div_3.setAttribute('id', 'div_file' + num);
+        div_3.setAttribute('required', 'true');
+        div_row.appendChild(div_3);
+        var div_file = document.getElementById('div_file' + num);
+
+
+        var file = document.createElement('input');
+        file.setAttribute('type', "file");
 //        title.setAttribute('class', "form-control");
-//        title.setAttribute('name', "txtTitle[]");        
-//        title.setAttribute('id', "txt" + num);
-//        div_title.appendChild(title);
-//
-//        //create div class col-sm-3 foe input file
-//        var div_3 = document.createElement('div');
-//        div_3.setAttribute('class', 'col-sm-3');
-//        div_3.setAttribute('id', 'div_file' + num);
-//        div_3.setAttribute('required', 'true');
-//        div_row.appendChild(div_3);
-//        var div_file = document.getElementById('div_file' + num);
-//
-//
-//        var file = document.createElement('input');
-//        file.setAttribute('type', "file");
-////        title.setAttribute('class', "form-control");
-//        file.setAttribute('name', "file[]");
-//        file.setAttribute('id', "file" + num);
-//        div_file.appendChild(file);
-//
-//
+        file.setAttribute('name', "file[]");
+        file.setAttribute('id', "file" + num);
+        div_file.appendChild(file);
+
+
 ////        alert('add :' + num);
     }
 

@@ -13,67 +13,39 @@
 <div class="row"> 
     <?= anchor('Activitys_ad/add', '<i class="fa fa-plus fa-lg"></i>&nbsp;เพิ่มกิจกรรม', 'type="button" class="btn btn-success pull-right btn-lg"') ?>
 </div>
-<div class="row content">
 
-    <div class="col-md-8 col-md-offset-2 col-xs-12">         
-        <!--<form role="form" class="form-horizontal center-block" action="">-->  
-        <?php echo $form['form']; ?>
-        <div class="form-group">
-            <label class="control-label col-sm-3" for="">ค้นหา</label>
-            <div class="col-sm-9">
-                <div class="input-group custom-search-form">
-                    <!--<input type="text" class="form-control date-search" placeholder="Search...">-->
-                    <?=$form['date']?>
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 col-xs-12" style="padding: 3%">  
+        <div class="text-center">        
+            <?php echo $form['form']; ?>
+            <div class="form-group">            
+                <?= $form['status'] ?>
+            </div>    
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
+                    <?= $form['date'] ?>
                 </div>
             </div>
-        </div>
-        <?php echo form_close() ?>
-    </div>
+            <button type="submit" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
 
+            <?php echo form_close() ?>
+        </div>
+    </div> 
 </div>
+<?php
+if ($strtitle != NULL) {
+    ?>
+    <div class="row">
+        <div class="lead">           
+            <?= $strtitle ?>           
+        </div>
+    </div> 
+    <?php
+}
+?>
 <div class="row content">
     <?php
-    $month_th = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-
-    function DateThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear";
-        }
-    }
-
-    function DateTimeThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
-        }
-    }
-
     if (count($activitys) <= 0) {
         ?>
         <div class="well">        
@@ -92,7 +64,7 @@
             $title = $row['activity_title'];
             $subtitle = $row['activity_subtitle'];
             $content = $row['activity_content'];
-            $date = DateThai($row['publish_date']);
+            $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['activity_status'];
             $images_ = array();
             if (count($images_activity) > 0) {
@@ -108,8 +80,8 @@
                     }
                 }
             }
-            $create = '  | สร้าง : ' . DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
-            $update = 'แก้ไข : ' . DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+            $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
             ?>
             <div class="col-md-10 col-md-offset-1 col-xs-12">                
                 <div class="panel panel-default">

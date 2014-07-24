@@ -10,45 +10,39 @@
 <div class="row"> 
     <?= anchor('News_ad/add', '<i class="fa fa-plus fa-lg"></i>&nbsp;สร้างข่าว', 'type="button" class="btn btn-success pull-right btn-lg"') ?>
 </div>
-<div class="row content">   
-    <?php
-    $month_th = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
 
-    function DateThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear";
-        }
-    }
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 col-xs-12" style="padding: 3%">  
+        <div class="text-center">        
+            <?php echo $form['form']; ?>
+            <div class="form-group">            
+                <?= $form['status'] ?>
+            </div>    
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
+                    <?= $form['date'] ?>
+                </div>
+            </div>
+            <button type="submit" name="btn_search" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
 
-    function DateTimeThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
-        }
-    }
-    
+            <?php echo form_close() ?>
+        </div>
+    </div> 
+</div>
+<?php
+if ($strtitle != NULL) {
     ?>
+    <div class="row">
+        <div class="lead" style="margin: 0;">           
+            <?= $strtitle ?>           
+        </div>
+    </div> 
+    <?php
+}
+?>
+
+<div class="row content">   
 
     <?php if (count($news) <= 0) { ?>
         <div class="well">        
@@ -67,50 +61,70 @@
             $title = $row['news_title'];
             $subtitle = $row['news_subtitle'];
             $content = $row['news_content'];
-            $date = DateThai($row['publish_date']);
+            $date = $this->m_datetime->DateThai($row['publish_date']);
+            $highlight = $row['news_highlight'];
             $status = $row['news_status'];
+            $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
             ?>
             <div class="col-md-8 col-md-offset-2 col-xs-12">                
                 <div class="panel panel-default">
+
                     <div class="panel-body">
-                        <div class="row">   
+                        <div class="row">                            
+                            
+
+                            <?php
+                            $edit = array(
+                                'type' => "button",
+                                'class' => "btn btn-info",
+                            );
+                            $delete = array(
+                                'type' => "button",
+                                'class' => "btn btn-danger",
+                                'data-id' => "2",
+                                'data-title' => "ลบข่าว",
+                                'data-info' => $title,
+                                'data-toggle' => "modal",
+                                'data-target' => "#confirm",
+                                'data-href' => $controller . '/delete/' . $id,
+                            );
+                            $cancle = array(
+                                'type' => "button",
+                                'class' => "btn btn-warning",
+                                'data-id' => "3",
+                                'data-title' => "ยกเลิกข่าว",
+                                'data-info' => $title,
+                                'data-toggle' => "modal",
+                                'data-target' => "#confirm",
+                                'data-href' => $controller . '/unactive/' . $id,
+                            );
+                            $active = array(
+                                'type' => "button",
+                                'class' => "btn btn-success",
+                                'data-id' => "4",
+                                'data-title' => "ใช้งานข่าว",
+                                'data-info' => $title,
+                                'data-toggle' => "modal",
+                                'data-target' => "#confirm",
+                                'data-href' => $controller . '/active/' . $id,
+                            );
+                            $view_more = array(
+                                'type' => "button",
+                                'class' => "btn btn-link pull-right",
+                                'style' => "font-size: 0.91em;",
+                            );
+                            
+                            if ($highlight ==0) {
+                                echo '<span class="icon"><i class="fa fa-bookmark-o fa-lg"></i> <?= $highlight ?></span>';
+                            }  else {
+                                echo '<span class="icon"><i class="fa fa-bookmark fa-lg"></i> <?= $highlight ?></span>';
+                            }
+                            ?>
+                            
+                            
                             <p class="pull-right">
                                 <?php
-                                $edit = array(
-                                    'type' => "button",
-                                    'class' => "btn btn-info btn-xs",
-                                );
-                                $delete = array(
-                                    'type' => "button",
-                                    'class' => "btn btn-danger btn-xs",
-                                    'data-id' => "2",
-                                    'data-title' => "ลบข่าว",
-                                    'data-info' => $title,
-                                    'data-toggle' => "modal",
-                                    'data-target' => "#confirm",
-                                    'data-href' => $controller . '/delete/' . $id,
-                                );
-                                $cancle = array(
-                                    'type' => "button",
-                                    'class' => "btn btn-warning btn-xs",
-                                    'data-id' => "3",
-                                    'data-title' => "ยกเลิกข่าว",
-                                    'data-info' => $title,
-                                    'data-toggle' => "modal",
-                                    'data-target' => "#confirm",
-                                    'data-href' => $controller . '/unactive/' . $id,
-                                );
-                                $active = array(
-                                    'type' => "button",
-                                    'class' => "btn btn-success btn-xs",
-                                    'data-id' => "4",
-                                    'data-title' => "ใช้งานข่าว",
-                                    'data-info' => $title,
-                                    'data-toggle' => "modal",
-                                    'data-target' => "#confirm",
-                                    'data-href' => $controller . '/active/' . $id,
-                                );
-
                                 echo '<span class="icon">' . anchor($controller . '/edit/' . $id, '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', $edit) . '</span>';
                                 if ($status == 'active') {
                                     echo '<span class="icon">' . anchor('#', '<i class="fa fa-times fa-lg"></i>&nbsp;ยกเลิก', $cancle) . '</span>';
@@ -136,18 +150,8 @@
                                     </h3> 
                                     <div class="description">                                   
                                         <p>
-                                            <?= $subtitle ?>  
-                                            <!-- Button trigger modal -->
-                                            <button class="btn btn-link pull-right" 
-                                                    style="font-size: 1.21em;"
-                                                    data-toggle="modal" 
-                                                    data-target="#modal_content" 
-                                                    data-title="<?= $title ?>" 
-                                                    data-info="<?= $content ?>"
-                                                    data-date="<?= $date ?>"
-                                                    >
-                                                อ่านเพิ่ม... 
-                                            </button>
+                                            <?= $subtitle ?> 
+                                            <?= anchor($controller . '/view_more/' . $id, 'อ่านเพิ่ม... ', $view_more) ?>                                           
                                         </p>                                       
                                         <dl class="dl-horizontal">
                                             <dt class="des-ul">เอกสาร :</dt>
@@ -180,9 +184,7 @@
                         <div class="row">
                             <div class="pull-right">
                                 <?php
-                                $crate = '  | สร้าง : ' . DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
-                                $update = 'แก้ไข : ' . DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
-                                echo $update . $crate;
+                                echo $update . $create;
                                 ?>
                             </div>
                         </div>

@@ -14,6 +14,19 @@ class News_ad extends CI_Controller {
 
         $data['news'] = $this->m_news->get_news();
         $data['file'] = $this->m_news->get_news_file();
+        $data['form'] = $this->m_news->set_form_search();
+        $data['strtitle'] = NULL;
+        if ($this->input->post('status') != 0 || $this->input->post('date_search') != NULL) {
+            $status = (int) $this->input->post('status');
+            $date = $this->input->post('date_search');
+            $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+            if ($date == NULL) {
+                $title = $s[$status];
+            } else {
+                $title = $date;
+            };
+            $data['strtitle'] = 'ผลการค้นหา : ' . $title;
+        }
 
 //        $this->m_template->set_Debug($data['file']);
         $this->m_template->set_Title('ข่าว');
@@ -24,12 +37,51 @@ class News_ad extends CI_Controller {
     public function highlight() {
         $data = array();
 
+         $data['form'] = $this->m_news->set_form_search();
+        $data['strtitle'] = NULL;
+        
         $data['news'] = $this->m_news->get_news_highlight();
         $data['file'] = $this->m_news->get_news_file();
 
 //        $this->m_template->set_Debug($data);
         $this->m_template->set_Title('ข่าวเด่น');
         $this->m_template->set_Content('admin/news.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    public function view_more($id) {
+
+        $news = $this->m_news->get_news($id);
+
+        foreach ($news as $row) {
+            $img = $row['image_small'];
+            $title = $row['news_title'];
+            $subtitle = $row['news_subtitle'];
+            $content = $row['news_content'];
+            $date = $this->m_datetime->DateThai($row['publish_date']);
+            $status = $row['news_status'];
+            $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+        }
+
+        $data = array(
+            'controller' => 'News_ad',
+            'img' => $img,
+            'id' => $id,
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'date' => $date,
+            'status' => $status,
+            'content' => $content,
+            'create' => $create,
+            'update' => $update,
+        );
+        $data['images'] = NULL;
+//        $data['images'] = $this->m_activitys->get_image_activity($id);
+        $data['file'] = $this->m_news->get_news_file($id);
+//        $this->m_template->set_Debug($data);
+        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Content('admin/detail.php', $data);
         $this->m_template->showTemplateAdmin();
     }
 
@@ -49,7 +101,7 @@ class News_ad extends CI_Controller {
         $this->m_template->set_Content('admin/form_news.php', $data);
         $this->m_template->showTemplateAdmin();
     }
-
+    
     public function edit($id) {
         $data = array();
         if ($this->m_news->validation_edit() && $this->form_validation->run() == TRUE) {

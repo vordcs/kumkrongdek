@@ -53,14 +53,7 @@
             openEffect: 'none',
             closeEffect: 'none'
         });
-        //<![CDATA[
-//        bkLib.onDomLoaded(function() {
-//            new nicEditor().panelInstance('area1');
-//            new nicEditor({fullPanel: true}).panelInstance('content');
-//            new nicEditor({iconsPath: '../nicEditorIcons.gif'}).panelInstance('area3');
-//            new nicEditor({buttonList: ['fontSize', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'html', 'image']}).panelInstance('area4');
-//            new nicEditor({maxHeight: 100}).panelInstance('content');
-//        });
+        //<![CDATA[   
         $('.datepicker').datepicker({
             language: 'th-th',
 //            language: 'en',

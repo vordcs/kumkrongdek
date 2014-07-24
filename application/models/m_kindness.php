@@ -5,29 +5,6 @@ if (!defined('BASEPATH'))
 
 Class m_kindness extends CI_Model {
 
-    function getDatetimeNow() {
-        return date('Y-m-d H:i:s');
-    }
-
-    function getDateToday() {
-        return date('Y-m-d');
-    }
-
-    function setDateFomat($input_date) {
-        $d = new DateTime($input_date);
-        $date = $d->format('Y-m-d');
-        return $date;
-    }
-
-    function monthTHtoDB($str_date_th) {
-        $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-        for ($i = 0; $i < count($month_th); $i++) {
-            if ($month_th[$i] == $str_date_th) {
-                return $i;
-            }
-        }
-    }
-
     public function get_kindness($id = NULL) {
         $this->db->select('*');
         $this->db->from('kindness');
@@ -35,6 +12,7 @@ Class m_kindness extends CI_Model {
         if ($id != NULL) {
             $this->db->where('kindness_id', $id);
         }
+        $this->db->order_by("publish_date", "desc");
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
@@ -70,12 +48,13 @@ Class m_kindness extends CI_Model {
         $this->db->join('images', 'image_id = kindness_img');
         if ($str_th_date != NULL) {
             $date = explode(' ', $str_th_date);
-            $month = $this->monthTHtoDB($date[0]);
+            $month = $this->m_datetime->monthTHtoDB($date[0]);
             $this->db->where('MONTH(publish_date)', $month);
         }
         if ($status != 0) {
             $this->db->where('kindness_status', $status);
         }
+        $this->db->order_by("publish_date", "desc");
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
@@ -108,7 +87,7 @@ Class m_kindness extends CI_Model {
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
-            'value' => (set_value('publish_date') == NULL) ? $this->getDateToday() : set_value('publish_date')
+            'value' => (set_value('publish_date') == NULL) ? $this->m_datetime->getDateToday() : set_value('publish_date')
         );
 //         $f_ = array(
 //            'name' => '',
@@ -167,7 +146,7 @@ Class m_kindness extends CI_Model {
 //            'class' => 'form-control',
             'value' => (set_value('kindness_img') == NULL) ? $data['kindness_img'] : set_value('kindness_img')
         );
-        
+
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
@@ -242,10 +221,10 @@ Class m_kindness extends CI_Model {
             'kindness_title' => $this->input->post('kindness_title'),
             'kindness_subtitle' => $this->input->post('kindness_subtitle'),
             'kindness_content' => $this->input->post('kindness_content'),
-            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'kindness_img' => $img_id,
             'kindness_highlight' => $this->input->post('kindness_highlight'),
-            'create_date' => $this->getDatetimeNow(),
+            'create_date' => $this->m_datetime->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );
         return $page_data;
@@ -258,8 +237,8 @@ Class m_kindness extends CI_Model {
             'kindness_subtitle' => $this->input->post('kindness_subtitle'),
             'kindness_content' => $this->input->post('kindness_content'),
             'kindness_highlight' => $this->input->post('kindness_highlight'),
-            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
-            'update_date' => $this->getDatetimeNow(),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'update_date' => $this->m_datetime->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );
 
