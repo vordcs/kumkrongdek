@@ -27,6 +27,7 @@ Class m_slides extends CI_Model {
         $this->db->from('slides');
         $this->db->join('images', 'image_id = slide_img');
         $this->db->where('slide_status', $status);
+        $this->db->order_by("create_date", "asc");
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
@@ -243,7 +244,7 @@ Class m_slides extends CI_Model {
                 $config2['maintain_ratio'] = TRUE;
                 $config2['thumb_marker'] = '';
                 $config2['width'] = 1;
-                $config2['height'] = 500;
+                $config2['height'] = 400;
                 $config2['maintain_ratio'] = TRUE;
                 $config2['master_dim'] = 'height';
                 $this->load->library('image_lib', $config2);

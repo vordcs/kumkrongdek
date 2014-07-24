@@ -32,6 +32,9 @@
 }
 /*end for nav */
 
+
+
+
 /*for menu each page*/ 
 
 
@@ -39,8 +42,8 @@
 
 /*for page content*/
 #content{
-    margin-top: 2%;
-    margin-bottom: 2%; 
+/*    margin-top: 2%;
+*/    margin-bottom: 2%; 
 
 }
 #content .row{
@@ -49,6 +52,125 @@
 }
 
 /*end for page content*/
+/* for slides*/ 
+#owl-1 .slide-item{
+    padding:5px;
+}
+#owl-1 .slide-item img{
+    display: block;
+    width: 100%;
+    /*height: auto;*/
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+/* Title */
+#owl-1 .slide-item .title-slide{
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    margin: 0;
+    padding: 3%;
+    width: 100%;
+    background: #F0F8FF;
+    color: #3C2404;
+    opacity: 0.7;   
+    /*text-transform: uppercase;*/
+    /*    letter-spacing: 1px;
+        font-weight: 500;
+        font-size: 1.134em;*/
+    -webkit-transition: -webkit-transform 0.2s, color 0.2s;
+    transition: transform 0.2s, color 0.2s;
+}
+/*#owl-1 .slide-item .title-slide p{
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    margin: 0;
+    padding: 3%;
+    width: 100%;
+}*/
+.read_more_slide {
+    position: absolute;     
+    bottom: 5%;
+    right: 5%;
+}
+.read_more_slide a{
+    display:inline-block;  
+    background: #242424 ;
+    border: 1px solid #242424;
+    padding: 10px 20px;
+    outline: none;
+    color: #ffffff ! important;
+    font-size: 1em;
+    text-transform: capitalize;
+    -webkit-appearance: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+}
+
+.read_more_slide a:hover{
+    background: #57C5A0;    
+    border: 1px solid #57c5a0;
+}
+/*end*/
+
+/*activity fees*/
+.ticker {
+    border: 1px solid #ccc;
+    /*margin: 25px 0;*/    
+}
+.ticker ul {
+    list-style: none outside none;
+    padding: 0;
+    width: 100%;
+}
+
+.ticker li {
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+    padding: 20px;
+}
+.ticker li.odd {
+    background: none repeat scroll 0 0 #fafafa;
+}
+.tickerli:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+.ticker img {
+    float: left;
+    margin: 5px 15px 0 0;
+    width: 100px;
+}
+.ticker h3 {
+    color: #06f;
+    /*font-family: Arial,sans-serif;*/
+    margin: 0;
+    font-size: 1.2548em;
+    font-weight: bold;
+}
+.tickerp p {
+    font-size: 0.8em;
+    margin: 15px 0 0;
+}
+.tickerp a {
+    position: absolute; 
+    float: right;
+    font-size: 1.5em;    
+}
+
+/*end activity*/
+
+
 
 /* start title */
 .title_bg{
@@ -208,7 +330,7 @@ a, a:visited,a:hover,a:active {
 
 /* start footer_mid */
 .footer_mid{
-    
+
     padding-top: 2%;
     padding-bottom: 1%;
     color: #fff;
