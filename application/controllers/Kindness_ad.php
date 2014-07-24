@@ -12,12 +12,13 @@ class Kindness_ad extends CI_Controller {
         $data = array();
 
         $data['kindness'] = $this->m_kindness->get_kindness();
-
-//        $this->m_template->set_Debug($data);
+        $data['form'] = $this->m_kindness->set_form_search();
+//        $this->m_template->set_Debug($data['form']);
         $this->m_template->set_Title('ผู้ใหญ่ใจดี');
         $this->m_template->set_Content('admin/kindness.php', $data);
         $this->m_template->showTemplateAdmin();
     }
+
     public function add() {
         $data = array();
         if ($this->m_kindness->validation_add() == TRUE && $this->form_validation->run() == TRUE) {
@@ -35,6 +36,7 @@ class Kindness_ad extends CI_Controller {
         $this->m_template->set_Content('admin/form_kindness.php', $data);
         $this->m_template->showTemplateAdmin();
     }
+
     public function edit($id) {
 
         if ($this->m_kindness->validation_edit() && $this->form_validation->run() == TRUE) {
@@ -75,7 +77,6 @@ class Kindness_ad extends CI_Controller {
 
         redirect('Kindness_ad', 'refresh');
     }
-    
 
     public function active($kindness_id) {
         $data = array(
@@ -88,6 +89,76 @@ class Kindness_ad extends CI_Controller {
         redirect('kindness_ad', 'refresh');
     }
 
+    public function view_more($id) {
+
+        $kindness = $this->m_kindness->get_kindness($id);
+        foreach ($kindness as $row) {
+
+            $img = $row['image_small'];
+            $title = $row['kindness_title'];
+            $subtitle = $row['kindness_subtitle'];
+            $content = $row['kindness_content'];
+            $date = $this->DateThai($row['publish_date']);
+            $status = $row['kindness_status'];
+            $create = '  | สร้าง : ' . $this->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+        }
+//
+        $data = array(
+            'controller' => 'Kindness_ad',
+            'id' => $id,
+            'img' => $img,
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'date' => $date,
+            'status' => $status,
+            'content' => $content,
+            'create' => $create,
+            'update' => $update,
+        );
+//
+        $data['images'] = NULL;
+
+//        $this->m_template->set_Debug($kindness);
+        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Content('admin/detail.php', $data);
+        $this->m_template->showTemplateAdmin();
+    }
+
+    function DateThai($strDate) {
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $date = new DateTime($strDate);
+            $strYear = date("Y", strtotime($strDate));
+            $strMonth = date("n", strtotime($strDate));
+            $strDay = date("j", strtotime($strDate));
+            $strHour = date("H", strtotime($strDate));
+            $strMinute = date("i", strtotime($strDate));
+            $strSeconds = date("s", strtotime($strDate));
+            $strMonthCut = Array("", "มกราคม", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+            $strMonthThai = $strMonthCut[$strMonth];
+            return "$strDay $strMonthThai $strYear";
+        }
+    }
+
+    function DateTimeThai($strDate) {
+        if ($strDate == NULL) {
+            return '-';
+        } else {
+            $date = new DateTime($strDate);
+            $strYear = date("Y", strtotime($strDate)) + 543;
+            $strMonth = date("n", strtotime($strDate));
+            $strDay = date("j", strtotime($strDate));
+            $strHour = date("H", strtotime($strDate));
+            $strMinute = date("i", strtotime($strDate));
+            $strSeconds = date("s", strtotime($strDate));
+            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+            $strMonthThai = $strMonthCut[$strMonth];
+            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
+        }
+    }
+
     public function textarea_check($str) {
         if ($str == '<br>') {
             return FALSE;
@@ -95,4 +166,5 @@ class Kindness_ad extends CI_Controller {
             return TRUE;
         }
     }
+
 }
