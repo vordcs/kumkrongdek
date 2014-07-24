@@ -288,13 +288,16 @@ a, a:visited,a:hover,a:active {
     height: 60px;
     /*background-color: #f5f5f5;*/
 }
+.foot{
+    padding-bottom: 2%;
+}
 .footer_bg{    
     background: #2e2e2e;
 }
 /* start footer_top */
 .footer_top{
     padding-top: 2%;
-    background: #242424;
+    /*background: #242424;*/
 }
 .footer_top h3{
     font-size: 1.2em;

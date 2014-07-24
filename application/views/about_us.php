@@ -1,10 +1,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".scroll-area").scrollspy({target: "#menu_side"});
-        $("#menu_side").on("activate.bs.scrollspy", function () {
-        var currentItem = $(".nav li.active > a").text();
-        $("#info").empty().html("Currently " + currentItem);
-    })
+        $("#menu_side").on("activate.bs.scrollspy", function() {
+            var currentItem = $(".nav li.active > a").text();
+            $("#info").empty().html("Currently " + currentItem);
+        })
 
     });
 </script>
@@ -168,6 +168,161 @@
                 </div>
             </div>
             <div class="col-md-2">
+                <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab" height="140" width="130"><param name="movie" value="http://www.thlive.com/wp-content/uploads/file/clockcalendarwhite.swf" /><param name="quality" value="high" /><embed height="140" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://www.thlive.com/wp-content/uploads/file/clockcalendarwhite.swf" type="application/x-shockwave-flash" width="130"></embed></object><br/><a href="http://www.thlive.com/code" target="_blank"></a>
+                <h2>ลิงค์ภายใน</h2>
+                <div class="">
+                    <a href="http://www.m-society.go.th/" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?=  img('/foot_logo/l13.gif',$img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="http://www.bsws.go.th/index.php" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                          <?=  img('/foot_logo/l14.gif',$img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="http://www.wandc.dsdw.go.th/home.html" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?=  img('/foot_logo/l15.gif',$img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="http://www.osccthailand.go.th/Front/" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/link/logo4.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                <!--<div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l05.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l06.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l07.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l08.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l09.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l10.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l11.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+                <div class="">
+                    <a href="www.google.com" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l12.gif', $img_propr); ?>
+
+                    </a>
+                </div> -->
 
             </div>
 
