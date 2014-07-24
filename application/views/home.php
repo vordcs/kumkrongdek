@@ -64,7 +64,53 @@ function DateThai($strDate) {
         </div>
     </section>
     <section id="hightlight">
+        <div class="container">  
+            <div id="owl-demo" class="owl-carousel">   
+                <?php
+                for ($i = 0; $i < 10; $i++) {
+                    if ($i % 2 == 0) {
+                        ?>
+                        <div class="item" >
+                            <div class="image">
+                                <img data-src="holder.js/900x400/auto/sky" class="img-responsive"  alt="Generic placeholder thumbnail">   
+                                <!--                                <a class="like ui corner label">
+                                                                    <i class="like icon"></i>
+                                                                </a>-->
+                            </div>
+                            <div class="content">
+                                <div class="name">Cute Dog</div>                               
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-link">
+                                        199 votes
+                                    </a>
 
+                                </div>
+                            </div>
+                        </div>   
+                    <?php } else {
+                        ?>
+                        <div class="item">
+                            <img data-src="holder.js/900x400/auto/vine" class="img-responsive"  alt="Generic placeholder thumbnail">
+                        </div>   
+                        <?php
+                    }
+                }
+                ?> 
+
+            </div>           
+        </div>
+        <script>
+            $(document).ready(function() {
+                $("#owl-demo").owlCarousel({
+                    autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                    items: 5,
+                    itemsDesktop: [1199, 4],
+                    itemsDesktopSmall: [979, 4]
+                });
+
+            });
+        </script>
     </section>
 
     <section id="news">
@@ -107,7 +153,7 @@ function DateThai($strDate) {
                                                 <?= img($img, array('class' => 'img-responsive')); ?>
                                                 <h3><?= $title ?></h3>
                                                 <p><?= $subtitle ?></p>
-                                                <a href="#" class="btn btn-link">ดู..</a>
+                                                <a href="#">ดู..</a>
                                             </li>                                         
                                             <?php
                                             $i++;

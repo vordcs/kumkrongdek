@@ -61,7 +61,42 @@ Class m_news extends CI_Model {
         $result = $query->result_array();
         return $result;
     }
+        public function get_news_image($id = NULL) {
+        $this->db->select('*');
+        $this->db->from('files');
+        $this->db->join('news_has_files', 'news_has_files.file_id = files.file_id');
+//        $this->db->join('products', 'products_has_images.product_id = products.id', 'left');
+//        $this->db->join('product_types', 'products.product_type_id=product_types.id', 'left');
+        if ($id != NULL) {
+            $this->db->where('news_has_files.file_id', $id);
+        }
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
 
+        public function search_news($status, $str_th_date = NULL) {
+//        $date = explode(' ', $str_th_date);
+//        $month = $this->getMonthFromTH($date[0]);
+
+        $this->db->select('*');
+        $this->db->from('news');
+        $this->db->join('images', 'image_id = news_img');
+        if ($str_th_date != null) {
+            $date = explode(' ', $str_th_date);
+            $month = $this->m_datetime->monthTHtoDB($date[0]);
+            $this->db->where('MONTH(publish_date)', $month);
+        }
+        if ($status != 0) {
+            $this->db->where('news_status', $status);
+        }
+        $rs = $this->db->get();
+        $itemp = $rs->result_array();
+        return $itemp;
+
+
+    }
+    
     function get_images_by_news($id) {
 //        $this->db->select('*');
 //        $this->db->from('images');

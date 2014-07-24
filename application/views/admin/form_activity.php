@@ -251,9 +251,9 @@
             $('#img_show').hide(true);
         });
 
-//        bkLib.onDomLoaded(function() {
-//            new nicEditor({buttonList: ['ol', 'ul', 'html']}).panelInstance('adviser');
-//        });
+        bkLib.onDomLoaded(function() {
+            new nicEditor({fullPanel: true}).panelInstance('content');
+        });
     });
 </script>  
 

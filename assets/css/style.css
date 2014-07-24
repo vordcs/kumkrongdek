@@ -151,21 +151,16 @@
     margin: 5px 15px 0 0;
     width: 100px;
 }
-.ticker h3 {
+.ticker a {
     color: #06f;
     /*font-family: Arial,sans-serif;*/
     margin: 0;
     font-size: 1.2548em;
     font-weight: bold;
 }
-.tickerp p {
+.ticker p {
     font-size: 0.8em;
     margin: 15px 0 0;
-}
-.tickerp a {
-    position: absolute; 
-    float: right;
-    font-size: 1.5em;    
 }
 
 /*end activity*/
