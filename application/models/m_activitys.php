@@ -35,6 +35,7 @@ Class m_activitys extends CI_Model {
         if ($id != NULL) {
             $this->db->where('activity_id', $id);
         }
+        $this->db->order_by('publish_date desc');
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
@@ -295,7 +296,7 @@ Class m_activitys extends CI_Model {
             'activity_type' => $this->input->post('activity_type'),
             'activity_img' => $img_id,
             'activity_highlight' => $this->input->post('activity_highlight'),
-            'publish_date' => $this->setDateFomat($this->input->post('publish_date')),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'create_date' => $this->m_datetime->getDatetimeNow(),
         );
         return $page_data;

@@ -5,6 +5,8 @@ if (!defined('BASEPATH'))
 
 Class m_datetime extends CI_Model {
 
+    private $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+
     function getDatetimeNow() {
         return date('Y-m-d H:i:s');
     }
@@ -18,7 +20,12 @@ Class m_datetime extends CI_Model {
         $date = $d->format('Y-m-d');
         return $date;
     }
-    
+
+    function setYearFomat($input_year) {
+        $y = new DateTime($input_year);
+        $year = $y->format('yyyy');
+        return $year;
+    }
 
     public function monthTHtoDB($str_date_th) {
         $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
@@ -27,6 +34,10 @@ Class m_datetime extends CI_Model {
                 return $i;
             }
         }
+    }
+
+    public function getMonthThai($i) {
+        return $this->month_th[$i];
     }
 
     public function DateThai($strDate) {

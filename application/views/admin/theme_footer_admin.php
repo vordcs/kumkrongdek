@@ -66,6 +66,13 @@
             viewMode: "months",
             minViewMode: "months",
         });
+        $('.year-picker').datepicker({
+            language: 'th-th',
+//            language: 'en',
+            format: 'yyyy',
+            viewMode: "years",
+            minViewMode: "years",
+        });
     });
     $('#modal_content').on('show.bs.modal', function(e) {
         var title = $(e.relatedTarget).data('title');

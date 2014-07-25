@@ -11,10 +11,33 @@ class Journals extends CI_Controller {
         $this->load->model('m_journals');
     }
 
+    private $month_th = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+
     public function index() {
 
         $data = array();
         $data['journals'] = $this->m_journals->get_journals();
+        $data['form'] = $this->m_journals->set_form_search('Journals');
+        $data['strtitle'] = NULL;
+
+        $year_no = $this->input->post('year_no');
+        $issue = $this->input->post('issue');
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+
+        if ($year_no != 0 | $issue != 0 | $month != 0 | $year != NULL) {
+
+            $data['journals'] = $this->m_journals->search_journals();
+
+            $name = 'ผลการค้นหาวารสาร : ';
+            $name .= ($year_no != 0 ? ' ปีที่ ' . $year_no : '' );
+            $name .= ($issue != 0 ? '  ฉบับที่ ' . $issue : '');
+            $name .= ($month != 0 ? ' ประจำเดือน ' . $this->month_th[(int) $month] : '');
+            $name .= ' ' . $year;
+
+            $data['strtitle'] = $name;
+        }
+
 //        $this->m_template->set_Debug($data);
         $this->m_template->set_Title('จดหมายข่าว');
         $this->m_template->set_Content('admin/journals.php', $data);
@@ -24,9 +47,10 @@ class Journals extends CI_Controller {
     public function add() {
         if ($this->m_journals->validation_add() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_journals->get_post_form_add();
+            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_journals->insert_journal($form_data);
-            redirect('Journals');
+//            redirect('Journals');
         }
         //Load form add
         $data['form'] = $this->m_journals->set_form_add();

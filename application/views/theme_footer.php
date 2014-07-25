@@ -208,6 +208,13 @@
             openEffect: 'none',
             closeEffect: 'none'
         });
+        $('.year-picker').datepicker({
+            language: 'th-th',
+//            language: 'en',
+            format: 'yyyy',
+            viewMode: "years",
+            minViewMode: "years",
+        });
     });
 </script>
 <!-- Owl Carousel Assets -->

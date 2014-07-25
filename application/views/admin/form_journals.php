@@ -5,6 +5,7 @@
         </h1>
     </div>
 </div>
+
 <div class="row content" >   
     <?= $form['form'] ?>   
     <div class="form-group<?= (form_error('journal_year_no')) ? ' has-error' : '' ?>">
@@ -75,21 +76,29 @@
         <div class="col-sm-4" id="error">                
             <?php echo form_error('journal_file', '<font color="error">', '</font>'); ?>
         </div>
-    </div>   
-<!--    <div class="form-group<? (form_error('publish_date')) ? ' has-error' : '' ?>">
+    </div> 
+    
+    <div class="form-group <?= (form_error('publish_date')) ? ' has-error' : '' ?>">
         <label for="" class="col-sm-4 control-label">วันเผยเเพร่</label>
         <div class="col-sm-4">
-            <? $form['publish_date'] ?>
-            <input type="text" class="form-control" id="date" placeholder="">
+            <?= $form['publish_date'] ?>
+            <!--<input type="text" class="form-control" id="date" placeholder="">-->
         </div>
-    </div>-->
+        <div class="col-sm-4" id="error">                
+            <?php echo form_error('publish_date', '<font color="error">', '</font>'); ?>
+        </div>
+    </div>
+    
+
     <div class="form-group">
         <label for="" class="col-sm-4 control-label">ความสำคัญ</label>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <?= $form['journals_highlight'] ?>
             <!--<input type="text" class="form-control" id="" placeholder="">-->
         </div>
+
     </div>
+
     <div class="form-group">
         <label for="" class="col-sm-4 control-label">สถานะ</label>
         <div class="col-sm-3">
@@ -126,16 +135,13 @@
 <script>
     $(document).ready(function() {
 
-        $('#publish_date').datepicker({
-            language: 'th-th',
-            format: 'd-MM-yyyy'
-        });
+  
 
         var file = '<?= $form['file'] ?>';
         if (file != '') {
             $('#file_add').hide();
             var success = new PDFObject({url: "<?= upload_url() ?>" + file}).embed("pdf");
-        }else{
+        } else {
             $('#file_show').hide(true);
         }
         $("#del_file").click(function() {
@@ -145,7 +151,7 @@
         });
 
         bkLib.onDomLoaded(function() {
-            new nicEditor({buttonList: ['ol','ul', 'html']}).panelInstance('adviser');
+            new nicEditor({buttonList: ['ol', 'ul', 'html']}).panelInstance('adviser');
         });
 
     });

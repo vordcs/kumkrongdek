@@ -33,13 +33,35 @@ Class m_journals extends CI_Model {
         $this->db->delete('files');
     }
 
-    function get_journals($id = NULL) {
+    function search_journals() {
+
+        (int) $year_no = $this->input->post('year_no');
+        (int) $issue = $this->input->post('issue');
+        (int) $month = $this->input->post('month');
+        $year = $this->input->post('year');
+
+        $this->db->select('*');
+        $this->db->from('journals');
+        $this->db->join('files', 'file_id = journal_file');
+        ($year_no != 0 ? $this->db->where('journal_year_no', $year_no) : '' );
+        ($issue != 0 ? $this->db->where('journal_issue', $issue) : '');
+        ($month != 0 ? $this->db->where('journal_mounth', $month) : '' );
+        ($year != 0 ? $this->db->where('journal_year', $year) : '');
+        $this->db->order_by('journal_year desc,journal_mounth desc,journal_issue desc,journal_year_no desc');
+        $rs = $this->db->get();
+        $itemp = $rs->result_array();
+        return $itemp;
+    }
+
+    public function get_journals($id = NULL) {
+
         $this->db->select('*');
         $this->db->from('journals');
         $this->db->join('files', 'file_id = journal_file');
         if ($id != NULL) {
             $this->db->where('journal_id', $id);
         }
+        $this->db->order_by('journal_year desc,journal_mounth desc,journal_issue desc,journal_year_no desc');
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
@@ -75,13 +97,13 @@ Class m_journals extends CI_Model {
         );
         $f_year = array(
             'name' => 'journal_year',
-            'class' => 'form-control',
+            'class' => 'form-control year-picker',
             'value' => (set_value('journal_year') == NULL) ? date("Y") + 543 : set_value('journal_year')
         );
         $f_publish_date = array(
             'name' => 'publish_date',
             'id' => 'publish_date',
-            'class' => 'form-control',
+            'class' => 'form-control datepicker',
             'placeholder' => 'วันเผยแผร่',
             'value' => set_value('publish_date')
         );
@@ -142,7 +164,75 @@ Class m_journals extends CI_Model {
         return $form_add;
     }
 
+    public function set_form_search($controller) {
+        $f_year_no = array(
+            '0' => '',
+        );
+
+        $f_issue = array(
+            '0' => '',
+        );
+        for ($i = 1; $i < 10; $i++) {
+            array_push($f_issue, $i);
+            array_push($f_year_no, $i);
+        }
+
+        $f_month = array(
+            '00' => '',
+            '01' => 'มกราคม',
+            '02' => 'กุมภาพันธ์',
+            '03' => 'มีนาคม',
+            '04' => 'เมษายน',
+            '05' => 'พฤษภาคม ',
+            '06' => 'มิถุนายน',
+            '07' => 'กรกฎาคม',
+            '08' => 'สิงหาคม',
+            '09' => 'กันยายน',
+            '10' => 'ตุลาคม',
+            '11' => 'พฤศจิกายน',
+            '12' => 'ธันวาคม'
+        );
+
+        $f_year = array(
+            'name' => 'year',
+            'class' => 'form-control year-picker',
+            'value' => set_value('journal_year'),
+        );
+
+        $f_status_search = array(
+            '0' => 'ทั้งหมด',
+            '1' => 'ไม่ใช้งาน',
+            '2' => 'ใช้งาน',
+        );
+
+        $form_search = array(
+            'form' => form_open($controller.'/', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'year_no' => form_dropdown('year_no', $f_year_no, (set_value('year_no') == NULL) ? 0 : set_value('year_no'), 'class="form-control"'), form_input($f_year_no),
+            'issue' => form_dropdown('issue', $f_issue, (set_value('issue') == NULL) ? 0 : set_value('issue'), 'class="form-control"'),
+            'month' => form_dropdown('month', $f_month, (set_value('month') == NULL) ? 0 : set_value('month'), 'class="form-control"'),
+            'year' => form_input($f_year),
+            'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
+        );
+
+        return $form_search;
+    }
+
     public function set_form_edit($data) {
+
+        $f_year_no = array(
+            'name' => 'journal_year_no',
+            'class' => 'form-control',
+            'placeholder' => 'ปีที่',
+            'value' => set_value('journal_year_no')
+        );
+
+        $f_issue = array(
+            'name' => 'journal_issue',
+            'class' => 'form-control',
+            'placeholder' => 'ฉบับที่',
+            'value' => set_value('journal_issue')
+        );
+
         $f_year_no = array(
             'name' => 'journal_year_no',
             'class' => 'form-control',
@@ -172,13 +262,13 @@ Class m_journals extends CI_Model {
         );
         $f_year = array(
             'name' => 'journal_year',
-            'class' => 'form-control',
+            'class' => 'form-control year-picker',
             'value' => (set_value('journal_year') == NULL) ? $data['journal_year'] : set_value('journal_year')
         );
         $f_publish_date = array(
             'name' => 'publish_date',
             'id' => 'publish_date',
-            'class' => 'form-control',
+            'class' => 'form-control datepicker',
             'placeholder' => 'วันเผยแผร่',
             'value' => (set_value('publish_date') == NULL) ? $data['publish_date'] : set_value('publish_date')
         );
@@ -244,7 +334,7 @@ Class m_journals extends CI_Model {
         $this->form_validation->set_rules('journal_issue', 'ฉบับที่', 'required|trim|xss_clean');
         $this->form_validation->set_rules('journal_mounth', 'เดือน', 'required|trim|xss_clean');
         $this->form_validation->set_rules('journal_year', 'ปี', 'required|trim|xss_clean');
-//        $this->form_validation->set_rules('publish_date', 'วันเผยเเพร่', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('publish_date', 'วันเผยเเพร่', 'required|trim|xss_clean');
         $this->form_validation->set_rules('adviser', 'ที่ปรึกษา', 'required|trim|xss_clean|callback_textarea_check');
         $this->form_validation->set_rules('editor', 'บรรณาธิการ', 'required|trim|xss_clean');
         $this->form_validation->set_rules('prepared_by', 'ผู้จัดทำ', 'required|trim|xss_clean');
@@ -261,7 +351,7 @@ Class m_journals extends CI_Model {
         $this->form_validation->set_rules('journal_issue', 'ฉบับที่', 'required|trim|xss_clean');
         $this->form_validation->set_rules('journal_mounth', 'เดือน', 'required|trim|xss_clean');
         $this->form_validation->set_rules('journal_year', 'ปี', 'required|trim|xss_clean');
-//        $this->form_validation->set_rules('publish_date', 'วันเผยเเพร่', 'required|trim|xss_clean');
+        $this->form_validation->set_rules('publish_date', 'วันเผยเเพร่', 'required|trim|xss_clean');
         $this->form_validation->set_rules('adviser', 'ที่ปรึกษา', 'required|trim|xss_clean|callback_textarea_check');
         $this->form_validation->set_rules('editor', 'บรรณาธิการ', 'required|trim|xss_clean');
         $this->form_validation->set_rules('prepared_by', 'ผู้จัดทำ', 'required|trim|xss_clean');
@@ -271,22 +361,19 @@ Class m_journals extends CI_Model {
     }
 
     function get_post_form_add() {
-        $y = new DateTime($this->input->post('publish_date'));
-        $year = $y->format('Y');
-//        $date = $d->format('Y-m-d H:i:s');
         $get_page_data = array(
             'journal_year_no' => $this->input->post('journal_year_no'),
             'journal_issue' => $this->input->post('journal_issue'),
             'journal_mounth' => $this->input->post('journal_mounth'),
-            'journal_year' => $year,
+            'journal_year' => $this->input->post('journal_year'),
             'adviser' => $this->input->post('adviser'),
             'editor' => $this->input->post('editor'),
             'prepared_by' => $this->input->post('prepared_by'),
             'journal_file' => $this->upload_file('journal_file'),
-            'publish_date' => date("Y-m-d"),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'journals_highlight' => $this->input->post('journals_highlight'),
             'journal_status' => $this->input->post('journal_status'),
-            'create_date' => $this->getDatetimeNow(),
+            'create_date' => $this->m_datetime->getDatetimeNow(),
         );
 
         return $get_page_data;
@@ -301,10 +388,10 @@ Class m_journals extends CI_Model {
             'adviser' => $this->input->post('adviser'),
             'editor' => $this->input->post('editor'),
             'prepared_by' => $this->input->post('prepared_by'),
-            'publish_date' => date("Y-m-d"),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'journals_highlight' => $this->input->post('journals_highlight'),
             'journal_status' => $this->input->post('journal_status'),
-            'create_date' => $this->getDatetimeNow(),
+            'update_date' => $this->m_datetime->getDatetimeNow(),
         );
         if (!empty($_FILES['journal_file']['name'])) {
             $get_page_data['journal_file'] = $this->upload_file('journal_file', $id);

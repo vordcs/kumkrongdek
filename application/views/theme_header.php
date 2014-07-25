@@ -7,6 +7,7 @@
         <meta name="description" content="Site of Kum Krong Dek KhonKean">
         <meta name="author" content="VoRDcs">
         <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.png'; ?>">
+        
         <?php echo css('bootstrap.min.css'); ?>
         <?php echo css('bootstrap-theme.css'); ?>
         <?php echo css('font-awesome.css'); ?>
@@ -19,7 +20,7 @@
 
 
         <?php echo js('jquery.js'); ?>
-        <?php echo js('bootstrap.js'); ?>    
+       <?php echo js('bootstrap.min.js'); ?>     
         <?php echo js('docs.min.js'); ?>  
         
         <?php echo js('jquery.easy-ticker.min.js'); ?>  
@@ -31,6 +32,15 @@
         <!--semantic-->
         <?php echo css('semantic.css'); ?>
         <?php echo js('semantic.min.js'); ?>  
+        
+        <!--pdf view-->
+        <?php echo js('pdfobject.js'); ?> 
+        
+           <!--datetime picker-->    
+        <?php echo css('datepicker.css'); ?>  
+        <?php echo js('bootstrap-datepicker.js'); ?>  
+        <?php echo js('bootstrap-datepicker-thai.js'); ?>  
+        <?php echo js('/locales/bootstrap-datepicker.th.js'); ?>  
         
         
     </head>
@@ -130,7 +140,7 @@
                         <li><a href="<?= base_url('Personnel/') ?>">&nbsp;บุคลากร&nbsp;</a></li>
                         <li><a href="<?= base_url('Activitys/') ?>">&nbsp;กิจกรรม&nbsp;</a></li>
                         <li><a href="<?= base_url('Kindness/') ?>">&nbsp;ผู้ใหญ่ใจดี&nbsp;</a></li>
-                        <li><a href="<?= base_url('') ?>">&nbsp;จดหมายข่าว&nbsp;</a></li>
+                        <li><a href="<?= base_url('Newsletters/') ?>">&nbsp;จดหมายข่าว&nbsp;</a></li>
                         <li><a href="<?= base_url('ContactUs/') ?>">&nbsp;ติดต่อเรา&nbsp;</a></li>   
                     </ul>                    
                 </div> 
