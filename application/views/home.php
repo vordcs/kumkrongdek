@@ -1,23 +1,3 @@
-<?php
-
-function DateThai($strDate) {
-    if ($strDate == NULL) {
-        return '-';
-    } else {
-        $date = new DateTime($strDate);
-        $strYear = date("Y", strtotime($strDate)) + 543;
-        $strMonth = date("n", strtotime($strDate));
-        $strDay = date("j", strtotime($strDate));
-        $strHour = date("H", strtotime($strDate));
-        $strMinute = date("i", strtotime($strDate));
-        $strSeconds = date("s", strtotime($strDate));
-        $strMonthCut = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-        $strMonthThai = $strMonthCut[$strMonth];
-        return "$strDay $strMonthThai $strYear";
-    }
-}
-?>
-
 <div id="mainContent">
     <section id="slide">
         <div class="container">
@@ -25,6 +5,7 @@ function DateThai($strDate) {
                 <?php
                 foreach ($slides as $slide) {
                     $title = $slide['slide_title'];
+                    $subtitle = $slide['slide_subtitle'];
                     $img = $slide['image_small'];
                     ?>
                     <div class="slide-item">
@@ -32,7 +13,7 @@ function DateThai($strDate) {
                         <?= img($img, array('alt' => 'Image slide')); ?>                        
                         <div class="title-slide">
                             <h3><?= $title ?></h3>
-                            Aaaaaaaaaaaaaaasdfghjkl;dfghjkl;  
+                            <?= $subtitle ?>
                         </div>    
                         <div class="read_more_slide">
                             <a href="#" class="btn btn-link">อ่านเพิ่ม..</a>
@@ -65,149 +46,367 @@ function DateThai($strDate) {
     </section>
     <section id="hightlight">
         <div class="container">  
-            <div id="owl-demo" class="owl-carousel">   
+            <div id="owl-hightlight" class="owl-carousel">   
+                <!--<div class="ui ten items">-->
                 <?php
                 for ($i = 0; $i < 10; $i++) {
                     if ($i % 2 == 0) {
                         ?>
-                        <div class="item" >
-                            <div class="image">
-                                <img data-src="holder.js/900x400/auto/sky" class="img-responsive"  alt="Generic placeholder thumbnail">   
-                                <!--                                <a class="like ui corner label">
-                                                                    <i class="like icon"></i>
-                                                                </a>-->
-                            </div>
-                            <div class="content">
-                                <div class="name">Cute Dog</div>                               
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-link">
-                                        199 votes
-                                    </a>
-
+                        <div class="ui one items" style="padding: 1%">
+                            <div class="item">
+                                <!--                                <div class="image">
+                                                                    <img data-src="holder.js/900x400/auto/sky" class="img-responsive"  alt="Generic placeholder thumbnail">
+                                                                    <a class="star ui corner label">
+                                                                        <i class="star icon"></i>
+                                                                    </a>
+                                                                </div>-->
+                                <div class="content">
+                                    <div class="name">Cute Dog</div>
+                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                                 </div>
                             </div>
-                        </div>   
+                        </div>
                     <?php } else {
                         ?>
-                        <div class="item">
-                        <div class="image">
-                            <img data-src="holder.js/900x400/auto/vine" class="img-responsive"  alt="Generic placeholder thumbnail">
+                        <div class="ui one items" style="margin:  3%">
+                            <div class="item">
+                                <div class="image">
+                                    <img data-src="holder.js/900x400/auto/vine" class="img-responsive"  alt="Generic placeholder thumbnail">
+                                    <a class="star ui corner label">
+                                        <i class="star icon"></i>
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <div class="name">Cute Dog</div>
+                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="content">
-                            <div class="name">Cute Dog</div>                               
-                            <div class="pull-right">
-                                <a href="#" class="btn btn-link">
-                                    100 votes
+
+                        <?php
+                    }
+                }
+                ?> 
+                <!--</div>-->
+            </div>           
+        </div>
+        <script>
+            $(document).ready(function() {
+
+
+            });
+        </script>
+    </section>
+
+    <section id="news" class="main_bg" >
+        <div class="title_bg">
+            <div class="container">
+                <div class="title_top">
+                    <h2>ข่าว</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="main">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="row" id="">
+                            <div class="caption" >
+                                <div class="ui raised segment">
+                                    <div class="ui ribbon green label"><h3>ข่าวประชาสัมพันธ์</h3></div>
+                                    <br>
+                                    <br>
+                                    <div class="item">                       
+                                        <div class="content">
+                                            <div class="date pull-right">
+                                                3 days ago
+                                            </div>
+                                            <img class="ui small left floated image" data-src="holder.js/300x300/auto/vine">
+                                            <div class="name">Cute Dog</div>
+                                            <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row"> 
+                            <div class="ui compact menu">
+                                <a class="item">
+                                    <i class="icon mail"></i> Messages
+                                    <div class="floating ui red label">22</div>
+                                </a>
+                                <a class="item">
+                                    <i class="icon users"></i> Friends
+                                    <div class="floating ui teal label">22</div>
                                 </a>
                             </div>
                         </div>
-                        </div>
+                    </div>
+                </div>
 
-                            
-                    <?php
-                }
-            }
-            ?> 
+            </div>
 
-        </div>           
-</div>
-<script>
-    $(document).ready(function() {
-        $("#owl-demo").owlCarousel({
-            autoPlay: 3000, //Set AutoPlay to 3 seconds
+    </section>
 
-            items: 5,
-            itemsDesktop: [1199, 4],
-            itemsDesktopSmall: [979, 4]
-        });
-
-    });
-</script>
-</section>
-
-<section id="news">
-
-</section>
-
-<section id="activety">
-    <div class="title_bg">
+    <section id="activety">
+        <div class="title_bg">
+            <div class="container">
+                <div class="title_top">
+                    <h2>กิจกรรม</h2>
+                </div>
+            </div>
+        </div>  
         <div class="container">
-            <div class="title_top">
-                <h2>กิจกรรม</h2>
+            <div class="main">
+                <div class="row">
+                    <?php
+                    foreach ($activity_types as $type) {
+                        if ($type['activity_type_id'] != 0) {
+                            $type_id = $type['activity_type_id'];
+                            $type_name = $type['activity_type_name'];
+                            ?>
+                            <div class="col-sm-6">
+                                <h2><?= $type_name ?></h2>
+                                <div class="demo5 demof">
+                                    <ul>
+                                        <?php
+                                        foreach ($activitys as $row) {
+                                            $controller = "Activitys";
+                                            $id = $row['activity_id'];
+                                            $title = $row['activity_title'];
+                                            $subtitle = $row['activity_subtitle'];
+                                            $img = $row['image_small'];
+                                            $date = $this->m_datetime->DateThai($row['publish_date']);
+                                            if ($row['activity_type'] == $type_id && $i != 5) {
+                                                ?>
+                                                <li>
+                                                    <!--<img data-src="holder.js/100x100/sky">-->
+                                                    <?= img($img, array('class' => 'img-responsive')); ?>
+                                                    <a href="<?= base_url('Activitys/view_more/' . $id) ?>">
+                                                        <?= $title ?>
+                                                    </a>
+                                                    <p><?= $subtitle ?></p>
+                                                </li>                                         
+                                                <?php
+                                                $i++;
+                                            }
+                                        }
+                                        ?>  
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="row">
+                    <div class="pull-right">               
+                        <a href="<?= base_url('Activitys/') ?>" class="btn btn-link"><h3>ดูกิจกรรมทั้งหมด...</h3></a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>  
-    <div class="container">
-        <div class="row">
-            <?php
-            foreach ($activity_types as $type) {
-                if ($type['activity_type_id'] != 0) {
-                    $type_id = $type['activity_type_id'];
-                    $type_name = $type['activity_type_name'];
-                    ?>
-                    <div class="col-sm-6">
-                        <h2><?= $type_name ?></h2>
-                        <div class="ticker">
-                            <ul>
-                                <?php
-                                foreach ($activitys as $row) {
-                                    $controller = "Activitys";
-                                    $id = $row['activity_id'];
-                                    $title = $row['activity_title'];
-                                    $subtitle = $row['activity_subtitle'];
-                                    $img = $row['image_small'];
-                                    $date = DateThai($row['publish_date']);
-                                    if ($row['activity_type'] == $type_id && $i != 5) {
-                                        ?>
+    </section>
 
-                                        <li>
-                                            <!--<img data-src="holder.js/100x100/sky">-->
-                                            <?= img($img, array('class' => 'img-responsive')); ?>
-                                            <h3><?= $title ?></h3>
-                                            <p><?= $subtitle ?></p>
-                                            <a href="#">ดู..</a>
-                                        </li>                                         
-                                        <?php
-                                        $i++;
-                                    }
-                                }
-                                ?>  
-                            </ul>
+    <section id="kindness" class="main_bg">
+        <div class="title_bg">
+            <div class="container">
+                <div class="title_top">
+                    <h2>ผู้ใหญ่ใจดี</h2>
+                </div>
+            </div>
+        </div>  
+        <div class="container">            
+            <div class="main">
+                <div class="row">                                          
+                    <?php
+                    if (count($kindness) <= 0) {
+                        ?>
+                        <div class="well">        
+                            <h3>
+                                <p class="text-center" style="padding: 2% ;">
+                                    ไม่พบข้อมูล
+                                </p>
+                            </h3>        
+                        </div>
+                        <?php
+                    } else {
+                        //    for ($i = 0; $i < 5; $i++) {
+                        $i = 0;
+                        foreach ($kindness as $row) {
+                            $controller = "Kindness";
+                            $id_ = $row['kindness_id'];
+                            $title = $row['kindness_title'];
+                            $subtitle = $row['kindness_subtitle'];
+                            $content = $row['kindness_content'];
+                            $date = $this->m_datetime->DateThai($row['publish_date']);
+                            $img = $row['image_small'];
+                            $status = $row['kindness_status'];
+
+                            $view_more = array(
+                                'type' => "button",
+                                'class' => "btn btn-link pull-right",
+                                'style' => "font-size: 0.91em;",
+                            );
+                            if ($i < 4) {
+                                ?>
+                                <div class="col-md-3 col-sm-6 col-xs-6" style="padding: 0;">
+                                    <div class="" >
+                                        <div class="ui raised segment">
+                                            <div class="ui ribbon green label"><h3 style="margin: 0;"><?= $date ?></h3></div><br>
+                                            <br>                                            
+                                            <?= img($img, array('width' => '100%',)); ?>
+
+                                            <div class="content">
+                                                <div class="name">Faithful Dog</div>
+                                                <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                                                <p><?= anchor($controller . '/view_more/' . $id_, 'ดู... ', $view_more) ?>  </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                                $i++;
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="row">
+                    <div class="pull-right">               
+                        <a href="<?= base_url('Activitys/') ?>" class="btn btn-link"><h3>ดูผู้ใหญ่ใจดีทั้งหมด...</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="test">
+        <div class="title_bg">
+            <div class="container">
+                <div class="title_top">
+                    <h2>เกี่ยวกับเรา</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="main">
+                <div class="row">
+                    <div class="col-md-3" >
+                        <div class="ui one items">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/images/demo/highres4.jpg">
+                                    <a class="star ui corner label">
+                                        <i class="star icon"></i>
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <div class="name">Cute Dog</div>
+                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-3" >
+                        <div class="ui one items">
+                            <div class="item">
+                                <div class="image">
+                                    <img src="/images/demo/highres4.jpg">
+                                    <a class="star ui corner label">
+                                        <i class="star icon"></i>
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <div class="name">Cute Dog</div>
+                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="ui six connected items">-->                
+                <div class="row feed">
 
-                    <?php
-                }
-            }
-            ?>
-        </div>
-        <div class="row">
-            <div class="pull-right">               
-                <a href="#" class="btn btn-link"><h3>ดูกิจกรรมทั้งหมด...</h3></a>
+                    <div class="event">
+                        <div class="item">                       
+                            <div class="content">
+                                <div class="date pull-right">
+                                    3 days ago
+                                </div>
+                                <img class="ui small left floated image" src="/images/demo/photo.jpg">
+                                <div class="name">Cute Dog</div>
+                                <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui feed segment">
+                        <div class="event">
+                            <div class="ui large image label">
+                                <img data-src="holder.js/200x200/vine">
+                            </div>
+                            <div class="content">
+                                <div class="date">
+                                    3 days ago
+                                </div>
+                                <div class="name">Schnoodle</div>
+                                <div class="description">Im so glad you chose to bring me home from the shelter...</div>
+                                <div class="summary">
+                                    <a>Sally Poodle</a> added you as a friend
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="item" style="padding-bottom: 2%">
+                        <div class="content">
+                            <div class="name">Faithful Dog</div>
+                            <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                            <div class="summary">
+                                <a>Sally Poodle</a> added you as a friend
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="name">Silly Dog</div>
+                            <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="name">Cute Dog</div>
+                            <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="name">Faithful Dog</div>
+                            <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="name">Silly Dog</div>
+                            <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--</div>-->
             </div>
         </div>
-    </div>      
-</section>
-<section id="kindness">
-</section>
-
-
-
-<section id="test">
-    <div class="title_bg">
-        <div class="container">
-            <div class="title_top">
-                <h2>เกี่ยวกับเรา</h2>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
 </div>
 <script>
     $(document).ready(function() {
         $("#owl-1").owlCarousel({
-            autoPlay: 3000,
+            autoPlay: 5000,
             stopOnHover: true,
             navigation: true,
             paginationSpeed: 1000,
@@ -216,7 +415,15 @@ function DateThai($strDate) {
             //            autoHeight: true,
             transitionStyle: "fade"
         });
-        $('.ticker').easyTicker({
+        $("#owl-hightlight").owlCarousel({
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+            items: 4,
+            stopOnHover: true,
+            itemsDesktop: [1199, 4],
+            itemsDesktopSmall: [979, 4]
+        });
+        $('.demo5').easyTicker({
             direction: 'up',
             easing: 'swing',
             speed: 'slow',

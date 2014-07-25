@@ -89,10 +89,10 @@ class News_ad extends CI_Controller {
         $data = array();
         if ($this->m_news->validation_add() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_news->get_post_form_add();
-//            $this->m_template->set_Debug($form_data);
+            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_news->insert_news($form_data);
-            redirect('News_ad');
+//            redirect('News_ad');
         }
         //Load form add  
         $data['form'] = $this->m_news->set_form_add();

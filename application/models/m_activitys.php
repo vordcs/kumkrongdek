@@ -53,16 +53,25 @@ Class m_activitys extends CI_Model {
         return $data;
     }
 
-    public function search_activitys($status, $str_th_date = NULL) {
+    public function search_activitys() {
 //        $date = explode(' ', $str_th_date);
 //        $month = $this->getMonthFromTH($date[0]);
+
+        $type = (int) $this->input->post('type');
+        $status = (int) $this->input->post('status');
+        $date = $this->input->post('date_search');
 
         $this->db->select('*');
         $this->db->from('activitys');
         $this->db->join('images', 'image_id = activity_img');
-        if ($str_th_date != null) {
-            $date = explode(' ', $str_th_date);
-            $month = $this->m_datetime->monthTHtoDB($date[0]);
+
+        if ($type != 0) {
+            $this->db->join('activity_types', 'activity_type_id = activity_type');
+            $this->db->where('activity_type', $type);
+        }
+        if ($date != null) {
+            $str_date = explode(' ', $date);
+            $month = $this->m_datetime->monthTHtoDB($str_date[0]);
             $this->db->where('MONTH(publish_date)', $month);
         }
         if ($status != 0) {
@@ -71,8 +80,6 @@ Class m_activitys extends CI_Model {
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
-
-
     }
 
     public function insert_activity($f_data) {
@@ -139,6 +146,7 @@ Class m_activitys extends CI_Model {
         foreach ($temp as $row) {
             $f_activity_type[$row['activity_type_id']] = $row['activity_type_name'];
         }
+
         $f_activity_img = array(
             'name' => 'activity_img',
 //            'class' => 'form-control'
@@ -225,11 +233,12 @@ Class m_activitys extends CI_Model {
     }
 
     public function set_form_search() {
+
         $f_date_search = array(
             'name' => 'date_search',
             'class' => 'form-control date-search',
             'placeholder' => 'เดือน ปี',
-            'value' => (set_value('publish_date') == NULL) ? $this->input->post('date_search') : set_value('publish_date')
+//            'value' => (set_value('publish_date') == NULL) ? $this->input->post('date_search') : set_value('publish_date')
         );
         $f_status_search = array(
             '0' => 'ทั้งหมด',
@@ -237,10 +246,17 @@ Class m_activitys extends CI_Model {
             '2' => 'ใช้งาน',
         );
 
+        $f_activity_type = array();
+        $temp = $this->get_activity_type();
+        foreach ($temp as $row) {
+            $f_activity_type[$row['activity_type_id']] = $row['activity_type_name'];
+        }
+
         $form_search = array(
-            'form' => form_open('Activitys_ad/search', array('class' => 'form-horizontal', 'id' => 'form_search')),
-            'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
+            'form' => form_open('Activitys_ad/', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'status' => form_dropdown('status', $f_status_search, set_value('status'), 'class="form-control"'),
             'date' => form_input($f_date_search),
+            'type' => form_dropdown('type', $f_activity_type, set_value('activity_type'), 'class="form-control"'),
         );
 
         return $form_search;
@@ -365,6 +381,7 @@ Class m_activitys extends CI_Model {
     }
 
     function load_img_to_temp($activity_id) {
+        $this->clear_upload_temp();
         //Read images of activitys
         $this->db->select();
         $this->db->from('activitys_has_images');

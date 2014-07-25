@@ -16,29 +16,38 @@
 
 <div class="row">
     <div class="col-sm-4 col-sm-offset-4 col-xs-12" style="padding: 3%">  
-        <div class="text-center">        
-            <?php echo $form['form']; ?>
-            <div class="form-group">            
-                <?= $form['status'] ?>
-            </div>    
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
-                    <?= $form['date'] ?>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
 
-            <?php echo form_close() ?>
+        <?php echo $form['form']; ?>
+        <div class="form-group">  
+            <label for="">สถานะ</label>
+            <?= $form['status'] ?>
+        </div>  
+        <div class="form-group">  
+            <label for="">ประเภทกิจกรรม</label>
+            <?= $form['type'] ?>
+        </div>  
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
+                <?= $form['date'] ?>
+            </div>
         </div>
-    </div> 
+        <div class="text-center">    
+            <button type="submit" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
+        </div> 
+        <?php echo form_close() ?>
+    </div>
+
 </div>
 <?php
 if ($strtitle != NULL) {
     ?>
     <div class="row">
-        <div class="lead">           
-            <?= $strtitle ?>           
+        <div class="col-md-8 col-md-offset-2 col-sm-12">
+            <div class="lead" style="margin: 0;"> 
+                <?= $strtitle ?>           
+            </div>
         </div>
     </div> 
     <?php

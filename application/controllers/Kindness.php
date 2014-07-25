@@ -16,7 +16,7 @@ class Kindness extends CI_Controller {
         $this->m_template->set_Content('kindness.php', $data);
         $this->m_template->showTemplate();
     }
-    
+
     public function view_more($id) {
 
         $kindness = $this->m_kindness->get_kindness($id);
@@ -29,7 +29,7 @@ class Kindness extends CI_Controller {
             $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['kindness_status'];
         }
-//
+        $controller = 'Kindness';
         $data = array(
             'controller' => 'Kindness',
             'id' => $id,
@@ -42,7 +42,8 @@ class Kindness extends CI_Controller {
         );
 //
         $data['images'] = NULL;
-
+        $data['page_title'] = 'ผู้ใหญ่ใจดี';
+        $data['controller'] = $controller;
 //        $this->m_template->set_Debug($kindness);
         $this->m_template->set_Title('รายละเอียด : ' . $title);
         $this->m_template->set_Content('detail.php', $data);

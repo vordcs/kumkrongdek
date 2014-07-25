@@ -27,11 +27,12 @@ class Activitys extends CI_Controller {
 
 
         $activitys = $this->m_activitys->get_activitys($id);
-        $images_activity = $this->m_activitys->get_image_activity();
+
 
         $data['images'] = NULL;
+
         $controller = "Activitys";
-        $activitys = $this->m_activitys->get_activitys($id);
+
         foreach ($activitys as $row) {
             $img = $row['image_small'];
             $title = $row['activity_title'];
@@ -57,6 +58,8 @@ class Activitys extends CI_Controller {
         );
 
         $data['images'] = $this->m_activitys->get_image_activity($id);
+        $data['page_title'] = 'กิจกรรม';
+        $data['controller'] = $controller;
 //
 //        $this->m_template->set_Debug($kindness);
         $this->m_template->set_Title('รายละเอียด : ' . $title);

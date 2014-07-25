@@ -61,7 +61,12 @@
             <div class="pull-right">                     
                 <button type="button" class="btn btn-outline btn-circle btn-danger btn-xs" id="del_img" ><i class="fa fa-times fa-lg" ></i></button>                             
             </div>
-            <?= img($form['image'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px')) ?>                
+            <?php
+            if ($form['image'] != NULL) {
+                echo img($form['image'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px'));
+            }
+            ?>
+
         </div>  
     </div>
 

@@ -225,7 +225,7 @@ Class m_news extends CI_Model {
             'news_img' => form_upload($f_news_img),
             'news_highlight' => form_dropdown('news_highlight', $f_highlight, set_value('news_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
-            'images' => NULL,
+            'image' => NULL,
         );
 
         return $form_add;

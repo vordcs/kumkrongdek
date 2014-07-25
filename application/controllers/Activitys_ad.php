@@ -10,13 +10,30 @@ class Activitys_ad extends CI_Controller {
     }
 
     public function index() {
-        $this->m_activitys->clear_upload_temp();
+
         $data = array();
+
         $data['activitys'] = $this->m_activitys->get_activitys();
         $data['images_activity'] = $this->m_activitys->get_image_activity();
         $data['form'] = $this->m_activitys->set_form_search();
         $data['strtitle'] = NULL;
-        
+
+        $type = (int) $this->input->post('type');
+        $status = (int) $this->input->post('status');
+        $date = $this->input->post('date_search');
+        $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+        $t = $this->m_activitys->get_activity_type();
+
+        if ($type != 0 || $status != 0 || $date != NULL) {
+            $data['activitys'] = $this->m_activitys->search_activitys();
+            $title = '';
+//            $name .= ($year_no != 0 ? ' ปีที่ ' . $year_no : '' );
+            $title.=($status != 0 ? 'สถานะ  ' . $s[$status].'->' : '');
+            $title .=($type != 0 ? ' '.$t[$type]['activity_type_name'] : '');
+            $title .= ($date != NULL ? ' : ' . $date : '');
+
+            $data['strtitle'] = 'ผลการค้นหา : ' . $title;
+        }
 //        $this->m_template->set_Debug($data['form']);
         $this->m_template->set_Title('กิจกรรม');
         $this->m_template->set_Content('admin/activitys.php', $data);
@@ -26,14 +43,17 @@ class Activitys_ad extends CI_Controller {
     public function search() {
 
         $data = array();
-
+        $type = (int) $this->input->post('type');
         $status = (int) $this->input->post('status');
         $date = $this->input->post('date_search');
+
 
         if ($status == 0 && $date == NULL) {
             redirect('Activitys_ad');
         }
         $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+
+
         if ($date == NULL) {
             $title = $s[$status];
         } else {
@@ -41,7 +61,7 @@ class Activitys_ad extends CI_Controller {
         };
 
 //        $data['activitys'] = $this->m_activitys->get_activitys();
-        $data['activitys'] = $this->m_activitys->search_activitys($status, $date);
+        $data['activitys'] = $this->m_activitys->search_activitys();
         $data['images_activity'] = $this->m_activitys->get_image_activity();
         $data['form'] = $this->m_activitys->set_form_search();
         $data['strtitle'] = 'ผลการค้นหา : ' . $title;

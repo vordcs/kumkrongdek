@@ -167,45 +167,53 @@
 /*end*/
 
 /*activity fees*/
-.ticker {
+
+
+.demof {    
     border: 1px solid #ccc;
-    /*margin: 25px 0;*/    
+    margin: 25px 0;
 }
-.ticker ul {
+.demof ul {
+
     list-style: none outside none;
     padding: 0;
-    width: 100%;
+    width: 100%
 }
-
-.ticker li {
-    border-bottom: 1px solid #ccc;
-    margin: 0;
-    padding: 20px 20px 40px 20px;
+.demof li {
+    border-bottom: 1px dashed #ccc;
+    padding: 20px;
 }
-.ticker li.odd {
+.demof li.odd {
     background: none repeat scroll 0 0 #fafafa;
 }
-.tickerli:after {
+.demof li:after {
     clear: both;
     content: "";
     display: block;
 }
-.ticker img {
+.demof img {
     float: left;
     margin: 5px 15px 0 0;
     width: 100px;
 }
-.ticker a {
-    color: #06f;
+.demof a {
+    color: #06f ! important;
     /*font-family: Arial,sans-serif;*/
-    margin: 0;
-    font-size: 1.2548em;
+    font-size: 22px;
     font-weight: bold;
-    float:right;
 }
-.ticker p {
-    font-size: 0.8em;
-    margin: 15px 0 0;
+
+.demo5 {
+    border: 2px solid #ccc;
+    margin-top: 10px;
+}
+.demo5 ul {
+    padding: 0;
+}
+.demo5 ul li {
+    border-bottom: 1px solid #ccc;
+    margin: 0;
+    padding: 10px;
 }
 
 /*end activity*/
@@ -456,6 +464,13 @@ a, a:visited,a:hover,a:active {
     column-gap:           0px;
 
 }
+#gallery #itemp{
+    display: block;
+    background-color: #06f;
+    position: static;
+}
+
+
 #gallery a img {
     /* Just in case there are inline attributes */
     /*width: 100% !important;*/

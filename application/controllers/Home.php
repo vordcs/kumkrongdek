@@ -8,12 +8,16 @@ class Home extends CI_Controller {
         $this->load->model('m_slides');
          $this->load->model('m_activitys');
          $this->load->model('m_activity_types');
+         $this->load->model('m_kindness');
+         
     }
 
     public function index() {
         $data = array();
         
         $data['slides']=  $this->m_slides->get_slides_by_status('active');
+        
+        $data['kindness'] = $this->m_kindness->get_kindness();
         
         $data['activitys']=$this->m_activitys->get_activitys();
         $data['activity_types']=$this->m_activity_types->get_activity_type(0);
