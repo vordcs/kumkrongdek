@@ -25,15 +25,9 @@ class Activitys extends CI_Controller {
 
     public function view_more($id) {
 
-
         $activitys = $this->m_activitys->get_activitys($id);
-
-
-        $data['images'] = NULL;
-
-        $controller = "Activitys";
-
         foreach ($activitys as $row) {
+            
             $img = $row['image_small'];
             $title = $row['activity_title'];
             $subtitle = $row['activity_subtitle'];
@@ -43,12 +37,14 @@ class Activitys extends CI_Controller {
             $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
         }
-
+        $controller = "Activitys";
+        
         $data = array(
-            'controller' => $controller,
+            'controller' => 'Activitys',
+            'page_title' => 'กิจกรรม',
             'img' => $img,
             'id' => $id,
-            'title' => $title,
+            'title_article' => $title,
             'subtitle' => $subtitle,
             'date' => $date,
             'status' => $status,
@@ -56,10 +52,38 @@ class Activitys extends CI_Controller {
             'create' => $create,
             'update' => $update,
         );
+        
+        $data['images'] = NULL;
+        $data['file'] = NULL;
+        
+        $strtype = $this->m_activitys->get_activity_type($type);
+        $data['type'] = $strtype[0]['activity_type_name'];
 
         $data['images'] = $this->m_activitys->get_image_activity($id);
         $data['page_title'] = 'กิจกรรม';
         $data['controller'] = $controller;
+        
+        $new_all = $this->m_activitys->get_activitys();
+        $relate = array();
+        $i = 0;
+        foreach ($new_all as $row) {
+            if ($i < 4) {
+                $temp = array(
+                    'controller' => 'Activity',
+                    'page_title' => 'กิจกรรม',
+                    'img' => $row['image_small'],
+                    'id' => $row['activity_id'],
+                    'title_article' => $row['activity_title'],
+                    'subtitle' => $row['activity_subtitle'],
+                    'content' => $row['activity_content'],
+                    'date' => $this->m_datetime->DateThai($row['publish_date']),
+                );
+                array_push($relate, $temp);
+            }
+            $i++;
+        }
+
+        $data['relate'] = $relate;
 //
 //        $this->m_template->set_Debug($kindness);
         $this->m_template->set_Title('รายละเอียด : ' . $title);
