@@ -48,7 +48,7 @@
         <?php echo js('customize-js.js'); ?> 
 
         <!-- Fixed navbar -->
-        <div id="nav_fix_top" class="navbar navbar-default navbar-fixed-top hidden" role="navigation">
+        <div id="nav_fix_top" class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -85,8 +85,9 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-
-        <header class="top_bgs">
+        
+        
+        <header class="title_bg hidden-xs">
             <div class="container">
                 <div class="logos">
                     <a href="<?= base_url('') ?>"><?php
@@ -106,7 +107,7 @@
             </div>
         </header>
 
-        <!--Fixed navbar id="nav" class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100"--> 
+        <!--statice navbar id="nav" class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="100"--> 
         <nav id="nav-static" class="navbar navbar-default navbar-static-side"  role="navigation">
             <div class="container">
                 <!--Brand and toggle get grouped for better mobile display--> 
@@ -117,14 +118,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand visible-xs">สถานคุ้มครองสวัสดิภาพเด็ก</a>
+                    <a class="navbar-brand visible-xs">สถานคุ้มครองสวัสดิภาพเด็กภาคตะวันออกเฉียงเหนือ</a>
                 </div>
 
                 <!--Collect the nav links, forms, and other content for toggling--> 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="<?= base_url('') ?>"><i class="fa fa-home fa-lg"></i>&nbsp;หน้าเเรก</a></li>
-                        <li><a href="<?= base_url('') ?>"><i class="fa fa-comment"></i>&nbsp;ข่าวสาร&nbsp;</a></li>
+                        <li><a href="<?= base_url('News/') ?>"><i class="fa fa-comment"></i>&nbsp;ข่าวสาร&nbsp;</a></li>
                         <li class="dropdown" >
                             <a href="<?= base_url('AboutUs/') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;เกี่ยวกับเรา&nbsp;<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-column">    

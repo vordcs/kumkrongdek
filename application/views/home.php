@@ -44,6 +44,7 @@
             </div>
         </div>
     </section>
+
     <section id="hightlight">
         <div class="container">  
             <div id="owl-hightlight" class="owl-carousel">   
@@ -89,13 +90,7 @@
                 ?> 
                 <!--</div>-->
             </div>           
-        </div>
-        <script>
-            $(document).ready(function() {
-
-
-            });
-        </script>
+        </div>    
     </section>
 
     <section id="news" class="main_bg" >
@@ -110,52 +105,63 @@
             <div class="main">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
-                        <div class="row" id="">
+                        <?php
+                        foreach ($news_type as $type) {
+                            ?>
                             <div class="caption" >
                                 <div class="ui raised segment">
-                                    <div class="ui ribbon green label"><h3>ข่าวประชาสัมพันธ์</h3></div>
-                                    <br>
-                                    <br>
-                                    <div class="item">                       
-                                        <div class="content">
-                                            <div class="date pull-right">
-                                                3 days ago
-                                            </div>
-                                            <img class="ui small left floated image" data-src="holder.js/300x300/auto/vine">
-                                            <div class="name">Cute Dog 1</div>
-                                            <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                                        </div>
+                                    <div class="ui ribbon green label" style="padding-right: 5%;">
+                                        <a>
+                                            <h3><?= $type['news_type_name'] ?></h3>
+                                        </a>
                                     </div>
-                                    <br>
-                                    <div class="item">                       
-                                        <div class="content">
-                                            <div class="date pull-right">
-                                                3 days ago
-                                            </div>
-                                            <!--<img class="ui small left floated image" data-src="holder.js/300x300/auto/vine">-->
-                                            <div class="name">Cute Dog 1</div>
-                                            <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <div class="row" style="padding: 2% 5%">
+                                        <div class="ui list">
+                                            <?php
+                                            $i = 0;
+                                            foreach ($news as $row) {
+                                                $id = $row['news_id'];
+                                                $title = $row['news_title'];
+                                                $subtitle = $row['news_subtitle'];
+                                                $content = $row['news_content'];
+                                                $type_id = $row['news_type'];
+                                                $date = $this->m_datetime->DateThai($row['publish_date']);
+                                                $highlight = $row['news_highlight'];
+                                                $status = $row['news_status'];
+                                                $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+                                                $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
 
-                        </div>
-                        <div class="row"> 
-                            <div class="ui compact menu">
-                                <a class="item">
-                                    <i class="icon mail"></i> Messages
-                                    <div class="floating ui red label">22</div>
-                                </a>
-                                <a class="item">
-                                    <i class="icon users"></i> Friends
-                                    <div class="floating ui teal label">22</div>
-                                </a>
-                            </div>
-                        </div>
+                                                if ($type_id == $type['news_type_id'] && $i < 5) {
+                                                    ?>
+                                                    <div class="item">
+                                                        <a >
+                                                            <i class="fa fa-caret-right fa-lg"></i>
+                                                            <?= $title ?>
+                                                        </a>
+                                                        <div class="pull-right">
+                                                            <?= $date ?>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                    $i++;
+                                                }
+                                            }
+                                            ?>
+
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>                        
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="pull-right">               
+                        <a href="<?= base_url('News/') ?>" class="btn btn-link"><h3>ดูข่าวทั้งหมด...</h3></a>
+                    </div>
+                </div>      
             </div>
 
     </section>
@@ -173,7 +179,7 @@
                 <div class="row">
                     <?php
                     foreach ($activity_types as $type) {
-                        if ($type['activity_type_id'] != 0) {
+                        if ($type['activity_type_id'] != 1) {
                             $type_id = $type['activity_type_id'];
                             $type_name = $type['activity_type_name'];
                             ?>
@@ -277,9 +283,13 @@
                                             <?= img($img, array('width' => '100%',)); ?>
 
                                             <div class="content">
-                                                <div class="name">Faithful Dog</div>
-                                                <p class="description hidden-xs">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
-                                                <p><?= anchor($controller . '/view_more/' . $id_, 'ดู... ', $view_more) ?>  </p>
+                                                <div class="name"><?= $title ?></div>
+                                                <p class="description hidden-xs">
+                                                    <?= $subtitle ?>
+                                                </p>
+                                                <p>
+                                                    <?= anchor($controller . '/view_more/' . $id_, 'ดู... ', $view_more) ?> 
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
