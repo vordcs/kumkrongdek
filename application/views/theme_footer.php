@@ -8,6 +8,57 @@
                 <div class="row" align="center">
 
                 </div>
+                 <div class="col-xs-6 col-md-2">
+                    <a href="http://www.m-society.go.th/" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l13.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                 <div class="col-xs-6 col-md-2">
+                    <a href="http://www.bsws.go.th/index.php" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l14.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                 <div class="col-xs-6 col-md-2">
+                    <a href="http://www.wandc.dsdw.go.th/home.html" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/foot_logo/l15.gif', $img_propr); ?>
+
+                    </a>
+                </div>
+
+                 <div class="col-xs-6 col-md-2">
+                    <a href="http://www.osccthailand.go.th/Front/" >
+                        <?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '100%'
+                                )
+                        ?>
+                        <?= img('/link/logo4.gif', $img_propr); ?>
+
+                    </a>
+                </div>
                 <div class="col-xs-6 col-md-2">
                     <a href="http://www.khonkaen.go.th/khonkaen6/main.php?cont=sitemap#" >
                         <?php

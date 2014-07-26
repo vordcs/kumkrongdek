@@ -170,7 +170,7 @@
 
 
 .demof {    
-    border: 1px solid #ccc;
+    //border: 1px solid #ccc;
     margin: 25px 0;
 }
 .demof ul {
@@ -204,7 +204,7 @@
 }
 
 .demo5 {
-    border: 2px solid #ccc;
+    //border: 2px solid #ccc;
     margin-top: 10px;
 }
 .demo5 ul {
@@ -610,4 +610,21 @@ min-width:768px){
     .bs-docs-sidebar.affix-bottom,.bs-docs-sidebar.affix{
         width:242px
     }
+}
+/* Top BG */
+.top_bgs {
+    background: none repeat scroll 0 0 #242424;
+.wraps {
+    margin: 0 auto;
+    width: 80%;
+}
+.headers {
+    padding: 0 5%;
+}
+.logos {
+    float: left;
+    margin: 14px 0;
+}
+aa, aa:visited, aa:hover, aa:active {
+    color: #ffffff;
 }
