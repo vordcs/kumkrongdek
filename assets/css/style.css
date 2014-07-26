@@ -612,19 +612,16 @@ min-width:768px){
     }
 }
 /* Top BG */
-.top_bgs {
-    background: none repeat scroll 0 0 #242424;
-.wraps {
-    margin: 0 auto;
-    width: 80%;
+#owl-demo .item{
+    //background: #42bdc2;
+    padding: 30px 0px;
+    margin: 5px;
+    color: #333;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-align: center;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
-.headers {
-    padding: 0 5%;
-}
-.logos {
-    float: left;
-    margin: 14px 0;
-}
-aa, aa:visited, aa:hover, aa:active {
-    color: #ffffff;
-}
+
+

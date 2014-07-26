@@ -77,7 +77,7 @@ if ($strtitle != NULL) {
                 }
             }
             ?>
-            <div class="col-md-8 col-md-offset-2 col-xs-12">                
+            <div class="col-md-12 col-xs-12">                
                 <div class="panel panel-default">                  
                     <div class="panel-body">
 
@@ -142,7 +142,7 @@ if ($strtitle != NULL) {
                         </div> 
                         <div class="row">
                             <div class="col-xs-12 col-md-4">
-                                <a class="pull-left" href="#">
+                                <a class="pull-left" href="<?=  base_url($controller . '/view_more/' . $id)?>">
                                     <?= img($row['image_small'], array('class' => 'img-responsive', 'width' => '100%')); ?>
                                 </a>
                             </div>  

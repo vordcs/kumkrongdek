@@ -266,8 +266,27 @@
             viewMode: "years",
             minViewMode: "years",
         });
+        
+        var owl = $("#owl-demo");
+ 
+  owl.owlCarousel({
+     
+      itemsCustom : [
+        [0, 2],
+        [450, 3],
+        [600, 4],
+        [700, 5],
+        [1000, 5],
+        [1200, 5],
+        [1400, 5],
+        [1600, 5]
+      ],
+      navigation : true
+ 
+  });
     });
 </script>
+
 <!-- Owl Carousel Assets -->
 <!-- Prettify -->       
 <?php echo js('owl.carousel.min.js'); ?> 

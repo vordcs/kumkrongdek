@@ -25,6 +25,39 @@
         <div class="row">
             <div class="col-md-3">           
                 <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+                    <div class="ui raised segment">
+                        <div class="row" style="margin-left:-40px;">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <?php echo $form['year_no']; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">                        
+                                <div class="form-group">
+
+                                    <?php echo $form['issue']; ?>
+                                </div>                        
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <?php echo $form['month']; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <?php echo $form['year'] ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="text-center"> 
+                                        <button type="submit" name="btn_search" class="btn btn-default btn-lg"><i></i>ค้นหา</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <ul class="nav bs-docs-sidenav list-group" id="menu_side">
 
                         <?php
@@ -46,20 +79,20 @@
                         ?>
                     </ul>
                     <!--<h4 id="info" class="text-info">Currently you are viewing - Section 1</h4>-->
-                </div>
 
+                </div>
             </div>
-            <div class="col-md-9 scroll-area" data-spy="scroll" data-offset="0" id="main">      
-                <div class="row" style="padding: 2%;" id="search">
+            <div class="col-md-9 scroll-area" data-spy="scroll" data-offset="0" id="main" style="min-height: 1000px;">      
+                <div class="row" style="padding: 2%;" id="search" >
                     <div class="col-sm-12" >
-                        <div class="ui bottom right attached label">
+                        <!--<div class="ui bottom right attached label">
                             <h3 style="margin: 0">
                                 ค้นหา...
                             </h3>
 
-                        </div>
+                        </div>-->
                         <?php echo $form['form']; ?>        
-                        <div class="form-group">            
+                        <div class="form-group visible-xs col-xm-4 col-xs-12">
                             <div class="row">
                                 <div class="col-sm-10 col-md-offset-1">
                                     <div class="col-md-2">
@@ -75,12 +108,16 @@
                                         </div>                        
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="">เดือน</label>
-                                        <?php echo $form['month']; ?>
+                                        <div class="form-group">
+                                            <label for="">เดือน</label>
+                                            <?php echo $form['month']; ?>
+                                        </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="">ปี</label>
-                                        <?php echo $form['year'] ?>
+                                        <div class="form-group">
+                                            <label for="">ปี</label>
+                                            <?php echo $form['year'] ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +184,7 @@
                                 </div>
                                 <div class="ui bottom right attached label">
                                     <h4 style="margin: 0">
-                                        <?=$date?>
+                                        <?= $date ?>
                                     </h4>
                                 </div>
                             </div>
