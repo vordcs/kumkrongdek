@@ -63,6 +63,7 @@ if ($strtitle != NULL) {
             $content = $row['kindness_content'];
             $date = $this->m_datetime->DateThai($row['publish_date']);
             $img = $row['image_small'];
+            $highlight = $row['kindness_highlight'];
             $status = $row['kindness_status'];
             $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
@@ -72,7 +73,13 @@ if ($strtitle != NULL) {
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <div class="row">                           
-
+                                <?php
+                                if ($highlight == 0) {
+                                    echo '<span class="icon"><i class="fa fa-bookmark-o fa-2x"></i></span>';
+                                } else {
+                                    echo '<span class="icon"><i class="fa fa-bookmark fa-2x"></i></span>';
+                                }
+                                ?>
                                 <p class="pull-right">
                                     <?php
                                     $edit = array(

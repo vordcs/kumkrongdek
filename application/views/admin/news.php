@@ -12,22 +12,26 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-4 col-sm-offset-4 col-xs-12" style="padding: 3%">  
-        <div class="text-center">        
-            <?php echo $form['form']; ?>
-            <div class="form-group">            
-                <?= $form['status'] ?>
-            </div>    
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
-                    <?= $form['date'] ?>
-                </div>
-            </div>
-            <button type="submit" name="btn_search" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
+    <div class="col-sm-4 col-sm-offset-4 col-xs-12 well" style="padding: 3%">  
 
-            <?php echo form_close() ?>
+        <?php echo $form['form']; ?>
+        <div class="form-group">   
+            <?php echo $form['type']; ?>    
         </div>
+        <div class="form-group">            
+            <?= $form['status'] ?>
+        </div>    
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></div>
+                <?= $form['date'] ?>
+            </div>
+        </div>
+        <div class="pull-right"> 
+            <button type="submit" name="btn_search" class="btn btn-default"><h3 style="margin: 0px"><i class="fa fa-search"></i>&nbsp;&nbsp;ค้นหา</h3></button>
+        </div>
+        <?php echo form_close() ?>
+
     </div> 
 </div>
 <?php
@@ -66,14 +70,18 @@ if ($strtitle != NULL) {
             $status = $row['news_status'];
             $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+            $type = '';
+            foreach ($news_type as $t) {
+                if ($t['news_type_id'] == $row['news_type']) {
+                    $type = $t['news_type_name'];
+                }
+            }
             ?>
             <div class="col-md-8 col-md-offset-2 col-xs-12">                
-                <div class="panel panel-default">
-
+                <div class="panel panel-default">                  
                     <div class="panel-body">
-                        <div class="row">                            
-                            
 
+                        <div class="row"> 
                             <?php
                             $edit = array(
                                 'type' => "button",
@@ -114,15 +122,11 @@ if ($strtitle != NULL) {
                                 'class' => "btn btn-link pull-right",
                                 'style' => "font-size: 0.91em;",
                             );
-                            
-                            if ($highlight ==0) {
-                                echo '<span class="icon"><i class="fa fa-bookmark-o fa-lg"></i> <?= $highlight ?></span>';
-                            }  else {
-                                echo '<span class="icon"><i class="fa fa-bookmark fa-lg"></i> <?= $highlight ?></span>';
-                            }
                             ?>
-                            
-                            
+
+                            <div class="ui ribbon green label" style="padding-right: 5%">
+                                <h3 style="margin: 0px;padding: 0px"><?= $type ?></h3>                                
+                            </div>
                             <p class="pull-right">
                                 <?php
                                 echo '<span class="icon">' . anchor($controller . '/edit/' . $id, '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', $edit) . '</span>';
@@ -134,7 +138,7 @@ if ($strtitle != NULL) {
                                     echo '<span class="icon">' . anchor('#', '<i class="fa fa-trash-o fa-lg"></i>&nbsp;ลบ', $delete) . '</span>';
                                 }
                                 ?>
-                            </p>
+                            </p>                            
                         </div> 
                         <div class="row">
                             <div class="col-xs-12 col-md-4">
@@ -143,12 +147,12 @@ if ($strtitle != NULL) {
                                 </a>
                             </div>  
                             <div class="col-xs-12 col-md-8">
-                                <div class="row">
+                                <div class="row">                                    
                                     <h3>
                                         <?= $title ?>
                                         <div class="text-muted"><small><?= $date ?></small></div>
                                     </h3> 
-                                    <div class="description">                                   
+                                    <div class="description">                                         
                                         <p>
                                             <?= $subtitle ?> 
                                             <?= anchor($controller . '/view_more/' . $id, 'อ่านเพิ่ม... ', $view_more) ?>                                           
@@ -171,17 +175,23 @@ if ($strtitle != NULL) {
                                         </dl> 
                                     </div>   
                                 </div>
-                                <div class="row" style="margin: 0px;padding: 0px">
+                                <div class="row" >
+                                    <div class="ui top right attached label">
 
-
+                                    </div> 
                                 </div>
-
                             </div>
-                        </div> 
-
+                        </div>                         
                     </div>
                     <div class="panel-footer">
                         <div class="row">
+                            <?php
+                            if ($highlight == 0) {
+                                echo '<span class="icon"><i class="fa fa-bookmark-o fa-lg"></i> <?= $highlight </span>';
+                            } else {
+                                echo '<span class="icon"><i class="fa fa-bookmark fa-lg"></i> <?= $highlight</span>';
+                            }
+                            ?>
                             <div class="pull-right">
                                 <?php
                                 echo $update . $create;

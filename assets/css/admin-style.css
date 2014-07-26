@@ -74,7 +74,7 @@ dl dt {
 
 /*Image Gallery for detail product*/
 
-#gallery  {
+#gallery {
    /* Prevent vertical gaps */
    line-height: 0;
    
@@ -88,7 +88,7 @@ dl dt {
 }
 #gallery a img {
   /* Just in case there are inline attributes */
-  /*width: 100% !important;*/
+  width: 100% !important;
   height: auto !important;
   padding: 1%;
 }
@@ -125,4 +125,4 @@ dl dt {
   }
 }
 
-/*end for Gallery*/
+/*end for product detailed */

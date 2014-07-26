@@ -12,7 +12,7 @@ Class m_kindness extends CI_Model {
         if ($id != NULL) {
             $this->db->where('kindness_id', $id);
         }
-        $this->db->order_by("publish_date", "desc");
+        $this->db->order_by("publish_date desc,create_date desc");
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;

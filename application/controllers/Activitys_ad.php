@@ -14,6 +14,7 @@ class Activitys_ad extends CI_Controller {
         $data = array();
 
         $data['activitys'] = $this->m_activitys->get_activitys();
+        $data['activity_types'] = $this->m_activitys->get_activity_type();
         $data['images_activity'] = $this->m_activitys->get_image_activity();
         $data['form'] = $this->m_activitys->set_form_search();
         $data['strtitle'] = NULL;
@@ -22,19 +23,20 @@ class Activitys_ad extends CI_Controller {
         $status = (int) $this->input->post('status');
         $date = $this->input->post('date_search');
         $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
-        $t = $this->m_activitys->get_activity_type();
+        
 
-        if ($type != 0 || $status != 0 || $date != NULL) {
+        if (($type != 0 && $type != 1) || $status != 0 || $date != NULL) {
             $data['activitys'] = $this->m_activitys->search_activitys();
+            $t = $this->m_activitys->get_activity_type();
             $title = '';
 //            $name .= ($year_no != 0 ? ' ปีที่ ' . $year_no : '' );
-            $title.=($status != 0 ? 'สถานะ  ' . $s[$status].'->' : '');
-            $title .=($type != 0 ? ' '.$t[$type]['activity_type_name'] : '');
+            $title.=($status != 0 ? 'สถานะ  ' . $s[$status] . '->' : '');
+            $title .=($type != 0 ? ' ' . $t[0]['activity_type_name'] : '');
             $title .= ($date != NULL ? ' : ' . $date : '');
 
             $data['strtitle'] = 'ผลการค้นหา : ' . $title;
         }
-//        $this->m_template->set_Debug($data['form']);
+//        $this->m_template->set_Debug($type);
         $this->m_template->set_Title('กิจกรรม');
         $this->m_template->set_Content('admin/activitys.php', $data);
         $this->m_template->showTemplateAdmin();
@@ -81,7 +83,8 @@ class Activitys_ad extends CI_Controller {
             $title = $row['activity_title'];
             $subtitle = $row['activity_subtitle'];
             $content = $row['activity_content'];
-            $date = $this->DateThai($row['publish_date']);
+            $type = $row['activity_type'];
+            $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['activity_status'];
             $create = '  | สร้าง : ' . $this->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . $this->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
@@ -91,7 +94,7 @@ class Activitys_ad extends CI_Controller {
             'controller' => 'Activitys_ad',
             'img' => $img,
             'id' => $id,
-            'title' => $title,
+            'title_article' => $title,
             'subtitle' => $subtitle,
             'date' => $date,
             'status' => $status,
@@ -101,9 +104,11 @@ class Activitys_ad extends CI_Controller {
         );
 
         $data['images'] = $this->m_activitys->get_image_activity($id);
-
+        $data['file'] = NULL;
+        $strtype = $this->m_activitys->get_activity_type($type);
+        $data['type'] = $strtype[0]['activity_type_name'];
 //        $this->m_template->set_Debug($data);
-        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Title('กิจกรรม');
         $this->m_template->set_Content('admin/detail.php', $data);
         $this->m_template->showTemplateAdmin();
     }

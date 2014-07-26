@@ -347,10 +347,17 @@ Class m_activitys extends CI_Model {
         return $row['image_id'];
     }
 
-    public function get_activity_type() {
+    public function get_activity_type($type_id=NULL) {
+        
+         $this->db->select('*');
+        $this->db->from('activity_types');
         $this->db->order_by('activity_type_id');
-        $query = $this->db->get('activity_types');
+        if ($type_id != NULL) {
+            $this->db->where('activity_type_id', $type_id);
+        }
+        $query = $this->db->get();
         return $query->result_array();
+
     }
 
 ///

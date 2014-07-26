@@ -78,7 +78,7 @@ class Kindness_ad extends CI_Controller {
         }
         $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
         if ($date == NULL) {
-            $title = 'สถานะ  '. $s[$status];
+            $title = 'สถานะ  ' . $s[$status];
         } else {
             $title = $date;
         };
@@ -119,12 +119,11 @@ class Kindness_ad extends CI_Controller {
 
         $kindness = $this->m_kindness->get_kindness($id);
         foreach ($kindness as $row) {
-
             $img = $row['image_small'];
             $title = $row['kindness_title'];
             $subtitle = $row['kindness_subtitle'];
             $content = $row['kindness_content'];
-            $date = $this->DateThai($row['publish_date']);
+            $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['kindness_status'];
             $create = '  | สร้าง : ' . $this->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . $this->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
@@ -134,7 +133,7 @@ class Kindness_ad extends CI_Controller {
             'controller' => 'Kindness_ad',
             'id' => $id,
             'img' => $img,
-            'title' => $title,
+            'title_article' => $title,
             'subtitle' => $subtitle,
             'date' => $date,
             'status' => $status,
@@ -144,9 +143,10 @@ class Kindness_ad extends CI_Controller {
         );
 //
         $data['images'] = NULL;
-
+        $data['file'] = NULL;
+        $data['type'] = NULL;
 //        $this->m_template->set_Debug($kindness);
-        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Title('ผู้ใหญ่ใจดี');
         $this->m_template->set_Content('admin/detail.php', $data);
         $this->m_template->showTemplateAdmin();
     }

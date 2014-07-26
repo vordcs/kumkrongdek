@@ -73,9 +73,7 @@
                         <span class="pull-right"><?= ($row['slide_link'] == NULL) ? $row['slide_link'] : anchor($row['slide_link'], '<i class="fa fa-link fa-2x"></i>', ''); ?></span> 
                         <h3><?= $row['slide_title'] ?></h3>                    
                         <div class="description">
-
                             <?= $row['slide_subtitle'] ?>
-
                         </div>                   
 
                         <?php
@@ -112,7 +110,7 @@
                         echo '<p class="text-center">';
                         echo anchor('Slides/edit/' . $row['slide_id'], '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', 'type="button" class="btn btn-info"') . '&nbsp;&nbsp';
                         if ($row['slide_status'] == 'active') {
-                            echo anchor('#', '<i class="fa fa-minus fa-lg"></i>&nbsp;ยกเลิก', $cancle);
+                            echo anchor('#', '<i class="fa fa-times fa-lg"></i>&nbsp;ยกเลิก', $cancle);
                         } else {
                             echo anchor('#', '<i class="fa fa-refresh fa-lg fa-spin"></i>&nbsp;ใช้งาน', $active) . '&nbsp;&nbsp';
                             echo anchor('#', '<i class="fa fa-trash-o fa-lg"></i>&nbsp;ลบ', $delete);
