@@ -24,7 +24,8 @@ Class m_news extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('news');
-        $this->db->order_by("create_date", "desc");
+        $this->db->order_by("create_date desc,publish_date desc");
+
         $this->db->join('images', 'image_id = news_img');
         if ($id != NULL) {
             $this->db->where('news_id', $id);
@@ -48,20 +49,28 @@ Class m_news extends CI_Model {
         return $itemp;
     }
 
-    public function get_news_file($id = NULL) {
-        $this->db->select('*');
-        $this->db->from('files');
-        $this->db->join('news_has_files', 'news_has_files.file_id = files.file_id');
-//        $this->db->join('products', 'products_has_images.product_id = products.id', 'left');
-//        $this->db->join('product_types', 'products.product_type_id=product_types.id', 'left');
-        if ($id != NULL) {
-            $this->db->where('news_has_files.file_id', $id);
+    public function get_news_file($news_id = NULL) {
+
+        $this->db->select();
+        $this->db->from('news_has_files');
+        $this->db->join('files', 'news_has_files.file_id = files.file_id', 'left');
+        if ($news_id != NULL) {
+            $this->db->where('news_id', $news_id);
         }
         $query = $this->db->get();
+
         $result = $query->result_array();
         return $result;
     }
-        public function get_news_image($id = NULL) {
+
+    public function get_news_image($id = NULL) {
+        $this->db->select();
+        $this->db->from('activitys_has_images');
+        $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
+        if ($activity_id != NULL) {
+            $this->db->where('activity_id', $activity_id);
+        }
+        $query = $this->db->get();
         $this->db->select('*');
         $this->db->from('files');
         $this->db->join('news_has_files', 'news_has_files.file_id = files.file_id');
@@ -75,29 +84,35 @@ Class m_news extends CI_Model {
         return $result;
     }
 
-        public function search_news($status, $str_th_date = NULL) {
+    public function search_news() {
 //        $date = explode(' ', $str_th_date);
 //        $month = $this->getMonthFromTH($date[0]);
+
+        $type = (int) $this->input->post('type');
+        $status = (int) $this->input->post('status');
+        $date = $this->input->post('date_search');
 
         $this->db->select('*');
         $this->db->from('news');
         $this->db->join('images', 'image_id = news_img');
-        if ($str_th_date != null) {
-            $date = explode(' ', $str_th_date);
-            $month = $this->m_datetime->monthTHtoDB($date[0]);
-            $this->db->where('MONTH(publish_date)', $month);
+        if ($type != 0 && $type != 1) {
+            $this->db->where('news_type', $type);
         }
         if ($status != 0) {
             $this->db->where('news_status', $status);
         }
+        if ($date != null) {
+            $d = explode(' ', $date);
+            $month = $this->m_datetime->monthTHtoDB($d[0]);
+            $this->db->where('MONTH(publish_date)', $month);
+        }
+
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
-
-
     }
-    
-    function get_images_by_news($id) {
+
+    public function get_images_by_news($id) {
 //        $this->db->select('*');
 //        $this->db->from('images');
 //        $this->db->join('news_has_images', 'news.image_id = images_id');
@@ -118,15 +133,27 @@ Class m_news extends CI_Model {
         $this->db->trans_complete();
 
         $this->load->model('m_upload');
-        $this->m_upload->upload_multi_file($new_id, 'file');
+        $this->m_upload->upload_multi_file('file', $new_id);
+//        $this->m_upload->upload_multi_image('news','news_has_images','images', $new_id);
     }
 
     public function update_news($id, $f_data) {
+        $this->load->model('m_upload');
+        $this->m_upload->upload_multi_file('file', $id);
         $this->db->where('news_id', $id);
         $this->db->update('news', $f_data);
     }
 
     public function delete_news($id) {
+
+        //delete file
+        $new_file = $this->get_news_file($id);
+        foreach ($new_file as $file) {
+            $this->deleteFile($file['file_id']);
+            $this->db->where('file_id', $file['file_id']);
+            $this->db->delete('news_has_files');
+        }
+
         //delete image 
         $img_id = $this->get_image_id($id);
         $this->deleteImage($img_id);
@@ -138,38 +165,9 @@ Class m_news extends CI_Model {
         //delete
         $this->db->where('news_id', $id);
         $this->db->delete('news');
-
-//        //delete file 
-//        $file = $this->get_news_file($id);
-//        if (count($file) > 0) {
-//            foreach ($file as $f) {
-//                $this->deleteFile($f['file_id']);
-//
-//                //delete file in database
-//                $this->db->where('file_id', $f['file_id']);
-//                $this->db->delete('files');
-//
-//                $this->db->where('file_id', $f['file_id']);
-//                $this->db->delete('news_has_files');
-//            }
-//        }
-//
-//        //delete image in news_has_image
-//        $imgage = $this->check_news_image($id);
-//        if (count($imgage) > 0) {
-//            foreach ($imgage as $img) {
-//                $this->deleteImage($img['image_id']);
-//                //delete image in database
-//                $this->db->where('image_id', $img_id);
-//                $this->db->delete('images');
-//
-//                $this->db->where('image_id', $img_id);
-//                $this->db->delete('news_has_images');
-//            }
-//        }
     }
 
-    function set_form_add() {
+    public function set_form_add() {
         $f_news_title = array(
             'name' => 'news_title',
             'class' => 'form-control',
@@ -200,6 +198,7 @@ Class m_news extends CI_Model {
             'name' => 'news_img',
 //            'class'=>'form-control',
             'placeholder' => '',
+            'accept' => 'image/gif,image/png,image/jpeg,image/jpg',
             'value' => set_value('news_img')
         );
 
@@ -226,12 +225,13 @@ Class m_news extends CI_Model {
             'news_highlight' => form_dropdown('news_highlight', $f_highlight, set_value('news_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
             'image' => NULL,
+            'file_news' => NULL,
         );
 
         return $form_add;
     }
 
-    function set_form_edit($data) {
+    public function set_form_edit($data) {
         $f_news_title = array(
             'name' => 'news_title',
             'class' => 'form-control',
@@ -295,12 +295,18 @@ Class m_news extends CI_Model {
             'news_highlight' => form_dropdown('news_highlight', $f_highlight, (set_value('news_highlight') == NULL) ? $data['news_highlight'] : set_value('news_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
             'image' => $data['image_small'],
+            'file_news' => $this->get_news_file($data['news_id']),
         );
 
         return $form_edit;
     }
 
     public function set_form_search() {
+        $f_news_type = array();
+        $temp = $this->get_news_type();
+        foreach ($temp as $row) {
+            $f_news_type[$row['news_type_id']] = $row['news_type_name'];
+        }
         $f_date_search = array(
             'name' => 'date_search',
             'class' => 'form-control date-search',
@@ -312,10 +318,10 @@ Class m_news extends CI_Model {
             '1' => 'ไม่ใช้งาน',
             '2' => 'ใช้งาน',
         );
-
         $form_search = array(
             'form' => form_open('News_ad/', array('class' => 'form-horizontal', 'id' => 'form_search', 'name' => 'form_search')),
             'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
+            'type' => form_dropdown('type', $f_news_type, (set_value('type') == NULL) ? $this->input->post('type') : set_value('type'), 'class="form-control"'),
             'date' => form_input($f_date_search),
         );
 
@@ -377,14 +383,39 @@ Class m_news extends CI_Model {
             $img_id = $this->m_upload->upload_image('news', 'news_img', $id);
             $page_data['news_img'] = $img_id;
         }
+        $file = $this->input->post('files_id');
+        $news_file = $this->get_news_file($id);
+        $num_file = count($file);
+        if (count($file) != count($news_file)) {
+            $i = $num_file;
+            for ($i = 0; $i < count($news_file); $i++) {
+                $checked = FALSE;
+                for ($j = 0; $j < $num_file; $j++) {
+                    if ($news_file[$i]['file_id'] == $file[$j]) {
+                        $checked = TRUE;
+                    }
+                }
+                if ($checked == FALSE) {
+//                    $page_data['image_id'] = array();
+//                    array_push($page_data['image_id'], $news_file[$i]['file_id'] . ' name : ' . $news_file[$i]['file_name']);
+                    $this->deleteFile($news_file[$i]['file_id']);
+                    $this->db->where('file_id', $news_file[$i]['file_id']);
+                    $this->db->delete('news_has_files');
+                }
+            }
+        }
+
 
         return $page_data;
     }
 
-    public function get_news_type() {
+    public function get_news_type($type_id = NULL) {
         $this->db->select('*');
         $this->db->from('news_types');
         $this->db->order_by('news_type_id');
+        if ($type_id != NULL) {
+            $this->db->where('news_type_id', $type_id);
+        }
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -400,10 +431,9 @@ Class m_news extends CI_Model {
         return $row['image_id'];
     }
 
-    function get_file_id($news_id) {
+    public function get_file_id($news_id) {
         $this->db->select('file_id');
         $this->db->from('news_has_files');
-//        $this->db->join('files', 'file_id = journal_file');
         $this->db->where('news_id', $news_id);
         $query = $this->db->get();
         $row = $query->row_array();

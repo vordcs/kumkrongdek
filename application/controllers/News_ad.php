@@ -15,20 +15,30 @@ class News_ad extends CI_Controller {
         $data['news'] = $this->m_news->get_news();
         $data['file'] = $this->m_news->get_news_file();
         $data['form'] = $this->m_news->set_form_search();
+        $data['news_type'] = $this->m_news->get_news_type();
         $data['strtitle'] = NULL;
-        if ($this->input->post('status') != 0 || $this->input->post('date_search') != NULL) {
-            $status = (int) $this->input->post('status');
-            $date = $this->input->post('date_search');
-            $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
-            if ($date == NULL) {
-                $title = $s[$status];
-            } else {
-                $title = $date;
-            };
+
+        $type = (int) $this->input->post('type');
+        $status = (int) $this->input->post('status');
+        $date = $this->input->post('date_search');
+        $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+
+        if (($type != 0 && $type != 1) || $status != 0 || $date != NULL) {
+            $data['news'] = $this->m_news->search_news();
+
+            $strtype = $this->m_news->get_news_type($type);
+
+            $title = '';
+            $title.=($status != 0 ? 'สถานะ  ' . $s[$status] : '');
+            if ($type != 1) {
+                $title .=($type != 0 ? ' ' . $strtype[0]['news_type_name'] : '' );
+            }
+            $title .= ($date != NULL ? ' : ' . $date : '');
+
             $data['strtitle'] = 'ผลการค้นหา : ' . $title;
         }
 
-//        $this->m_template->set_Debug($data['file']);
+//        $this->m_template->set_Debug($type);
         $this->m_template->set_Title('ข่าว');
         $this->m_template->set_Content('admin/news.php', $data);
         $this->m_template->showTemplateAdmin();
@@ -37,11 +47,12 @@ class News_ad extends CI_Controller {
     public function highlight() {
         $data = array();
 
-         $data['form'] = $this->m_news->set_form_search();
+        $data['form'] = $this->m_news->set_form_search();
         $data['strtitle'] = NULL;
-        
+
         $data['news'] = $this->m_news->get_news_highlight();
         $data['file'] = $this->m_news->get_news_file();
+        $data['news_type'] = $this->m_news->get_news_type();
 
 //        $this->m_template->set_Debug($data);
         $this->m_template->set_Title('ข่าวเด่น');
@@ -58,6 +69,7 @@ class News_ad extends CI_Controller {
             $title = $row['news_title'];
             $subtitle = $row['news_subtitle'];
             $content = $row['news_content'];
+            $type = $row['news_type'];
             $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['news_status'];
             $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
@@ -68,7 +80,7 @@ class News_ad extends CI_Controller {
             'controller' => 'News_ad',
             'img' => $img,
             'id' => $id,
-            'title' => $title,
+            'title_article' => $title,
             'subtitle' => $subtitle,
             'date' => $date,
             'status' => $status,
@@ -77,10 +89,12 @@ class News_ad extends CI_Controller {
             'update' => $update,
         );
         $data['images'] = NULL;
-//        $data['images'] = $this->m_activitys->get_image_activity($id);
         $data['file'] = $this->m_news->get_news_file($id);
+        $strtype = $this->m_news->get_news_type($type);
+        $data['type'] = $strtype[0]['news_type_name'];
+
 //        $this->m_template->set_Debug($data);
-        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Title('ข่าว');
         $this->m_template->set_Content('admin/detail.php', $data);
         $this->m_template->showTemplateAdmin();
     }
@@ -101,16 +115,15 @@ class News_ad extends CI_Controller {
         $this->m_template->set_Content('admin/form_news.php', $data);
         $this->m_template->showTemplateAdmin();
     }
-    
+
     public function edit($id) {
         $data = array();
         if ($this->m_news->validation_edit() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_news->get_post_form_edit($id);
-//            $this->m_template->set_Debug($form_data);
+            $this->m_template->set_Debug($form_data);
             //update data
             $this->m_news->update_news($id, $form_data);
             redirect('News_ad');
-//            $this->m_upload->upload_multi_file(2);
         }
         //      get detail and sent to load form
         $detail = $this->m_news->get_news($id);
@@ -120,15 +133,19 @@ class News_ad extends CI_Controller {
         } else {
             redirect('News_ad');
         }
-
+//        $this->m_template->set_Debug($data);
         $this->m_template->set_Title('แก้ไขข่าว : ' . $name);
         $this->m_template->set_Content('admin/form_news.php', $data);
         $this->m_template->showTemplateAdmin();
     }
 
-    public function delete($id) {
+    public function delete($id, $controller = NULL) {
         $this->m_news->delete_news($id);
-        redirect('News_ad');
+        if ($controller != NULL) {
+            
+        } else {
+            redirect('News_ad');
+        }
     }
 
     public function unactive($id) {
@@ -163,7 +180,7 @@ class News_ad extends CI_Controller {
     }
 
     public function type_check() {
-        if ($this->input->post('news_type') === '0') {
+        if ($this->input->post('news_type') === '1') {
             $this->form_validation->set_message('type_check', 'เลือกประเภทข่าว');
             return FALSE;
         } else {

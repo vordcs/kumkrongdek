@@ -81,7 +81,7 @@
                     <input type="text" class="form-control" name="txtTitle[]">
                 </div>
                 <div class="col-sm-3" >
-                    <input type="file" name="file[]">
+                    <input type="file" name="file[]" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
                 </div>
             </div>
         </div>        
@@ -120,6 +120,42 @@
         </div>
     </div>
 
+    <!--    <div class="form-group" style="padding: 2% ;margin-left: 5%;">
+            <label class="col-sm-3 control-label">รูปภาพอื่น ๆ </label>
+            <div class="col-sm-5">
+                <input type="file" name="images[]" accept="image/gif,image/png,image/jpeg,image/jpg" multiple>  
+            </div>
+    
+        </div>-->
+    <?php
+//    print_r($form['file_news']);
+    if (count($form['file_news']) > 0) {
+        ?>
+        <div class="form-group" id="img_show">
+            <label class="col-sm-3 control-label">เอกสาร :</label>
+            <div class="col-sm-5">               
+
+                <?php
+                foreach ($form['file_news'] as $f) {
+                    ?>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="files_id[]" value="<?=$f['file_id']?>" checked="true">
+                            <a href="<?= upload_url().$f['file_name'] ?>">
+                                <?= $f['file_name'] ?>
+                            </a>
+
+                        </label>
+                    </div>
+
+                    <?php
+                }
+                ?>                      
+            </div>        
+        </div>
+    <?php } ?>
+
     <div class="form-group">            
         <div class="text-center">
             <input type="submit" class="btn btn-success btn-lg" name="save" value="บันทึก" >
@@ -127,12 +163,15 @@
         </div>
     </div> 
 
+
+
     <?= form_close() ?>
 </div>
 
-<script language="javascript">
-    $(document).ready(function() {
 
+<script language="javascript">
+
+    $(document).ready(function() {
         var img = '<?= $form['image'] ?>';
         if (img != '') {
             $('#img_add').hide();
@@ -149,6 +188,7 @@
             new nicEditor({fullPanel: true}).panelInstance('content');
         });
     });
+
     function addInputFile() {
 
         var num = $('#file .row').length;
@@ -182,7 +222,6 @@
         var div_3 = document.createElement('div');
         div_3.setAttribute('class', 'col-sm-3');
         div_3.setAttribute('id', 'div_file' + num);
-        div_3.setAttribute('required', 'true');
         div_row.appendChild(div_3);
         var div_file = document.getElementById('div_file' + num);
 
@@ -192,6 +231,8 @@
 //        title.setAttribute('class', "form-control");
         file.setAttribute('name', "file[]");
         file.setAttribute('id', "file" + num);
+        file.setAttribute('accept', 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf');
+        file.setAttribute('required', 'true');
         div_file.appendChild(file);
 
 
@@ -211,58 +252,8 @@
                 $(this).remove();
             });
         }
-//            var div_3 = document.getElementById('div_file' + num);
-////            //remove file input
-//            var file = document.getElementById("file" + num);
-//            div_3.removeChild(file);
-//            $('#row_file' + num).each(function() {
-//                $(this).remove();
-//            });
-//            alert('#row_file' + num);
-//            var row_file = document.getElementById('row_file' + num);
-
-//            row.removeChild(row_file);
-
-//
-
-
-
-        //remove div class col-sm-3 foe input file
-
-
-        // Create input text
-
-
-        //remove div class = row        
-
-
-        //create div class  col-sm-6 for input title
-
-//        }
-
-
-
 
     }
 
 
-    function fncDeleteElement() {
-
-        var mySpan = document.getElementById('mySpan');
-        var myLine = document.getElementById('hdnLine');
-        if (myLine.value > 1)
-        {
-
-            // Remove input text
-            var deleteFile = document.getElementById("txt" + myLine.value);
-            mySpan.removeChild(deleteFile);
-            // Remove input file
-            var deleteFile = document.getElementById("fil" + myLine.value);
-            mySpan.removeChild(deleteFile);
-            // Remove <br>
-            var deleteBr = document.getElementById("br" + myLine.value);
-            mySpan.removeChild(deleteBr);
-            myLine.value--;
-        }
-    }
 </script>
