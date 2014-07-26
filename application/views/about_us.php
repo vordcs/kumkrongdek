@@ -38,7 +38,7 @@
                 </div>
 
             </div>
-            <div class="col-md-7 scroll-area" data-spy="scroll" data-offset="0" id="main">      
+            <div class="col-md-7 col-sm-9 scroll-area " data-spy="scroll" data-offset="0" id="main">      
                 <div class="row" id="history">
                     <div class="caption" >
                         <div class="ui raised segment">
@@ -194,8 +194,10 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 visible-lg">
                 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab" height="140" width="130"><param name="movie" value="http://www.thlive.com/wp-content/uploads/file/clockcalendarwhite.swf" /><param name="quality" value="high" /><embed height="140" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://www.thlive.com/wp-content/uploads/file/clockcalendarwhite.swf" type="application/x-shockwave-flash" width="130"></embed></object><br/><a href="http://www.thlive.com/code" target="_blank"></a>
                 <h2>ลิงค์ภายใน</h2>
                 <div class="">
@@ -252,10 +254,58 @@
 
             </div>
 
+            <br>
+
         </div>
 
     </div>
 
+    <div class="container" data-spy="scroll" data-offset="0" hidden>
+        <div class="row">
+            <div class="ui four items">
+                <div class="item">
+                    <div class="content">
+                        <div class="meta">2 days ago</div>
+                        <div class="name">Cute Dog</div>
+                        <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                    </div>
+                    <div class="extra">
+                        199 votes
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="meta">5 days ago</div>
+                        <div class="name">Faithful Dog</div>
+                        <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                    </div>
+                    <div class="extra">
+                        311 votes
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="meta">1 week ago</div>
+                        <div class="name">Silly Dog</div>
+                        <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+                    </div>
+                    <div class="extra">
+                        522 votes
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="meta">1 week ago</div>
+                        <div class="name">Silly Dog</div>
+                        <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+                    </div>
+                    <div class="extra">
+                        522 votes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

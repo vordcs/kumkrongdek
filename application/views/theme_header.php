@@ -57,39 +57,48 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Project name</a>
+                    <!--<a class="navbar-brand">สถานคุ้มครองสวัสดิภาพเด็ก<br>ภาคตะวันออกเฉียงเหนือ</a>-->
+                    <!--<a class="navbar-brand" href="<?= base_url('') ?>"><?php
+                        $img_propr = array(
+                            'class' => 'img-responsive',
+                            'width' => '60%'
+                                )
+                        ?>
+                        <?= img('favicon.png', $img_propr); ?></a>-->
                 </div>
-                <div class="navbar-collapse collapse">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
+                        <li><a href="<?= base_url('') ?>"><i class="fa fa-home fa-lg"></i>&nbsp;หน้าเเรก</a></li>
+                        <li><a href="<?= base_url('News/') ?>"><i class="fa fa-comment"></i>&nbsp;ข่าวสาร&nbsp;</a></li>
+                        <li class="dropdown" >
+                            <a href="<?= base_url('AboutUs/') ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;เกี่ยวกับเรา&nbsp;<b class="caret"></b></a>
+                            <ul class="dropdown-menu multi-column">    
+                                <li><a href="<?= base_url('AboutUs/') ?>">ประวัติความเป็นมา</a></li>
+                                <li><a href="<?= base_url('AboutUs/#vison') ?>">วิสัยทัศน์</a></li>
+                                <li><a href="<?= base_url('AboutUs/#popularity') ?>">ค่านิยม</a></li>
+                                <li><a href="<?= base_url('AboutUs/#culture') ?>">วัฒนธรรม</a></li>
+                                <li><a href="<?= base_url('AboutUs/#philosophy') ?>">ปรัชญา</a></li>
+                                <li><a href="<?= base_url('AboutUs/#objective') ?>">วัตถุประสงค์</a></li> 
+                                <li><a href="<?= base_url('AboutUs/#relate') ?>">การดำเนินงาน</a></li>
+                                <li><a href="<?= base_url('AboutUs/#t1') ?>">เด็กที่ได้รับการสงเคราะห์และคุ้มครองสวัสดิภาพ</a></li>
+                                <li><a href="<?= base_url('AboutUs/#t2') ?>">การนำเด็กเข้ารับการสงเคาราะห์หรือคุ้มครองสวัสดิภาพ</a></li>
+
                             </ul>
                         </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="../navbar/">Default</a></li>
-                        <li><a href="../navbar-static-top/">Static top</a></li>
-                        <li class="active"><a href="./">Fixed top</a></li>
-                    </ul>
+                        <li><a href="<?= base_url('Personnel/') ?>"><i class="fa fa-users"></i>&nbsp;บุคลากร&nbsp;</a></li>
+                        <li><a href="<?= base_url('Activitys/') ?>"><i class="fa fa-gamepad"></i>&nbsp;กิจกรรม&nbsp;</a></li>
+                        <li><a href="<?= base_url('Kindness/') ?>"><i class="fa fa-smile-o"></i>&nbsp;ผู้ใหญ่ใจดี&nbsp;</a></li>
+                        <li><a href="<?= base_url('newsletters/') ?>"><i class="fa fa-envelope"></i>&nbsp;จดหมายข่าว&nbsp;</a></li>
+                        <li><a href="<?= base_url('ContactUs/') ?>"><i class="fa fa-exclamation-circle"></i>&nbsp;ติดต่อเรา&nbsp;</a></li>   
+                    </ul>                    
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        
-        
+
+
         <header class="title_bg hidden-xs">
             <div class="container">
-                <div class="logos">
+                <div class="logos " style="padding: 3%">
                     <a href="<?= base_url('') ?>"><?php
                         $img_propr = array(
                             'class' => 'img-responsive',
