@@ -131,7 +131,7 @@
                                                 $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
                                                 $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
 
-                                                if ($type_id == $type['news_type_id'] && $i < 5) {
+                                                if ($type_id == $type['news_type_id'] && $i < 5 && $row['publish_date'] <= $this->m_datetime->getDateTodayTH()) {
                                                     ?>
                                                     <div class="item">
                                                         <a >

@@ -48,7 +48,7 @@
         <?php echo js('customize-js.js'); ?> 
 
         <!-- Fixed navbar -->
-        <div id="nav_fix_top" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div id="nav_fix_top" class="navbar navbar-default navbar-fixed-top hidden" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

@@ -24,23 +24,23 @@ Class m_home extends CI_Model {
     public function get_highlight() {
         
     }
-    
-    public function get_news($id = NULL) {
 
+    public function get_news($id = NULL) {
         $this->db->select('*');
         $this->db->from('news');
-        $this->db->order_by("publish_date", 'desc');
-
-        $this->db->join('images', 'image_id = news_img');
+        $this->db->join('images', 'image_id = news_img', 'left');
         $this->db->where('news_status', 'active');
+        $this->db->where('publish_date <=', $this->m_datetime->getDateTodayTH());
         if ($id != NULL) {
             $this->db->where('news_id', $id);
         }
+        $this->db->order_by("publish_date", 'desc');
         $rs = $this->db->get();
         $itemp = $rs->result_array();
 
         return $itemp;
-    }    
+    }
+
     public function get_news_type($type_id = NULL) {
         $this->db->select('*');
         $this->db->from('news_types');
@@ -52,12 +52,19 @@ Class m_home extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
-    
+
     public function get_activitys($id = NULL) {
+//        $day =  date('d');
+//        $month=  date('m');
+//        $year = date('Y')+543;
+//        
+//        $today=getDateTodayTH()
+
         $this->db->select('*');
         $this->db->from('activitys');
         $this->db->join('images', 'image_id = activity_img');
         $this->db->where('activity_status', 'active');
+        $this->db->where('publish_date <=', $this->m_datetime->getDateTodayTH());
         if ($id != NULL) {
             $this->db->where('activity_id', $id);
         }
@@ -91,7 +98,7 @@ Class m_home extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
-    
+
     public function get_kindness($id = NULL) {
         $this->db->select('*');
         $this->db->from('kindness');

@@ -15,6 +15,16 @@ Class m_datetime extends CI_Model {
         return date('Y-m-d');
     }
 
+    function getDateTodayTH() {
+        $day = date('d');
+        $month = date('m');
+        $year = date('Y') + 543;
+        $today = $year . '-' . $month . '-' . $day;
+        $d = new DateTime($today);
+        $date = $d->format('Y-m-d');
+        return $date;
+    }
+
     function setDateFomat($input_date) {
         $d = new DateTime($input_date);
         $date = $d->format('Y-m-d');

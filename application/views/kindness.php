@@ -39,6 +39,9 @@
                         'class' => "btn btn-link pull-right",
                         'style' => "font-size: 0.91em;",
                     );
+                    if (true) {
+                        
+                    }
                     ?>
                     <div class="col-md-6 col-xs-12">
                         <div class="caption" >

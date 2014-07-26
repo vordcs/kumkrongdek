@@ -108,7 +108,7 @@
                                         foreach ($file as $f) {
                                             ?>
                                             <dt class="des-ul">
-                                                <?= $f['file_name']?>
+                                                <?= $f['title']?>
                                             </dt>
                                             <dd>
                                                 <a href="<?= upload_url().$f['file_name'] ?>">
