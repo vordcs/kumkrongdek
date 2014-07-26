@@ -62,7 +62,7 @@
                                                                 </div>-->
                                 <div class="content">
                                     <div class="name">Cute Dog</div>
-                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="content">
                                     <div class="name">Cute Dog</div>
-                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +122,19 @@
                                                 3 days ago
                                             </div>
                                             <img class="ui small left floated image" data-src="holder.js/300x300/auto/vine">
-                                            <div class="name">Cute Dog</div>
-                                            <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                            <div class="name">Cute Dog 1</div>
+                                            <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="item">                       
+                                        <div class="content">
+                                            <div class="date pull-right">
+                                                3 days ago
+                                            </div>
+                                            <!--<img class="ui small left floated image" data-src="holder.js/300x300/auto/vine">-->
+                                            <div class="name">Cute Dog 1</div>
+                                            <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -167,33 +178,37 @@
                             $type_name = $type['activity_type_name'];
                             ?>
                             <div class="col-sm-6">
-                                <h2><?= $type_name ?></h2>
-                                <div class="demo5 demof">
-                                    <ul>
-                                        <?php
-                                        foreach ($activitys as $row) {
-                                            $controller = "Activitys";
-                                            $id = $row['activity_id'];
-                                            $title = $row['activity_title'];
-                                            $subtitle = $row['activity_subtitle'];
-                                            $img = $row['image_small'];
-                                            $date = $this->m_datetime->DateThai($row['publish_date']);
-                                            if ($row['activity_type'] == $type_id && $i != 5) {
-                                                ?>
-                                                <li>
-                                                    <!--<img data-src="holder.js/100x100/sky">-->
-                                                    <?= img($img, array('class' => 'img-responsive')); ?>
-                                                    <a href="<?= base_url('Activitys/view_more/' . $id) ?>">
-                                                        <?= $title ?>
-                                                    </a>
-                                                    <p><?= $subtitle ?></p>
-                                                </li>                                         
-                                                <?php
-                                                $i++;
+                                <div class="ui raised segment">
+                                    <div class="ui ribbon green label"><h2><?= $type_name ?></h2>
+                                    </div>
+
+                                    <div class="demo5 demof">
+                                        <ul>
+                                            <?php
+                                            foreach ($activitys as $row) {
+                                                $controller = "Activitys";
+                                                $id = $row['activity_id'];
+                                                $title = $row['activity_title'];
+                                                $subtitle = $row['activity_subtitle'];
+                                                $img = $row['image_small'];
+                                                $date = $this->m_datetime->DateThai($row['publish_date']);
+                                                if ($row['activity_type'] == $type_id && $i != 5) {
+                                                    ?>
+                                                    <li>
+                                                        <!--<img data-src="holder.js/100x100/sky">-->
+                                                        <?= img($img, array('class' => 'img-responsive')); ?>
+                                                        <a href="<?= base_url('Activitys/view_more/' . $id) ?>">
+                                                            <?= $title ?>
+                                                        </a>
+                                                        <p><?= $subtitle ?></p>
+                                                    </li>                                         
+                                                    <?php
+                                                    $i++;
+                                                }
                                             }
-                                        }
-                                        ?>  
-                                    </ul>
+                                            ?>  
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
 
@@ -202,13 +217,14 @@
                     }
                     ?>
                 </div>
-                <div class="row">
-                    <div class="pull-right">               
-                        <a href="<?= base_url('Activitys/') ?>" class="btn btn-link"><h3>ดูกิจกรรมทั้งหมด...</h3></a>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="pull-right">               
+                    <a href="<?= base_url('Activitys/') ?>" class="btn btn-link"><h3>ดูกิจกรรมทั้งหมด...</h3></a>
                 </div>
             </div>
         </div>
+
     </section>
 
     <section id="kindness" class="main_bg">
@@ -262,7 +278,7 @@
 
                                             <div class="content">
                                                 <div class="name">Faithful Dog</div>
-                                                <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                                                <p class="description hidden-xs">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
                                                 <p><?= anchor($controller . '/view_more/' . $id_, 'ดู... ', $view_more) ?>  </p>
                                             </div>
                                         </div>
@@ -296,6 +312,22 @@
             </div>
         </div>
         <div class="container">
+            <br>
+            <br>
+            <br>
+            <section id="fb">
+                <div class="fb-like-box hidden-xs" data-href="https://www.facebook.com/pages/&#xe2a;&#xe16;&#xe32;&#xe19;&#xe04;&#xe38;&#xe49;&#xe21;&#xe04;&#xe23;&#xe2d;&#xe07;&#xe2a;&#xe27;&#xe31;&#xe2a;&#xe14;&#xe34;&#xe20;&#xe32;&#xe1e;&#xe40;&#xe14;&#xe47;&#xe01;&#xe20;&#xe32;&#xe04;&#xe15;&#xe30;&#xe27;&#xe31;&#xe19;&#xe2d;&#xe2d;&#xe01;&#xe40;&#xe09;&#xe35;&#xe22;&#xe07;&#xe40;&#xe2b;&#xe19;&#xe37;&#xe2d;/772339976138959" data-width="1150" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="true" data-show-border="false"></div>
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id))
+                            return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.0";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+            </section>
             <div class="main">
                 <div class="row">
                     <div class="col-md-3" >
@@ -309,7 +341,7 @@
                                 </div>
                                 <div class="content">
                                     <div class="name">Cute Dog</div>
-                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +357,7 @@
                                 </div>
                                 <div class="content">
                                     <div class="name">Cute Dog</div>
-                                    <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                                 </div>
                             </div>
                         </div>
@@ -342,7 +374,7 @@
                                 </div>
                                 <img class="ui small left floated image" src="/images/demo/photo.jpg">
                                 <div class="name">Cute Dog</div>
-                                <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                             </div>
                         </div>
                     </div>
@@ -356,7 +388,7 @@
                                     3 days ago
                                 </div>
                                 <div class="name">Schnoodle</div>
-                                <div class="description">Im so glad you chose to bring me home from the shelter...</div>
+                                <div class="description hidden-xs">Im so glad you chose to bring me home from the shelter...</div>
                                 <div class="summary">
                                     <a>Sally Poodle</a> added you as a friend
                                 </div>
@@ -366,7 +398,7 @@
                     <div class="item" style="padding-bottom: 2%">
                         <div class="content">
                             <div class="name">Faithful Dog</div>
-                            <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                            <p class="description hidden-xs">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
                             <div class="summary">
                                 <a>Sally Poodle</a> added you as a friend
                             </div>
@@ -375,25 +407,25 @@
                     <div class="item">
                         <div class="content">
                             <div class="name">Silly Dog</div>
-                            <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+                            <p class="description hidden-xs">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
                         </div>
                     </div>
                     <div class="item">
                         <div class="content">
                             <div class="name">Cute Dog</div>
-                            <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                            <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
                         </div>
                     </div>
                     <div class="item">
                         <div class="content">
                             <div class="name">Faithful Dog</div>
-                            <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+                            <p class="description hidden-xs">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
                         </div>
                     </div>
                     <div class="item">
                         <div class="content">
                             <div class="name">Silly Dog</div>
-                            <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+                            <p class="description hidden-xs">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
                         </div>
                     </div>
                 </div>
