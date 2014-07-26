@@ -26,7 +26,7 @@
                 <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
                     <div class="row">
                         <ul class="nav bs-docs-sidenav list-group" id="menu_side">
-                            <?php foreach ($news_type as $type) { ?>
+                            <?php foreach ($news_type_all as $type) { ?>
                                 <li><a href="#type<?= $type['news_type_id'] ?>" class="list-group-item"><?= $type['news_type_name'] ?></a></li>  
                             <?php } ?>
                         </ul>

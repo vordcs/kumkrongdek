@@ -8,7 +8,7 @@
                 <div class="row" align="center">
 
                 </div>
-                 <div class="col-xs-6 col-md-2">
+                <div class="col-xs-6 col-md-2">
                     <a href="http://www.m-society.go.th/" >
                         <?php
                         $img_propr = array(
@@ -21,7 +21,7 @@
                     </a>
                 </div>
 
-                 <div class="col-xs-6 col-md-2">
+                <div class="col-xs-6 col-md-2">
                     <a href="http://www.bsws.go.th/index.php" >
                         <?php
                         $img_propr = array(
@@ -34,7 +34,7 @@
                     </a>
                 </div>
 
-                 <div class="col-xs-6 col-md-2">
+                <div class="col-xs-6 col-md-2">
                     <a href="http://www.wandc.dsdw.go.th/home.html" >
                         <?php
                         $img_propr = array(
@@ -47,7 +47,7 @@
                     </a>
                 </div>
 
-                 <div class="col-xs-6 col-md-2">
+                <div class="col-xs-6 col-md-2">
                     <a href="http://www.osccthailand.go.th/Front/" >
                         <?php
                         $img_propr = array(
@@ -259,6 +259,19 @@
             openEffect: 'none',
             closeEffect: 'none'
         });
+
+        $('.datepicker').datepicker({
+            language: 'th-th',
+//            language: 'en',
+            format: 'yyyy-m-d',
+        });
+        $('.date-search').datepicker({
+            language: 'th-th',
+//            language: 'en',
+            format: 'MM yyyy',
+            viewMode: "months",
+            minViewMode: "months",
+        });
         $('.year-picker').datepicker({
             language: 'th-th',
 //            language: 'en',
@@ -266,24 +279,23 @@
             viewMode: "years",
             minViewMode: "years",
         });
-        
+
         var owl = $("#owl-demo");
- 
-  owl.owlCarousel({
-     
-      itemsCustom : [
-        [0, 2],
-        [450, 3],
-        [600, 4],
-        [700, 5],
-        [1000, 5],
-        [1200, 5],
-        [1400, 5],
-        [1600, 5]
-      ],
-      navigation : true
- 
-  });
+
+        owl.owlCarousel({
+            itemsCustom: [
+                [0, 2],
+                [450, 3],
+                [600, 4],
+                [700, 5],
+                [1000, 5],
+                [1200, 5],
+                [1400, 5],
+                [1600, 5]
+            ],
+            navigation: true
+
+        });
     });
 </script>
 

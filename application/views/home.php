@@ -107,7 +107,7 @@
                     <div class="col-sm-10 col-sm-offset-1">
                         <?php
                         foreach ($news_type as $type) {
-                            ?>
+                            ?>                           
                             <div class="caption" >
                                 <div class="ui raised segment">
                                     <div class="ui ribbon green label" style="padding-right: 5%;">
@@ -120,6 +120,7 @@
                                             <?php
                                             $i = 0;
                                             foreach ($news as $row) {
+                                                $controller = "News";
                                                 $id = $row['news_id'];
                                                 $title = $row['news_title'];
                                                 $subtitle = $row['news_subtitle'];
@@ -134,7 +135,7 @@
                                                 if ($type_id == $type['news_type_id'] && $i < 5 && $row['publish_date'] <= $this->m_datetime->getDateTodayTH()) {
                                                     ?>
                                                     <div class="item">
-                                                        <a >
+                                                        <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
                                                             <i class="fa fa-caret-right fa-lg"></i>
                                                             <?= $title ?>
                                                         </a>

@@ -27,9 +27,9 @@
                 <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
                     <div class="ui raised segment">
                         <div class="row" style="margin-left:-40px;">
+                            <?= $form['form'] ?>
                             <div class="col-md-6">
                                 <div class="form-group">
-
                                     <?php echo $form['year_no']; ?>
                                 </div>
                             </div>
@@ -56,6 +56,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <?=  form_close()?>
                         </div>
                     </div>
                     <ul class="nav bs-docs-sidenav list-group" id="menu_side">
@@ -85,16 +86,10 @@
             <div class="col-md-9 scroll-area" data-spy="scroll" data-offset="0" id="main" style="min-height: 1000px;">      
                 <div class="row" style="padding: 2%;" id="search" >
                     <div class="col-sm-12" >
-                        <!--<div class="ui bottom right attached label">
-                            <h3 style="margin: 0">
-                                ค้นหา...
-                            </h3>
-
-                        </div>-->
                         <?php echo $form['form']; ?>        
                         <div class="form-group visible-xs col-xm-4 col-xs-12">
                             <div class="row">
-                                <div class="col-sm-10 col-md-offset-1">
+                                <div class="col-sm-10 col-md-offset-1">                                    
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">ปีที่</label>

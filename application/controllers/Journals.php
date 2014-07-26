@@ -50,7 +50,7 @@ class Journals extends CI_Controller {
             $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_journals->insert_journal($form_data);
-//            redirect('Journals');
+            redirect('Journals');
         }
         //Load form add
         $data['form'] = $this->m_journals->set_form_add();

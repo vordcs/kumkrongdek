@@ -166,11 +166,11 @@ Class m_journals extends CI_Model {
 
     public function set_form_search($controller) {
         $f_year_no = array(
-            '0' => '',
+            '0' => 'ปีที่',
         );
 
         $f_issue = array(
-            '0' => '',
+            '0' => 'ฉบับที่',
         );
         for ($i = 1; $i < 10; $i++) {
             array_push($f_issue, $i);
@@ -178,7 +178,7 @@ Class m_journals extends CI_Model {
         }
 
         $f_month = array(
-            '00' => '',
+            '00' => 'เดือน',
             '01' => 'มกราคม',
             '02' => 'กุมภาพันธ์',
             '03' => 'มีนาคม',
@@ -197,6 +197,7 @@ Class m_journals extends CI_Model {
             'name' => 'year',
             'class' => 'form-control year-picker',
             'value' => set_value('journal_year'),
+            'placeholder' => 'ปี',
         );
 
         $f_status_search = array(

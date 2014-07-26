@@ -301,7 +301,7 @@ Class m_news extends CI_Model {
         return $form_edit;
     }
 
-    public function set_form_search() {
+    public function set_form_search($controller=NULL) {
         $f_news_type = array();
         $temp = $this->get_news_type();
         foreach ($temp as $row) {
@@ -318,8 +318,11 @@ Class m_news extends CI_Model {
             '1' => 'ไม่ใช้งาน',
             '2' => 'ใช้งาน',
         );
+        if($controller==NULL){
+            $controller='News_ad/';
+        }  
         $form_search = array(
-            'form' => form_open('News_ad/', array('class' => 'form-horizontal', 'id' => 'form_search', 'name' => 'form_search')),
+            'form' => form_open($controller .'/', array('class' => 'form-horizontal', 'id' => 'form_search', 'name' => 'form_search')),
             'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
             'type' => form_dropdown('type', $f_news_type, (set_value('type') == NULL) ? $this->input->post('type') : set_value('type'), 'class="form-control"'),
             'date' => form_input($f_date_search),

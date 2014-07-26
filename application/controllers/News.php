@@ -16,9 +16,10 @@ class News extends CI_Controller {
 
         $data['news'] = $this->m_home->get_news();
         $data['news_type'] = $this->m_home->get_news_type();
+        $data['news_type_all'] = $this->m_home->get_news_type();
 
         $data['file'] = $this->m_news->get_news_file();
-        $data['form'] = $this->m_news->set_form_search();
+        $data['form'] = $this->m_news->set_form_search('News');
         $data['strtitle'] = NULL;
 
         $type = (int) $this->input->post('type');
@@ -28,7 +29,12 @@ class News extends CI_Controller {
 
         if (($type != 0 && $type != 1) || $status != 0 || $date != NULL) {
             $data['news'] = $this->m_news->search_news();
-
+            if ($status == 0 || $date == NULL) {
+                $data['news_type'] = $this->m_home->get_news_type($type);
+            }
+            if ($type == 1) {
+                $data['news_type'] = $this->m_home->get_news_type();
+            }
             $strtype = $this->m_news->get_news_type($type);
 
             $title = '';
@@ -51,6 +57,7 @@ class News extends CI_Controller {
     public function view_more($id) {
 
         $news = $this->m_home->get_news($id);
+
         foreach ($news as $row) {
             $img = $row['image_small'];
             $title = $row['news_title'];
