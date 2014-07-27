@@ -243,7 +243,8 @@
         </div>
     </div>
     <div class="footer_mid" align="center">
-        สถานคุ้มครองสวัสดิภาพเด็กภาคตะวันออกเฉียงเหนือ
+        <p>สถานคุ้มครองสวัสดิภาพเด็ก&nbsp;&nbsp;ภาคตะวันออกเฉียงเหนือจังหวัดขอนแก่น</p>
+        <p></p>
     </div>
     <div class="footer_bg">    
         <div class="container">          
@@ -255,10 +256,21 @@
 </div>
 <script>
     $(document).ready(function() {
+
+        $("#owl-hightlight").owlCarousel({
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+            items: 4,
+            stopOnHover: true,
+            itemsDesktop: [1199, 4],
+            itemsDesktopSmall: [979, 4]
+        });
+
         $(".fancybox").fancybox({
             openEffect: 'none',
             closeEffect: 'none'
         });
+
 
         $('.datepicker').datepicker({
             language: 'th-th',

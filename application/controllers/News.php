@@ -22,6 +22,8 @@ class News extends CI_Controller {
         $data['form'] = $this->m_news->set_form_search('News');
         $data['strtitle'] = NULL;
 
+        $data['highlight']=  $this->m_home->get_highlight();
+        
         $type = (int) $this->input->post('type');
         $status = (int) $this->input->post('status');
         $date = $this->input->post('date_search');
@@ -49,7 +51,7 @@ class News extends CI_Controller {
 
 
         $this->m_template->set_Title('ข่าว');
-//        $this->m_template->set_Debug($data);
+//        $this->m_template->set_Debug($data['highlight']);
         $this->m_template->set_Content('news.php', $data);
         $this->m_template->showTemplate();
     }

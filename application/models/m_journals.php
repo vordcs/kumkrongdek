@@ -33,7 +33,7 @@ Class m_journals extends CI_Model {
         $this->db->delete('files');
     }
 
-    function search_journals() {
+    function search_journals($date = NULL) {
 
         (int) $year_no = $this->input->post('year_no');
         (int) $issue = $this->input->post('issue');
@@ -47,6 +47,7 @@ Class m_journals extends CI_Model {
         ($issue != 0 ? $this->db->where('journal_issue', $issue) : '');
         ($month != 0 ? $this->db->where('journal_mounth', $month) : '' );
         ($year != 0 ? $this->db->where('journal_year', $year) : '');
+        ($date != NULL ? $this->db->where('publish_date <', $date) : '');
         $this->db->order_by('journal_year desc,journal_mounth desc,journal_issue desc,journal_year_no desc');
         $rs = $this->db->get();
         $itemp = $rs->result_array();
@@ -207,7 +208,7 @@ Class m_journals extends CI_Model {
         );
 
         $form_search = array(
-            'form' => form_open($controller.'/', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'form' => form_open($controller . '/', array('class' => 'form-horizontal', 'id' => 'form_search')),
             'year_no' => form_dropdown('year_no', $f_year_no, (set_value('year_no') == NULL) ? 0 : set_value('year_no'), 'class="form-control"'), form_input($f_year_no),
             'issue' => form_dropdown('issue', $f_issue, (set_value('issue') == NULL) ? 0 : set_value('issue'), 'class="form-control"'),
             'month' => form_dropdown('month', $f_month, (set_value('month') == NULL) ? 0 : set_value('month'), 'class="form-control"'),

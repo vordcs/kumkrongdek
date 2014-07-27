@@ -6,11 +6,14 @@ class Kindness extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_kindness');
+        $this->load->model('m_home');
     }
 
     public function index() {
         $data = array();
-        $data['kindness'] = $this->m_kindness->get_kindness();
+        $data['kindness'] = $this->m_home->get_kindness();
+        
+        $data['highlight']=  $this->m_home->get_highlight();
 
         //        $this->m_template->set_Debug($data['activity_types']);
         $this->m_template->set_Content('kindness.php', $data);

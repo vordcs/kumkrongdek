@@ -13,7 +13,10 @@
         <div class="title_bg">
             <div class="container">
                 <div class="title_top">
-                    <h2>กิจกรรม</h2>
+                    <a href="<?= base_url('Activitys') ?>">
+                        <h2>กิจกรรม</h2>
+                    </a>
+
                 </div>                
             </div>
         </div>  
@@ -102,7 +105,7 @@
                                             if ($type_id == $type) {
                                                 ?>
                                                 <div class="ui raised segment">
-                                                    <div class="ui ribbon label"><h4><?= $date ?></h4></div>
+                                                    <div class="ui ribbon gray-light label"><h4><?= $date ?></h4></div>
                                                     <br><br>
                                                     <!--<img class="ui small left floated image" data-src="holder.js/100x100/sky" >-->  
                                                     <?= img($image, array('class' => 'ui small left floated image img-responsive', 'width' => '100%')); ?>
@@ -157,53 +160,63 @@
 
 
         </div>
-        <div class="row">
-            <div class="box effect4">
-                <h3>Effect 3</h3>
-            </div>
-
-
-        </div>
-        <div class="row">
-            <h4>Date</h4>
-            <div class="ui feed segment">
-                <div class="event">
-                    <div class="ui large image label">
-                        <img data-src="holder.js/200x200/vine">
-                    </div>
-                    <div class="content">
-                        <div class="date">
-                            3 days ago
-                        </div>
-                        <div class="name">Schnoodle</div>
-                        <div class="description">Im so glad you chose to bring me home from the shelter...</div>
-                        <div class="summary">
-                            <a>Sally Poodle</a> added you as a friend
-                        </div>
-                    </div>
-                </div>
-            </div>  
-            <div class="col-sm-6">
-                <div class="ui feed segment" style="width: 100% ! important;padding: 0;margin: 0;">                                       
-                    <div class="content"  style="width: 100%! important;">                       
-                        <img class="ui small left floated image" data-src="holder.js/100x100/sky" >
-                        <div class="date">
-                            3 days ago
-                        </div>
-                        <div class="name">Schnoodle</div>
-                        <div class="description">Im so glad you chose to bring me home from the shelter...</div>
-                        <!--                        <div class="summary">
-                                                    <a>Sally Poodle</a> added you as a friend
-                                                </div>-->
-                    </div>
-                    <div class="ui bottom right attached label">User View</div>
-                </div>
-            </div>
-
-
-
-        </div>
+       
     </div>
+    <section id="hightlight" >
+        <div class="container">  
+            <div class="box effect2">
+                <div id="owl-hightlight" class="owl-carousel">   
+                    <!--<div class="ui ten items">-->
+                    <?php
+                    if (count($highlight) > 0) {
+                        foreach ($highlight as $row) {
+                            $controller = $row['controller'];
+                            $id = $row['id'];
+                            $title_ = $row['title'];
+                            $subtitle = $row['subtitle'];
+                            $img = $row['image'];
+                            $type = $row['type'];
+                            $date = $row['date'];
+                            ?>
+                            <div class="ui one items" style="margin: 3%">
+                                <div class="item">
+                                    <div class="ui ribbon blue label" style="padding-right: 5%">
+                                        <h4 style="margin: 0"><?= $type ?></h4>
+                                    </div>
+                                    <div class="content">
+                                        <div class="meta"><?= $date ?></div>
+                                        <div class="name"><?= $title_ ?></div>
+                                        <p class="description">
+                                            <?= $subtitle ?>
+                                        </p>
+
+                                    </div>
+                                    <?php ?>                                
+                                    <div class="image" style="margin: 10%">
+                                        <!--<img src="/images/demo/photo.jpg">-->
+                                        <?= img($img) ?>
+                                        <a class="like ui corner label">                                        
+                                            <div class="text">ใหม่</div>
+                                        </a>                                    
+                                    </div>
+                                    <?php ?>
+                                    <div class="extra">
+                                        <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
+                                            ดูเพิ่ม...
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>              
+                    <!--</div>-->
+                </div>           
+
+            </div>  
+        </div>
+    </section>
 </div>
 
 

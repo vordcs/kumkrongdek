@@ -232,7 +232,7 @@ Class m_activitys extends CI_Model {
         return $form_edit;
     }
 
-    public function set_form_search() {
+    public function set_form_search($controller=NULL) {
 
         $f_date_search = array(
             'name' => 'date_search',
@@ -251,9 +251,12 @@ Class m_activitys extends CI_Model {
         foreach ($temp as $row) {
             $f_activity_type[$row['activity_type_id']] = $row['activity_type_name'];
         }
+        if ($controller == NULL) {
+            $controller ='Activitys_ad';
+        }
 
         $form_search = array(
-            'form' => form_open('Activitys_ad/', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'form' => form_open( $controller.'/', array('class' => 'form-horizontal', 'id' => 'form_search')),
             'status' => form_dropdown('status', $f_status_search, set_value('status'), 'class="form-control"'),
             'date' => form_input($f_date_search),
             'type' => form_dropdown('type', $f_activity_type, set_value('activity_type'), 'class="form-control"'),

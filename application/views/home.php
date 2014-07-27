@@ -1,48 +1,53 @@
 <div id="mainContent">
-    <section id="slide">
-        <div class="container">
-            <div id="owl-1" class="owl-carousel">
+
+    <section id="top_slide"> 
+        <!-- Carousel
+     ================================================== -->
+        <div id="banner_slide" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <!--<li data-target="#banner_slide" data-slide-to="0" class="active"></li>-->
                 <?php
-                foreach ($slides as $slide) {
-                    $title = $slide['slide_title'];
-                    $subtitle = $slide['slide_subtitle'];
-                    $img = $slide['image_small'];
-                    ?>
-                    <div class="slide-item">
-                        <!--<img data-src="holder.js/900x400/auto/sky" width="100%" alt="...">-->
-                        <?= img($img, array('alt' => 'Image slide')); ?>                        
-                        <div class="title-slide">
-                            <h3><?= $title ?></h3>
-                            <?= $subtitle ?>
-                        </div>    
-                        <div class="read_more_slide">
-                            <a href="#" class="btn btn-link">อ่านเพิ่ม..</a>
-                        </div>
-                    </div>
-                <?php } ?>
-                <?php
-                for ($i = 0; $i < 0; $i++) {
-                    if ($i % 2 == 0) {
-                        ?>
-                        <div class="item" >
-                            <img data-src="holder.js/900x400/auto/sky" class="img-responsive" width="100%" alt="Generic placeholder thumbnail">
-                            <div class="carousel-caption" >
-                                <h3>TITLE <?= $i ?></h3>
-                                <p>Aaaaaaaaaaaaaaasdfghjkl;dfghjkl;</p>
-                            </div>
-                        </div>   
-                    <?php } else {
-                        ?>
-                        <div class="item">
-                            <img data-src="holder.js/900x400/auto/vine" class="img-responsive" width="100%" alt="Generic placeholder thumbnail">
-                        </div>   
-                        <?php
+                $flag_slide = TRUE;
+                foreach ($slides as $row) {
+                    if ($flag_slide) {
+                        echo '<li data-target="#banner_slide" data-slide-to="' . $row['slide_id'] . '" class="active"></li>';
+                        $flag_slide = FALSE;
+                    } else {
+                        echo '<li data-target="#banner_slide" data-slide-to="' . $row['slide_id'] . '"></li>';
                     }
                 }
-                ?> 
+                ?>
+            </ol>
+            <div class="carousel-inner">
+                <?php
+                $flag_slide = TRUE;
+                foreach ($slides as $row) {
+                    if ($flag_slide) {
+                        echo '<div class="item active">';
+                        $flag_slide = FALSE;
+                    } else {
+                        echo '<div class="item">';
+                    }
 
+                    echo img($row['image_small']);
+                    echo '<div class="container"><div class="carousel-caption">';
+                    echo '<h2>' . $row['slide_title'] . '</h2>';
+                    echo '<p>' . $row['slide_subtitle'] . '</p>';
+                    if ($row['slide_link'] != NULL || $row['slide_link'] != '') {
+                        echo '<div class="read_more_slide pull-right" ><a  href="' . $row['slide_link'] . '" role="button">รายละเอียด</a></div>';
+                    }
+                    echo '</div></div>';
+
+                    //End item
+                    echo '</div>';
+                }
+                ?>
             </div>
-        </div>
+            <a class="left carousel-control" href="#banner_slide" data-slide="prev"><span class=""></span></a>
+            <a class="right carousel-control" href="#banner_slide" data-slide="next"><span class="glyphicon"></span></a>
+        </div><!-- /.carousel -->
+
     </section>
 
     <section id="hightlight">
@@ -50,44 +55,49 @@
             <div id="owl-hightlight" class="owl-carousel">   
                 <!--<div class="ui ten items">-->
                 <?php
-                for ($i = 0; $i < 10; $i++) {
-                    if ($i % 2 == 0) {
+                if (count($highlight) > 0) {
+                    foreach ($highlight as $row) {
+                        $controller = $row['controller'];
+                        $id = $row['id'];
+                        $title_ = $row['title'];
+                        $subtitle = $row['subtitle'];
+                        $img = $row['image'];
+                        $type = $row['type'];
+                        $date = $row['date'];
                         ?>
-                        <div class="ui one items" style="padding: 1%">
+                        <div class="ui one items" style="margin: 3%">
                             <div class="item">
-                                <!--                                <div class="image">
-                                                                    <img data-src="holder.js/900x400/auto/sky" class="img-responsive"  alt="Generic placeholder thumbnail">
-                                                                    <a class="star ui corner label">
-                                                                        <i class="star icon"></i>
-                                                                    </a>
-                                                                </div>-->
-                                <div class="content">
-                                    <div class="name">Cute Dog</div>
-                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+                                <div class="ui ribbon green label" style="padding-right: 5%">
+                                    <h4 style="margin: 0"><?= $type ?></h4>
                                 </div>
-                            </div>
-                        </div>
-                    <?php } else {
-                        ?>
-                        <div class="ui one items" style="margin:  3%">
-                            <div class="item">
-                                <div class="image">
-                                    <img data-src="holder.js/900x400/auto/vine" class="img-responsive"  alt="Generic placeholder thumbnail">
-                                    <a class="star ui corner label">
-                                        <i class="star icon"></i>
+                                <div class="content">
+                                    <div class="meta"><?= $date ?></div>
+                                    <div class="name"><?= $title_ ?></div>
+                                    <p class="description">
+                                        <?= $subtitle ?>
+                                    </p>
+
+                                </div>
+                                <?php ?>                                
+                                <div class="image" style="margin: 10%">
+                                    <!--<img src="/images/demo/photo.jpg">-->
+                                    <?= img($img) ?>
+                                    <a class="like ui corner label">                                        
+                                        <div class="text">ใหม่</div>
+                                    </a>                                    
+                                </div>
+                                <?php ?>
+                                <div class="extra">
+                                    <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
+                                        ดูเพิ่ม...
                                     </a>
                                 </div>
-                                <div class="content">
-                                    <div class="name">Cute Dog</div>
-                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                                </div>
                             </div>
                         </div>
-
                         <?php
                     }
                 }
-                ?> 
+                ?>              
                 <!--</div>-->
             </div>           
         </div>    
@@ -104,19 +114,19 @@
         <div class="container">
             <div class="main">
                 <div class="row">
-                    <div class="col-sm-10 col-sm-offset-1">
+                    <div class="col-sm-12 col-sm-offset-0">
                         <?php
                         foreach ($news_type as $type) {
                             ?>                           
                             <div class="caption" >
                                 <div class="ui raised segment">
                                     <div class="ui ribbon green label" style="padding-right: 5%;">
-                                        <a>
+                                        <a href="<?= base_url('News/#type' . $type['news_type_id']) ?>" >
                                             <h3><?= $type['news_type_name'] ?></h3>
                                         </a>
                                     </div>
                                     <div class="row" style="padding: 2% 5%">
-                                        <div class="ui list">
+                                        <div class="ui animated list">
                                             <?php
                                             $i = 0;
                                             foreach ($news as $row) {
@@ -136,11 +146,13 @@
                                                     ?>
                                                     <div class="item">
                                                         <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
-                                                            <i class="fa fa-caret-right fa-lg"></i>
+                                                            <i class="fa fa-caret-right"></i>
                                                             <?= $title ?>
                                                         </a>
                                                         <div class="pull-right">
-                                                            <?= $date ?>
+                                                            <small>
+                                                                <?= $date ?>  
+                                                            </small>                                                            
                                                         </div>
                                                     </div>
                                                     <?php
@@ -166,8 +178,94 @@
             </div>
 
     </section>
+    <section id="kindness">
+        <div class="title_bg">
+            <div class="container">
+                <div class="title_top">
+                    <h2>ผู้ใหญ่ใจดี</h2>
+                </div>
+            </div>
+        </div>  
+        <div class="container">            
+            <div class="main">
+                <div class="row"> 
+                    <div class="col-sm-12">
+                        <?php
+                        if (count($kindness) <= 0) {
+                            ?>
+                            <div class="well">        
+                                <h3>
+                                    <p class="text-center" style="padding: 2% ;">
+                                        ไม่พบข้อมูล
+                                    </p>
+                                </h3>        
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="ui stackable four items">
+                                <?php
+//                                for ($j = 0; $j < 5; $j++) {
+                                $i = 0;
+                                foreach ($kindness as $row) {
+                                    $controller = "Kindness";
+                                    $id = $row['kindness_id'];
+                                    $title_ = $row['kindness_title'];
+                                    $subtitle = $row['kindness_subtitle'];
+                                    $content = $row['kindness_content'];
+                                    $date = $this->m_datetime->DateThai($row['publish_date']);
+                                    $img = $row['image_small'];
+                                    $status = $row['kindness_status'];
 
-    <section id="activety">
+                                    $view_more = array(
+                                        'type' => "button",
+                                        'class' => "btn btn-link pull-right",
+                                        'style' => "font-size: 0.91em;",
+                                    );
+                                    if ($i < 4) {
+                                        ?>
+                                        <div class="item">
+                                            <div class="image" style="margin: 5%">
+                                                <!--<img src="/images/demo/highres5.jpg">-->  
+                                                <?= img($img) ?>
+                                            </div>
+                                            <div class="content">
+                                                <div class="name"><?= $title_ ?></div>
+                                                <p class="description">
+                                                    <?= $subtitle ?>
+                                                </p>
+                                                <div class="extra">
+                                                    <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
+                                                        ดูเพิ่ม...
+                                                    </a>
+                                                </div>
+                                                <div class="ui ribbon green label" style="padding-right: 5%">
+                                                    <h4 style="margin: 0"><?= $date ?></h4>
+                                                </div>
+                                            </div>
+                                        </div>                                      
+
+                                        <?php
+                                        $i++;
+                                    }
+                                }
+                            }
+//                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="pull-right">               
+                        <a href="<?= base_url('Activitys/') ?>" class="btn btn-link"><h3>ดูผู้ใหญ่ใจดีทั้งหมด...</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="activety" class="main_bg">
         <div class="title_bg">
             <div class="container">
                 <div class="title_top">
@@ -234,99 +332,12 @@
 
     </section>
 
-    <section id="kindness" class="main_bg">
-        <div class="title_bg">
+
+
+
+    <section id="social"> 
+        <div class="main">
             <div class="container">
-                <div class="title_top">
-                    <h2>ผู้ใหญ่ใจดี</h2>
-                </div>
-            </div>
-        </div>  
-        <div class="container">            
-            <div class="main">
-                <div class="row">                                          
-                    <?php
-                    if (count($kindness) <= 0) {
-                        ?>
-                        <div class="well">        
-                            <h3>
-                                <p class="text-center" style="padding: 2% ;">
-                                    ไม่พบข้อมูล
-                                </p>
-                            </h3>        
-                        </div>
-                        <?php
-                    } else {
-                        //    for ($i = 0; $i < 5; $i++) {
-                        $i = 0;
-                        foreach ($kindness as $row) {
-                            $controller = "Kindness";
-                            $id_ = $row['kindness_id'];
-                            $title = $row['kindness_title'];
-                            $subtitle = $row['kindness_subtitle'];
-                            $content = $row['kindness_content'];
-                            $date = $this->m_datetime->DateThai($row['publish_date']);
-                            $img = $row['image_small'];
-                            $status = $row['kindness_status'];
-
-                            $view_more = array(
-                                'type' => "button",
-                                'class' => "btn btn-link pull-right",
-                                'style' => "font-size: 0.91em;",
-                            );
-                            if ($i < 4) {
-                                ?>
-                                <div class="col-md-3 col-sm-6 col-xs-6" style="padding: 0;">
-                                    <div class="" >
-                                        <div class="ui raised segment">
-                                            <div class="ui ribbon green label"><h3 style="margin: 0;"><?= $date ?></h3></div><br>
-                                            <br>                                            
-                                            <?= img($img, array('width' => '100%',)); ?>
-
-                                            <div class="content">
-                                                <div class="name"><?= $title ?></div>
-                                                <p class="description hidden-xs">
-                                                    <?= $subtitle ?>
-                                                </p>
-                                                <p>
-                                                    <?= anchor($controller . '/view_more/' . $id_, 'ดู... ', $view_more) ?> 
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <?php
-                                $i++;
-                            }
-                        }
-                    }
-                    ?>
-                </div>
-                <div class="row">
-                    <div class="pull-right">               
-                        <a href="<?= base_url('Activitys/') ?>" class="btn btn-link"><h3>ดูผู้ใหญ่ใจดีทั้งหมด...</h3></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-
-    <section id="test">
-        <div class="title_bg">
-            <div class="container">
-                <div class="title_top">
-                    <h2>เกี่ยวกับเรา</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <br>
-            <br>
-            <br>
-            <section id="fb">
                 <div class="fb-like-box hidden-xs" data-href="https://www.facebook.com/pages/&#xe2a;&#xe16;&#xe32;&#xe19;&#xe04;&#xe38;&#xe49;&#xe21;&#xe04;&#xe23;&#xe2d;&#xe07;&#xe2a;&#xe27;&#xe31;&#xe2a;&#xe14;&#xe34;&#xe20;&#xe32;&#xe1e;&#xe40;&#xe14;&#xe47;&#xe01;&#xe20;&#xe32;&#xe04;&#xe15;&#xe30;&#xe27;&#xe31;&#xe19;&#xe2d;&#xe2d;&#xe01;&#xe40;&#xe09;&#xe35;&#xe22;&#xe07;&#xe40;&#xe2b;&#xe19;&#xe37;&#xe2d;/772339976138959" data-width="1150" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="true" data-show-border="false"></div>
                 <div id="fb-root"></div>
                 <script>(function(d, s, id) {
@@ -338,109 +349,8 @@
                         js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.0";
                         fjs.parentNode.insertBefore(js, fjs);
                     }(document, 'script', 'facebook-jssdk'));</script>
-            </section>
-            <div class="main">
-                <div class="row">
-                    <div class="col-md-3" >
-                        <div class="ui one items">
-                            <div class="item">
-                                <div class="image">
-                                    <img src="/images/demo/highres4.jpg">
-                                    <a class="star ui corner label">
-                                        <i class="star icon"></i>
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <div class="name">Cute Dog</div>
-                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3" >
-                        <div class="ui one items">
-                            <div class="item">
-                                <div class="image">
-                                    <img src="/images/demo/highres4.jpg">
-                                    <a class="star ui corner label">
-                                        <i class="star icon"></i>
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <div class="name">Cute Dog</div>
-                                    <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--<div class="ui six connected items">-->                
-                <div class="row feed">
 
-                    <div class="event">
-                        <div class="item">                       
-                            <div class="content">
-                                <div class="date pull-right">
-                                    3 days ago
-                                </div>
-                                <img class="ui small left floated image" src="/images/demo/photo.jpg">
-                                <div class="name">Cute Dog</div>
-                                <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui feed segment">
-                        <div class="event">
-                            <div class="ui large image label">
-                                <img data-src="holder.js/200x200/vine">
-                            </div>
-                            <div class="content">
-                                <div class="date">
-                                    3 days ago
-                                </div>
-                                <div class="name">Schnoodle</div>
-                                <div class="description hidden-xs">Im so glad you chose to bring me home from the shelter...</div>
-                                <div class="summary">
-                                    <a>Sally Poodle</a> added you as a friend
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="item" style="padding-bottom: 2%">
-                        <div class="content">
-                            <div class="name">Faithful Dog</div>
-                            <p class="description hidden-xs">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
-                            <div class="summary">
-                                <a>Sally Poodle</a> added you as a friend
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <div class="name">Silly Dog</div>
-                            <p class="description hidden-xs">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <div class="name">Cute Dog</div>
-                            <p class="description hidden-xs">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <div class="name">Faithful Dog</div>
-                            <p class="description hidden-xs">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <div class="name">Silly Dog</div>
-                            <p class="description hidden-xs">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
-                        </div>
-                    </div>
-                </div>
-                <!--</div>-->
+
             </div>
         </div>
     </section>
@@ -449,23 +359,17 @@
 <script>
     $(document).ready(function() {
         $("#owl-1").owlCarousel({
+//            items: 1,
             autoPlay: 5000,
             stopOnHover: true,
-            navigation: true,
+            navigation: false,
             paginationSpeed: 1000,
             goToFirstSpeed: 2000,
             singleItem: true,
-            //            autoHeight: true,
+//            autoHeight: true,
             transitionStyle: "fade"
         });
-        $("#owl-hightlight").owlCarousel({
-            autoPlay: 3000, //Set AutoPlay to 3 seconds
 
-            items: 4,
-            stopOnHover: true,
-            itemsDesktop: [1199, 4],
-            itemsDesktopSmall: [979, 4]
-        });
         $('.demo5').easyTicker({
             direction: 'up',
             easing: 'swing',
@@ -475,6 +379,19 @@
             visible: 0,
             mousePause: 1,
         });
+
+        $(window).scroll(function() {
+            var pt_scroll = $(this).scrollTop() + 80;
+            if (pt_scroll >= $('#mainContent').offset().top) {
+                $('#nav_fix_top').removeClass('hidden');
+                $('#nav_fix_top').fadeIn();
+
+            } else {
+                $('#nav_fix_top').fadeOut();
+                $('#nav_fix_top').addClass('hidden');
+            }
+        });
+
     });
 </script>
 

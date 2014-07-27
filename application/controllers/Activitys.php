@@ -6,16 +6,20 @@ class Activitys extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_activitys');
+        $this->load->model('m_home');
+        
     }
 
     public function index() {
 
         $data = array();
-        $data['activitys'] = $this->m_activitys->get_activitys();
-        $data['activity_types'] = $this->m_activitys->get_activity_type();
+        $data['activitys'] = $this->m_home->get_activitys();
+        $data['activity_types'] = $this->m_home->get_activity_type();
         $data['images_activity'] = $this->m_activitys->get_image_activity();
-        $data['form'] = $this->m_activitys->set_form_search();
+        $data['form'] = $this->m_activitys->set_form_search('Activitys');
         $data['strtitle'] = NULL;
+        
+        $data['highlight']=  $this->m_home->get_highlight();
 
 //        $this->m_template->set_Debug($data['activitys']);
         $this->m_template->set_Title('กิจกรรม');
@@ -33,6 +37,7 @@ class Activitys extends CI_Controller {
             $subtitle = $row['activity_subtitle'];
             $content = $row['activity_content'];
             $date = $this->m_datetime->DateThai($row['publish_date']);
+            $type = $row['activity_type'];
             $status = $row['activity_status'];
             $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
             $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
@@ -56,20 +61,20 @@ class Activitys extends CI_Controller {
         $data['images'] = NULL;
         $data['file'] = NULL;
         
-        $strtype = $this->m_activitys->get_activity_type($type);
+        $strtype = $this->m_home->get_activity_type($type);
         $data['type'] = $strtype[0]['activity_type_name'];
 
         $data['images'] = $this->m_activitys->get_image_activity($id);
         $data['page_title'] = 'กิจกรรม';
         $data['controller'] = $controller;
         
-        $new_all = $this->m_activitys->get_activitys();
+        $new_all = $this->m_home->get_activitys();
         $relate = array();
         $i = 0;
         foreach ($new_all as $row) {
             if ($i < 4) {
                 $temp = array(
-                    'controller' => 'Activity',
+                    'controller' => 'Activitys',
                     'page_title' => 'กิจกรรม',
                     'img' => $row['image_small'],
                     'id' => $row['activity_id'],
@@ -86,7 +91,7 @@ class Activitys extends CI_Controller {
         $data['relate'] = $relate;
 //
 //        $this->m_template->set_Debug($kindness);
-        $this->m_template->set_Title('รายละเอียด : ' . $title);
+        $this->m_template->set_Title('กิจกรรม : ' . $title);
         $this->m_template->set_Content('detail.php', $data);
         $this->m_template->showTemplate();
     }

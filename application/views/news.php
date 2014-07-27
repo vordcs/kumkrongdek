@@ -9,6 +9,7 @@
     });
 </script>
 <div id="mainContent">
+
     <div id="top-title">
         <div class="title_bg">
             <div class="container">
@@ -30,7 +31,7 @@
                                 <li><a href="#type<?= $type['news_type_id'] ?>" class="list-group-item"><?= $type['news_type_name'] ?></a></li>  
                             <?php } ?>
                         </ul>
-                        <h4 id="info" class="text-info">Currently you are viewing - Section 1</h4>
+                        <!--<h4 id="info" class="text-info">Currently you are viewing - Section 1</h4>-->
                     </div>
                     <div class="row" style="padding-top: 3%;">
 
@@ -102,10 +103,9 @@
                                             $title = $row['news_title'];
                                             $subtitle = $row['news_subtitle'];
                                             $content = $row['news_content'];
-                                            $date = $this->m_datetime->DateThai($row['publish_date']);
-                                            $highlight = $row['news_highlight'];
+                                            $date = $this->m_datetime->DateThai($row['publish_date']);                                            
                                             $status = $row['news_status'];
-                                           
+
                                             if ($row['news_type'] == $type_id) {
                                                 ?>                                      
 
@@ -117,7 +117,7 @@
                                                         <?php
                                                         if ($row['image_small'] != NULL) {
                                                             ?>
-                                                                                <!--<img class="ui image img-rounded img-responsive" data-src="holder.js/100x100/auto/vine">-->
+                                                                                    <!--<img class="ui image img-rounded img-responsive" data-src="holder.js/100x100/auto/vine">-->
                                                             <?= img($row['image_small'], array('class' => 'ui image img-rounded img-responsive img-responsive', 'width' => '100px', 'height' => '100px')); ?>
                                                         <?php } ?>
                                                         <div class="content" style="width:75%">
@@ -154,6 +154,62 @@
         </div>
 
     </div>
+
+    <section id="hightlight" >
+        <div class="container">  
+            <div class="box effect2">
+                <div id="owl-hightlight" class="owl-carousel">   
+                    <!--<div class="ui ten items">-->
+                    <?php
+                    if (count($highlight) > 0) {
+                        foreach ($highlight as $row) {
+                            $controller = $row['controller'];
+                            $id = $row['id'];
+                            $title_ = $row['title'];
+                            $subtitle = $row['subtitle'];
+                            $img = $row['image'];
+                            $type = $row['type'];
+                            $date = $row['date'];
+                            ?>
+                            <div class="ui one items" style="margin: 3%">
+                                <div class="item">
+                                    <div class="ui ribbon blue label" style="padding-right: 5%">
+                                        <h4 style="margin: 0"><?= $type ?></h4>
+                                    </div>
+                                    <div class="content">
+                                        <div class="meta"><?= $date ?></div>
+                                        <div class="name"><?= $title_ ?></div>
+                                        <p class="description">
+                                            <?= $subtitle ?>
+                                        </p>
+
+                                    </div>
+                                    <?php ?>                                
+                                    <div class="image" style="margin: 10%">
+                                        <!--<img src="/images/demo/photo.jpg">-->
+                                        <?= img($img) ?>
+                                        <a class="like ui corner label">                                        
+                                            <div class="text">ใหม่</div>
+                                        </a>                                    
+                                    </div>
+                                    <?php ?>
+                                    <div class="extra">
+                                        <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
+                                            ดูเพิ่ม...
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>              
+                    <!--</div>-->
+                </div>           
+
+            </div>  
+        </div>
+    </section>
 
 </div>
 

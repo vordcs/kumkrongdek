@@ -24,11 +24,13 @@ $close = array(
             <div class="row" style="padding-top: 1%">               
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="ui raised segment">
-                        <div class="ui ribbon green label" style="padding-right: 20%">
-                            <h2 style="margin: 0;"> 
-                                <?= $type ?>
-                            </h2>                
-                        </div>  
+                        <?php if ($type != NULL) { ?>
+                            <div class="ui ribbon green label" style="padding-right: 20%">
+                                <h2 style="margin: 0;"> 
+                                    <?= $type ?>
+                                </h2>                
+                            </div>  
+                        <?php } ?>
                         <div class="row">
                             <?php if ($img != NULL) { ?>
                                 <a class="fancybox" rel="gallery<?= $id ?>" href="<?= img_url() . $img ?>">
