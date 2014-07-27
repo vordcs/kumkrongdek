@@ -103,7 +103,7 @@
                                             $title = $row['news_title'];
                                             $subtitle = $row['news_subtitle'];
                                             $content = $row['news_content'];
-                                            $date = $this->m_datetime->DateThai($row['publish_date']);                                            
+                                            $date = $this->m_datetime->DateThai($row['publish_date']);
                                             $status = $row['news_status'];
 
                                             if ($row['news_type'] == $type_id) {
@@ -117,7 +117,7 @@
                                                         <?php
                                                         if ($row['image_small'] != NULL) {
                                                             ?>
-                                                                                    <!--<img class="ui image img-rounded img-responsive" data-src="holder.js/100x100/auto/vine">-->
+                                                                                                        <!--<img class="ui image img-rounded img-responsive" data-src="holder.js/100x100/auto/vine">-->
                                                             <?= img($row['image_small'], array('class' => 'ui image img-rounded img-responsive img-responsive', 'width' => '100px', 'height' => '100px')); ?>
                                                         <?php } ?>
                                                         <div class="content" style="width:75%">
@@ -212,4 +212,24 @@
     </section>
 
 </div>
+<script>
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var pt_scroll = $(this).scrollTop() + 80;
+            if (pt_scroll >= $('#mainContent').offset().top) {
+                $('body').css('padding-top', '60px')
+                $('#nav_fix_top').addClass('visible-xs');
+                $('#nav_fix_top').removeClass('hidden');
+                $('#nav_fix_top').fadeIn();
+
+            } else {
+                $('body').css('padding-top', '0px')
+                $('#nav_fix_top').fadeOut();
+                $('#nav_fix_top').addClass('visible-xs');
+                $('#nav_fix_top').addClass('hidden');
+            }
+        });
+
+    });
+</script>
 

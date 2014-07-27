@@ -9,6 +9,9 @@ class Journals extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_journals');
+         if ($this->session->userdata('loged_in') != TRUE) {
+            redirect('admin');
+        }
     }
 
     private $month_th = Array("", "มกราคม.", "กุมภาพันธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");

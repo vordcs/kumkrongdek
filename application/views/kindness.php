@@ -58,9 +58,9 @@
                                     </div> 
                                     <div class="col-xs-12 col-md-8">
                                         <div class="content">
-                                            <div class="name"><?=$title?></div>
+                                            <div class="name"><?= $title ?></div>
                                             <p class="description">
-                                                <?=$subtitle?>
+                                                <?= $subtitle ?>
                                             </p>
                                             <p><?= anchor($controller . '/view_more/' . $id, 'อ่านเพิ่ม... ', $view_more) ?>  </p>
                                         </div>
@@ -88,8 +88,8 @@
             <a class="fancybox" rel="gallery" href=""><img src="holder.js/300x600"alt="..." width="100%" ></a>
         </div>
     </div>
-    
-      <section id="hightlight" >
+
+    <section id="hightlight" >
         <div class="container">  
             <div class="box effect2">
                 <div id="owl-hightlight" class="owl-carousel">   
@@ -144,7 +144,23 @@
             </div>  
         </div>
     </section>
-    
+
 </div>
+<script>
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var pt_scroll = $(this).scrollTop() + 80;
+            if (pt_scroll >= $('#mainContent').offset().top) {
+//            $('body').css('padding-top', '60px')
+                $('#nav_fix_top').removeClass('hidden');
+                $('#nav_fix_top').fadeIn();
 
+            } else {
+//            $('body').css('padding-top', '0px')
+                $('#nav_fix_top').fadeOut();
+                $('#nav_fix_top').addClass('hidden');
+            }
+        });
 
+    });
+</script>

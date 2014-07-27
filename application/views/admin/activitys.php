@@ -138,7 +138,8 @@ if ($strtitle != NULL) {
                                     'data-target' => "#confirm",
                                     'data-href' => $controller . '/active/' . $id,
                                 );
-
+                                
+                             
                                 $view_more = array(
                                     'type' => "button",
                                     'class' => "btn btn-link pull-right",

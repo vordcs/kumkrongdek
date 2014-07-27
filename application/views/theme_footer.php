@@ -242,7 +242,7 @@
             </div>      
         </div>
     </div>
-    <div class="footer_mid" align="center">
+    <div class="footer_mid hidden-xs" align="center">
         <p>สถานคุ้มครองสวัสดิภาพเด็ก&nbsp;&nbsp;ภาคตะวันออกเฉียงเหนือจังหวัดขอนแก่น</p>
         <p></p>
     </div>
@@ -311,7 +311,29 @@
     });
 </script>
 
-<!-- Owl Carousel Assets -->
+<?php echo js('jquery.js'); ?>
+<?php echo js('bootstrap.min.js'); ?>     
+<?php echo js('docs.min.js'); ?>  
+
+<?php echo js('jquery.easy-ticker.min.js'); ?>  
+<?php echo js('semantic.min.js'); ?>  
+<!--fancybox-->
+<?php echo css('jquery.fancybox.css'); ?>
+<?php echo js('jquery.fancybox.pack.js'); ?>
+
+
+
+
+<!--pdf view-->
+<?php echo js('pdfobject.js'); ?> 
+
+
+<!--datetime picker-->    
+
+<?php echo js('bootstrap-datepicker.js'); ?>  
+<?php echo js('bootstrap-datepicker-thai.js'); ?>  
+<?php echo js('/locales/bootstrap-datepicker.th.js'); ?>  
+
 <!-- Prettify -->       
 <?php echo js('owl.carousel.min.js'); ?> 
 <?php echo js('jquery.scrollTo-min.js'); ?>  

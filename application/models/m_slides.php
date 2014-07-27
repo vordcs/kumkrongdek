@@ -130,13 +130,20 @@ Class m_slides extends CI_Model {
             '2' => 'ใช้งาน',
             '1' => 'ไม่ใช้งาน',
         );
+        
+        if($data ['slide_status'] =='active'){
+            $i=2;
+        }  else {
+            $i=1;
+        }
+        
         $form_edit = array(
             'form' => form_open_multipart('Slides/edit/' . $data['slide_id'], array('class' => 'form-horizontal', 'id' => 'form_slide')),
             'slide_title' => form_input($f_title),
             'slide_subtitle' => form_input($f_sub_title),
             'slide_link' => form_input($f_link),
             'slide_img' => form_upload($f_img),
-            'slide_status' => form_dropdown('slide_status', $f_status, (set_value('slide_status') == NULL) ? $data ['slide_status'] : set_value('slide_status'), 'class="form-control"'),
+            'slide_status' => form_dropdown('slide_status', $f_status, (set_value('slide_status') == NULL) ? $i: set_value('slide_status'), 'class="form-control"'),
             'image' => img($data ['image_small'], array('class' => 'img-responsive thumbnail', 'width' => '200px', 'height' => '200px')),
         );
         //Unset img if NULL        

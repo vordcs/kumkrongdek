@@ -8,7 +8,10 @@ class Slides extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('m_template');
-        $this->load->model('m_slides');        
+        $this->load->model('m_slides');
+        if ($this->session->userdata('loged_in') != TRUE) {
+            redirect('admin');
+        }
     }
 
     public function index() {
@@ -17,18 +20,17 @@ class Slides extends CI_Controller {
             '0' => 'ทั้งหมด',
             '1' => 'ไม่ใช้งาน',
             '2' => 'ใช้งาน',
-            
         );
         $data ['status'] = form_dropdown('status', $f_status, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control" onchange="myform.submit();"');
 
         if ($this->input->post('status') == null || $this->input->post('status') == 0) {
             $data['slides'] = $this->m_slides->get_slides();
         } else {
-            $data['slides'] = $this->m_slides->get_slides_by_status((int)$this->input->post('status'));
+            $data['slides'] = $this->m_slides->get_slides_by_status((int) $this->input->post('status'));
         }
-        $status=array('ทั้งหมด','ไม่ใช้งาน','ใช้งาน');
-//        $this->m_template->set_Debug($this->input->post('status'));
-        $this->m_template->set_Title('สไลด์ : '.$status[(int)$this->input->post('status')]);
+        $status = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
+//        $this->m_template->set_Debug($data['slides']);
+        $this->m_template->set_Title('สไลด์ : ' . $status[(int) $this->input->post('status')]);
         $this->m_template->set_Content('admin/slides.php', $data);
         $this->m_template->showTemplateAdmin();
     }

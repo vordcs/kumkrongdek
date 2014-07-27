@@ -7,6 +7,9 @@ class Activitys_ad extends CI_Controller {
         $this->load->model('m_template');
         $this->load->model('m_activitys');
         $this->load->model('m_upload');
+           if ($this->session->userdata('loged_in') != TRUE) {
+            redirect('admin');
+        }
     }
 
     public function index() {
@@ -23,7 +26,7 @@ class Activitys_ad extends CI_Controller {
         $status = (int) $this->input->post('status');
         $date = $this->input->post('date_search');
         $s = array('ทั้งหมด', 'ไม่ใช้งาน', 'ใช้งาน');
-        
+
 
         if (($type != 0 && $type != 1) || $status != 0 || $date != NULL) {
             $data['activitys'] = $this->m_activitys->search_activitys();
@@ -182,6 +185,24 @@ class Activitys_ad extends CI_Controller {
         redirect('Activitys_ad', 'refresh');
     }
 
+    public function set_highlight($id, $controller) {
+        $data = array(
+            'activity_highlight' => '1',
+        );
+        $this->db->where('activity_id', $id);
+        $this->db->update('activitys', $data);
+        redirect($controller);
+    }
+
+    public function un_highlight($id, $controller) {
+        $data = array(
+            'activity_highlight' => '0',
+        );
+        $this->db->where('activity_id', $id);
+        $this->db->update('activitys', $data);
+        redirect($controller);
+    }
+
     public function textarea_check($str) {
         if ($str == '<br>') {
             return FALSE;
@@ -191,44 +212,10 @@ class Activitys_ad extends CI_Controller {
     }
 
     public function type_check() {
-        if ($this->input->post('activity_type') === '0') {
+        if ($this->input->post('activity_type') === '1') {
             return FALSE;
         } else {
             return TRUE;
-        }
-    }
-
-    function DateThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate));
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear";
-        }
-    }
-
-    function DateTimeThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
         }
     }
 

@@ -7,6 +7,10 @@ class News_ad extends CI_Controller {
         $this->load->model('m_template');
         $this->load->model('m_news');
         $this->load->model('m_upload');
+        
+           if ($this->session->userdata('loged_in') != TRUE) {
+            redirect('admin');
+        }
     }
 
     public function index() {

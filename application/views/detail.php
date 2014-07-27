@@ -114,6 +114,9 @@ $close = array(
         </div>
     </div>
     <div class="container hidden-xs">
+        <a class="ui blue circular label">
+            <h1>ข่าว</h1>
+        </a>
         <div class="ui raised segment">            
             <div class="ui four items">
                 <?php
@@ -127,7 +130,14 @@ $close = array(
                                 <p class="description">
                                     <?= $row['subtitle'] ?>
                                 </p>
+
                             </div>
+                            <?php if ($row['img'] != NULL) { ?>                                
+                                <div class="image" style="margin: 10%">
+                                    <!--<img src="/images/demo/photo.jpg">-->
+                                    <?= img($row['img']) ?>                                                                           
+                                </div>
+                            <?php } ?>
                             <div class="extra">
                                 <a href="<?= base_url($row['controller'] . '/view_more/' . $row['id']) ?>">
                                     อ่าน...

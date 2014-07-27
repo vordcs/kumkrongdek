@@ -76,7 +76,7 @@
         <![endif]-->
 
         <script>
-            $(document).ready(function() {     
+            $(document).ready(function() {
                 $(window).scroll(function() {
                     var pt_scroll = $(this).scrollTop() + 80;
                     if (pt_scroll >= $('.content').offset().top) {
@@ -113,6 +113,25 @@
                     <a class="navbar-brand" href="">ระบบจัดการหน้าเว็ปไซต์</a>
                 </div>
                 <!-- /.navbar-header -->
+                <ul class="nav navbar-top-links navbar-right visible-md visible-lg">                     
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <?php
+                        $f_name = $this->session->userdata('first_name');
+                        $f_last = $this->session->userdata('last_name');
+                        ?>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">                            
+                            <i class="fa fa-user fa-fw"></i>&nbsp;&nbsp; <?= $f_name . '  ' . $f_last ?> &nbsp;&nbsp;<i class="fa fa-caret-down"></i> 
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <?= anchor('admin/logout', '<i class="fa fa-sign-out fa-fw"></i>&nbsp;ออกจากระบบ'); ?> 
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
 
 
                 <!-- /.navbar-top-links -->
@@ -121,14 +140,14 @@
                     <div class="sidebar-collapse">
                         <ul class="nav" id="side-menu">
                             <li class="sidebar-search">
-<!--                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>-->
+                                <!--                                <div class="input-group custom-search-form">
+                                                                    <input type="text" class="form-control" placeholder="Search...">
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default" type="button">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>-->
                                 <!-- /input-group -->
                             </li>  
                             <!-- Slides -->                            
@@ -198,6 +217,10 @@
                                         <?= anchor('Users', '<i class="fa fa-users fa-fm "></i>&nbsp;ผู้ดูแลระบบทั้งหมด'); ?>                                        
                                     </li>                                    
                                 </ul>
+                            </li>
+                            <!--Logout-->
+                            <li class="visible-xs visible-sm">  
+                                <?= anchor('', '<i class="fa fa-sign-out fa-fw"></i>&nbsp;ออกจากระบบ'); ?>                             
                             </li>
 
                         </ul>

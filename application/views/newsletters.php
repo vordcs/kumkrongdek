@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <?=  form_close()?>
+                            <?= form_close() ?>
                         </div>
                     </div>
                     <ul class="nav bs-docs-sidenav list-group" id="menu_side">
@@ -220,6 +220,25 @@
 </div>
 
 <script>
+
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var pt_scroll = $(this).scrollTop() + 80;
+            if (pt_scroll >= $('#mainContent').offset().top) {
+                $('body').css('padding-top', '60px')
+                $('#nav_fix_top').addClass('visible-xs');
+                $('#nav_fix_top').removeClass('hidden');
+                $('#nav_fix_top').fadeIn();
+
+            } else {
+                $('body').css('padding-top', '0px')
+                $('#nav_fix_top').fadeOut();
+                $('#nav_fix_top').addClass('visible-xs');
+                $('#nav_fix_top').addClass('hidden');
+            }
+        });
+
+    });
 
     $('#view_pdf').on('shown.bs.modal', function(e) {
         var title = $(e.relatedTarget).data('title');

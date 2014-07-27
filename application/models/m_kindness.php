@@ -81,13 +81,14 @@ Class m_kindness extends CI_Model {
         );
         $f_img = array(
             'name' => 'kindness_img',
+            'accept' => 'image/gif,image/png,image/jpeg,image/jpg',
 //            'class' => 'form-control',
         );
 
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
-            'value' => (set_value('publish_date') == NULL) ? $this->m_datetime->getDateToday() : set_value('publish_date')
+            'value' => set_value('publish_date')
         );
 //         $f_ = array(
 //            'name' => '',
@@ -143,6 +144,7 @@ Class m_kindness extends CI_Model {
         );
         $f_img = array(
             'name' => 'kindness_img',
+            'accept' => 'image/gif,image/png,image/jpeg,image/jpg',
 //            'class' => 'form-control',
             'value' => (set_value('kindness_img') == NULL) ? $data['kindness_img'] : set_value('kindness_img')
         );

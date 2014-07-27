@@ -66,11 +66,12 @@
                         $date = $row['date'];
                         ?>
                         <div class="ui one items" style="margin: 3%">
-                            <div class="item">
-                                <div class="ui ribbon green label" style="padding-right: 5%">
-                                    <h4 style="margin: 0"><?= $type ?></h4>
-                                </div>
+                            <div class="item">                               
                                 <div class="content">
+                                    <div class="ui ribbon green label" style="padding-right: 20%;">
+                                        <h3 style="margin: 0"><?= $type ?></h3>
+                                    </div>
+                                    <div><h3 style="margin: 5%"></h3></div>
                                     <div class="meta"><?= $date ?></div>
                                     <div class="name"><?= $title_ ?></div>
                                     <p class="description">
@@ -78,15 +79,15 @@
                                     </p>
 
                                 </div>
-                                <?php ?>                                
-                                <div class="image" style="margin: 10%">
-                                    <!--<img src="/images/demo/photo.jpg">-->
-                                    <?= img($img) ?>
-                                    <a class="like ui corner label">                                        
-                                        <div class="text">ใหม่</div>
-                                    </a>                                    
-                                </div>
-                                <?php ?>
+                                <?php if ($img != NULL) { ?>                                
+                                    <div class="image" style="margin: 10%">
+                                        <!--<img src="/images/demo/photo.jpg">-->
+                                        <?= img($img) ?>
+                                        <a class="like ui corner label">                                        
+                                            <div class="text">ใหม่</div>
+                                        </a>                                    
+                                    </div>
+                                <?php } ?>
                                 <div class="extra">
                                     <a href="<?= base_url($controller . '/view_more/' . $id) ?>">
                                         ดูเพิ่ม...
@@ -178,6 +179,7 @@
             </div>
 
     </section>
+    
     <section id="kindness">
         <div class="title_bg">
             <div class="container">
@@ -290,20 +292,22 @@
                                     <div class="demo5 demof">
                                         <ul>
                                             <?php
+                                            $row='';
+                                            $i=0;
                                             foreach ($activitys as $row) {
                                                 $controller = "Activitys";
                                                 $id = $row['activity_id'];
-                                                $title = $row['activity_title'];
+                                                $title_ = $row['activity_title'];
                                                 $subtitle = $row['activity_subtitle'];
                                                 $img = $row['image_small'];
                                                 $date = $this->m_datetime->DateThai($row['publish_date']);
-                                                if ($row['activity_type'] == $type_id && $i != 5) {
+                                                if ($row['activity_type'] == $type_id && $i < 5) {
                                                     ?>
                                                     <li>
                                                         <!--<img data-src="holder.js/100x100/sky">-->
                                                         <?= img($img, array('class' => 'img-responsive')); ?>
                                                         <a href="<?= base_url('Activitys/view_more/' . $id) ?>">
-                                                            <?= $title ?>
+                                                            <?= $title_ ?>
                                                         </a>
                                                         <p><?= $subtitle ?></p>
                                                     </li>                                         
@@ -332,13 +336,17 @@
 
     </section>
 
-
-
-
     <section id="social"> 
         <div class="main">
-            <div class="container">
-                <div class="fb-like-box hidden-xs" data-href="https://www.facebook.com/pages/&#xe2a;&#xe16;&#xe32;&#xe19;&#xe04;&#xe38;&#xe49;&#xe21;&#xe04;&#xe23;&#xe2d;&#xe07;&#xe2a;&#xe27;&#xe31;&#xe2a;&#xe14;&#xe34;&#xe20;&#xe32;&#xe1e;&#xe40;&#xe14;&#xe47;&#xe01;&#xe20;&#xe32;&#xe04;&#xe15;&#xe30;&#xe27;&#xe31;&#xe19;&#xe2d;&#xe2d;&#xe01;&#xe40;&#xe09;&#xe35;&#xe22;&#xe07;&#xe40;&#xe2b;&#xe19;&#xe37;&#xe2d;/772339976138959" data-width="1150" data-height="500" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="true" data-show-border="false"></div>
+            <div class="container text-center">
+                <div class="fb-like-box hidden-xs" 
+                     data-href="https://www.facebook.com/pages/&#xe2a;&#xe16;&#xe32;&#xe19;&#xe04;&#xe38;&#xe49;&#xe21;&#xe04;&#xe23;&#xe2d;&#xe07;&#xe2a;&#xe27;&#xe31;&#xe2a;&#xe14;&#xe34;&#xe20;&#xe32;&#xe1e;&#xe40;&#xe14;&#xe47;&#xe01;&#xe20;&#xe32;&#xe04;&#xe15;&#xe30;&#xe27;&#xe31;&#xe19;&#xe2d;&#xe2d;&#xe01;&#xe40;&#xe09;&#xe35;&#xe22;&#xe07;&#xe40;&#xe2b;&#xe19;&#xe37;&#xe2d;/772339976138959" 
+                     data-width="768" 
+                     data-height="500" 
+                     data-colorscheme="light" 
+                     data-show-faces="true" data-header="false" 
+                     data-stream="true" d
+                     ata-show-border="false"></div>
                 <div id="fb-root"></div>
                 <script>(function(d, s, id) {
                         var js, fjs = d.getElementsByTagName(s)[0];
@@ -356,6 +364,7 @@
     </section>
 
 </div>
+
 <script>
     $(document).ready(function() {
         $("#owl-1").owlCarousel({
@@ -383,10 +392,12 @@
         $(window).scroll(function() {
             var pt_scroll = $(this).scrollTop() + 80;
             if (pt_scroll >= $('#mainContent').offset().top) {
+                $('body').css('padding-top', '60px')
                 $('#nav_fix_top').removeClass('hidden');
                 $('#nav_fix_top').fadeIn();
 
             } else {
+                $('body').css('padding-top', '0px')
                 $('#nav_fix_top').fadeOut();
                 $('#nav_fix_top').addClass('hidden');
             }

@@ -5,29 +5,6 @@ if (!defined('BASEPATH'))
 
 Class m_activitys extends CI_Model {
 
-    function getDatetimeNow() {
-        return date('Y-m-d H:i:s');
-    }
-
-    function getDateToday() {
-        return date('Y-m-d');
-    }
-
-    function setDateFomat($input_date) {
-        $d = new DateTime($input_date);
-        $date = $d->format('Y-m-d');
-        return $date;
-    }
-
-    function getMonthFromTH($str_date_th) {
-        $month_th = array("", "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-        for ($i = 0; $i < count($month_th); $i++) {
-            if ($month_th[$i] == $str_date_th) {
-                return $i;
-            }
-        }
-    }
-
     public function get_activitys($id = NULL) {
         $this->db->select('*');
         $this->db->from('activitys');
@@ -149,6 +126,7 @@ Class m_activitys extends CI_Model {
 
         $f_activity_img = array(
             'name' => 'activity_img',
+            'accept' => 'image/gif,image/png,image/jpeg,image/jpg',
 //            'class' => 'form-control'
         );
         $f_highlight = array(
@@ -158,7 +136,7 @@ Class m_activitys extends CI_Model {
         $f_publish_date = array(
             'name' => 'publish_date',
             'class' => 'form-control datepicker',
-            'value' => (set_value('publish_date') == NULL) ? $this->m_datetime->getDateToday() : set_value('publish_date')
+            'value' => set_value('publish_date')
         );
 
         $form_add = array(
@@ -207,6 +185,7 @@ Class m_activitys extends CI_Model {
         $f_activity_img = array(
             'name' => 'activity_img',
 //            'class' => 'form-control'
+            'accept' => 'image/gif,image/png,image/jpeg,image/jpg',
         );
         $f_highlight = array(
             '0' => 'ทั่วไป',
@@ -328,7 +307,7 @@ Class m_activitys extends CI_Model {
             'activity_content' => $this->input->post('activity_content'),
             'activity_type' => $this->input->post('activity_type'),
             'activity_highlight' => $this->input->post('activity_highlight'),
-            'publish_date' => $this->input->post('publish_date'),
+            'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'update_date' => $this->m_datetime->getDatetimeNow(),
         );
         //img if not NULL
