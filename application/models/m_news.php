@@ -365,6 +365,7 @@ Class m_news extends CI_Model {
             'news_img' => $img_id,
             'news_highlight' => $this->input->post('news_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'create_by'=> $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
         );
 
@@ -378,6 +379,7 @@ Class m_news extends CI_Model {
             'news_content' => $this->input->post('news_content'),
             'news_highlight' => $this->input->post('news_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'update_by'=> $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
         );
 

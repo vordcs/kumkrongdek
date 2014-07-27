@@ -9,7 +9,8 @@ class Users extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_users');
-          if ($this->session->userdata('loged_in') != TRUE) {
+          
+        if ($this->session->userdata('loged_in') != TRUE) {
             redirect('admin');
         }
     }

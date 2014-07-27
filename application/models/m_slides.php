@@ -179,6 +179,7 @@ Class m_slides extends CI_Model {
             'slide_link' => $this->input->post('slide_link'),
             'slide_img' => $this->upload_image('slide_img'),
             'slide_status' => $this->input->post('slide_status'),
+            'create_by'=> $this->session->userdata('first_name'),
             'create_date' => $this->getDatetimeNow(),
         );
 
@@ -191,6 +192,7 @@ Class m_slides extends CI_Model {
             'slide_subtitle' => $this->input->post('slide_subtitle'),
             'slide_link' => $this->input->post('slide_link'),
             'slide_status' => $this->input->post('slide_status'),
+            'update_by'=> $this->session->userdata('first_name'),
             'update_date' => $this->getDatetimeNow(),
         );
         //img_slide if not NULL

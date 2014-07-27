@@ -226,6 +226,7 @@ Class m_kindness extends CI_Model {
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'kindness_img' => $img_id,
             'kindness_highlight' => $this->input->post('kindness_highlight'),
+            'create_by'=> $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );
@@ -240,6 +241,7 @@ Class m_kindness extends CI_Model {
             'kindness_content' => $this->input->post('kindness_content'),
             'kindness_highlight' => $this->input->post('kindness_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'update_by'=> $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );

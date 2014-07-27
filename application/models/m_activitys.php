@@ -295,6 +295,7 @@ Class m_activitys extends CI_Model {
             'activity_img' => $img_id,
             'activity_highlight' => $this->input->post('activity_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'create_by'=> $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
         );
         return $page_data;
@@ -308,6 +309,7 @@ Class m_activitys extends CI_Model {
             'activity_type' => $this->input->post('activity_type'),
             'activity_highlight' => $this->input->post('activity_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
+            'update_by'=> $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
         );
         //img if not NULL

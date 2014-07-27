@@ -375,6 +375,7 @@ Class m_journals extends CI_Model {
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'journals_highlight' => $this->input->post('journals_highlight'),
             'journal_status' => $this->input->post('journal_status'),
+            'create_by'=> $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
         );
 
@@ -393,6 +394,7 @@ Class m_journals extends CI_Model {
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'journals_highlight' => $this->input->post('journals_highlight'),
             'journal_status' => $this->input->post('journal_status'),
+            'update_by'=> $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
         );
         if (!empty($_FILES['journal_file']['name'])) {
