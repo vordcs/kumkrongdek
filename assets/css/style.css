@@ -35,10 +35,10 @@
     font-size: 22px;
 }
 #nav-static ul li.active a {
-    color: #57c5a0;
+    color: #EC87C0;
 }
 #nav-static ul li a:hover {
-    color: #57c5a0;
+    color: #EC87C0;
 }
 /*end for nav */
 /* Custom carousel slide */
@@ -322,14 +322,14 @@ dl dt {
 
 /* start title */
 .title_bg{
-    background: #242424;
+    background: #D770AD;
 }
 .title_top{
     padding: 10px;
     padding-left: 2%;
 }
 .title_top h2{
-    color:#57c5a0;
+    color:#ffffff;
 }
 .scroll-area {
     /*height: 250px;*/
@@ -440,7 +440,7 @@ a, a:visited,a:hover,a:active {
     padding-bottom: 2%;
 }
 .footer_bg{    
-    background: #2e2e2e;
+    background: #EC87C0;
 }
 /* start footer_top */
 .footer_top{
@@ -486,7 +486,7 @@ a, a:visited,a:hover,a:active {
     padding-bottom: 1%;
     color: #fff;
     border-top:1px solid #141414;
-    background: #242424;
+    background: #D770AD;
 }
 
 /* start footer_bottom */
@@ -590,9 +590,9 @@ min-width:768px){
 .bs-docs-sidebar .nav>.active>a,.bs-docs-sidebar .nav>.active:hover>a,.bs-docs-sidebar .nav>.active:focus>a{
     padding-left:18px;
     font-weight:700;
-    color:#57c5a0;
+    color:#D770AD;
     background-color:transparent;
-    border-left:2px solid #57c5a0
+    border-left:2px solid #D770AD
 }
 .bs-docs-sidebar .nav .nav{
     display:none;

@@ -92,7 +92,7 @@
                         <section id="type<?= $type_id ?>">  
                             <!--<div class="col-sm-10 col-sm-offset-1">-->
                             <div class="ui raised segment">
-                                <div class="ui ribbon green label" style="padding-right: 40%;"><h2><?= $type_name ?></h2>
+                                <div class="ui ribbon pink label" style="padding-right: 40%;"><h2><?= $type_name ?></h2>
                                 </div>
                                 <div class="row">
                                     <div class="ui raised segment">

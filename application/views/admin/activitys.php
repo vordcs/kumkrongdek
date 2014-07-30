@@ -98,7 +98,7 @@ if ($strtitle != NULL) {
                 <div class="panel panel-default">
 
                     <div class="panel-body"> 
-                        <div class="ui ribbon green label">
+                        <div class="ui ribbon pink label">
                             <h3 style="margin: 0px;padding: 0px"><?= $type ?></h3>                                
                         </div>
                         <div class="row">                              

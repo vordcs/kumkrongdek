@@ -8210,6 +8210,38 @@ a.ui.label:hover:before {
 /*-------------------
        Colors
 --------------------*/
+/*--- Pink ---*/
+.ui.pink.labels .label,
+.ui.pink.label {
+  background-color: #EC87C0 !important;
+  border-color: #EC87C0 !important;
+  color: #FFFFFF !important;
+}
+.ui.labels .pink.label:before,
+.ui.pink.labels .label:before,
+.ui.pink.label:before {
+  background-color: #EC87C0 !important;
+}
+/* Hover */
+a.ui.pink.labels .label:hover,
+a.ui.pink.label:hover {
+  background-color: #EC87C0 !important;
+  border-color: #EC87C0 !important;
+}
+.ui.labels a.pink.label:hover:before,
+.ui.pink.labels a.label:hover:before,
+a.ui.pink.label:hover:before {
+  background-color: #EC87C0 !important;
+}
+/* Corner */
+.ui.pink.corner.label,
+.ui.pink.corner.label:hover {
+  background-color: transparent !important;
+}
+/* Ribbon */
+.ui.pink.ribbon.label {
+  border-color: #EC87C0 !important;
+}
 /*--- Black ---*/
 .ui.black.labels .label,
 .ui.black.label {

@@ -25,7 +25,7 @@ $close = array(
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="ui raised segment">
                         <?php if ($type != NULL) { ?>
-                            <div class="ui ribbon green label" style="padding-right: 20%">
+                            <div class="ui ribbon pink label" style="padding-right: 20%">
                                 <h2 style="margin: 0;"> 
                                     <?= $type ?>
                                 </h2>                
@@ -58,7 +58,7 @@ $close = array(
                                 <div class="col-md-12 col-sm-12">
                                     <div class="row">
                                         <div class="ui raised segment">
-                                            <div class="ui ribbon green label" style="padding-right: 10%;">
+                                            <div class="ui ribbon pink label" style="padding-right: 10%;">
                                                 <h3 style="margin: 0;">                                    
                                                     เอกสาร
                                                 </h3>  
@@ -92,7 +92,7 @@ $close = array(
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="ui raised segment">
-                                        <div class="ui ribbon green label" style="padding-right: 10%;">
+                                        <div class="ui ribbon pink label" style="padding-right: 10%;">
                                             <h3 style="margin: 0;">                                    
                                                 รูปภาพ
                                             </h3>

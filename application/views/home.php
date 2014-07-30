@@ -68,7 +68,7 @@
                         <div class="ui one items" style="margin: 3%">
                             <div class="item">                               
                                 <div class="content">
-                                    <div class="ui ribbon green label" style="padding-right: 20%;">
+                                    <div class="ui ribbon pink label" style="padding-right: 20%;">
                                         <h3 style="margin: 0"><?= $type ?></h3>
                                     </div>
                                     <div><h3 style="margin: 5%"></h3></div>
@@ -121,7 +121,7 @@
                             ?>                           
                             <div class="caption" >
                                 <div class="ui raised segment">
-                                    <div class="ui ribbon green label" style="padding-right: 5%;">
+                                    <div class="ui ribbon pink label" style="padding-right: 5%;">
                                         <a href="<?= base_url('News/#type' . $type['news_type_id']) ?>" >
                                             <h3><?= $type['news_type_name'] ?></h3>
                                         </a>
@@ -241,7 +241,7 @@
                                                         ดูเพิ่ม...
                                                     </a>
                                                 </div>
-                                                <div class="ui ribbon green label" style="padding-right: 5%">
+                                                <div class="ui ribbon pink label" style="padding-right: 5%">
                                                     <h4 style="margin: 0"><?= $date ?></h4>
                                                 </div>
                                             </div>
@@ -286,7 +286,7 @@
                             ?>
                             <div class="col-sm-6">
                                 <div class="ui raised segment">
-                                    <div class="ui ribbon green label"><h2><?= $type_name ?></h2>
+                                    <div class="ui ribbon pink label"><h2><?= $type_name ?></h2>
                                     </div>
 
                                     <div class="demo5 demof">

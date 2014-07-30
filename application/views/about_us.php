@@ -42,7 +42,7 @@
                 <div class="row" id="history">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>ประวัติความเป็นมา</h2></div><br>
+                            <div class="ui ribbon pink label"><h2>ประวัติความเป็นมา</h2></div><br>
                             <br>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สถานคุ้มครองสวัสดิภาพเด็กภาคตะวันออกเฉียงเหนือ จังหวัดขอนแก่น สังกัดสำนักคุ้มครองสวัสดิภาพหญิงและเด็ก กรมพัฒนาสังคมและสวัสดิการ  กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์   จัดตั้งขึ้นตามประกาศคณะปฏิวัติ  ฉบับที่ 294  ลงวันที่  27  พฤศจิกายน  2515  เพื่อคุ้มครองสวัสดิภาพเด็ก ที่มีความประพฤติที่ไม่สมควรแก่วัย เช่นเร่ร่อนขอทาน  เด็กที่ได้รับการเลี้ยงดูไม่เหมาะสม ถูกทารุณทำร้าย ทั้งร่างกายและจิตใจ สถานคุ้มครองสวัสดิภาพเด็กภาคตะวันออกเฉียงเหนือ  จังหวัดขอนแก่น  เปิดดำเนินการเมื่อวันที่  19  มิถุนายน  2518  สังกัดกองสงเคราะห์เด็กและบุคคลวัยรุ่น กรมประชาสงเคราะห์   บนเนื้อที่  65  ไร่  ห่างจากตัวจังหวัดขอนแก่น  36  กิโลเมตร และปัจจุบันสถานคุ้มครองสวัสดิภาพเด็กภาคตะวันออกเฉียงเหนือ จังหวัดขอนแก่น  ดำเนินงานโดยยึดถือพระราชบัญญัติคุ้มครองเด็ก พ.ศ. 2546 เป็นแนวทางการปฏิบัติงาน
                             </p>
@@ -54,7 +54,7 @@
                 <div class="row" id="vison">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>วิสัยทัศน์</h2></div><br>
+                            <div class="ui ribbon pink label"><h2>วิสัยทัศน์</h2></div><br>
                             <br>
                             <p align="center">เป็นหน่วยงานที่ให้การคุ้มครองสวัสดิภาพและบริการ</p>
                             <p align="center">สวัสดิการทางสังคมแก่กลุ่มเป้าหมายที่ได้มาตรฐาน</p>
@@ -67,7 +67,7 @@
                 <div class="row" id="popularity">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>ค่านิยม</h2></div><br>
+                            <div class="ui ribbon pink label"><h2>ค่านิยม</h2></div><br>
                             <br>
                             <p align="center">เสียสละ สามัคคี มีวินีย ใฝ่คุณธรรม นำพัฒนา</p>
                         </div>
@@ -77,7 +77,7 @@
                 <div class="row" id="culture">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>วัฒนธรรม</h2></div><br>
+                            <div class="ui ribbon pink label"><h2>วัฒนธรรม</h2></div><br>
                             <br>
                             <p align="center">จิตมุ่งบริการ วาจาไพเราะ แต่งกายสุภาพ</p>
                         </div>
@@ -87,7 +87,7 @@
                 <div class="row" id="philosophy">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>ปรัชญา</h2></div>
+                            <div class="ui ribbon pink label"><h2>ปรัชญา</h2></div>
                             <br><br>
                             <p align="center">รักเหมือนลูก ผูกสัมพันธ์</p>
                         </div>
@@ -97,7 +97,7 @@
                 <div class="row" id="objective">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>วัตถุประสงค์</h2></div>
+                            <div class="ui ribbon pink label"><h2>วัตถุประสงค์</h2></div>
                             <br><br>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. เพื่อให้การสงเคราะห์และคุ้มครองสวัสดิภาพแก่เด็กชายอายุ  6-18  ปี  ที่ประสบปัญหาครอบครัว ปัญหาความประพฤติ  ปัญหาที่เกิดจากการเปลี่ยนแปลงของสังคม  เช่น  เร่ร่อน  พลัดหลง  ถูกทารุณกรรมทั้งร่างกายและจิตใจ เด็กที่ได้รับการเลี้ยงดูไม่เหมาะสม  ถูกปล่อยปละละเลย  เด็กที่เสี่ยงต่อการกระทำผิดและเด็กที่อยู่ในสภาพที่จะต้องได้รับการคุ้มครองสวัสดิภาพ   ตามพระราชบัญญัติคุ้มครองสวัสดิภาพเด็ก  พ.ศ.2546 </p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. เพื่อส่งเสริมให้เด็กได้รับการศึกษา  อบรม  เพื่อแก้ไขความประพฤติ  รวมทั้งบำบัดรักษาและฟื้นฟูสมรรถภาพทั้งทางร่างกายและจิตใจ</p>
@@ -109,7 +109,7 @@
                 <div class="row" id="relate">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>การดำเนินงาน</h2></div>
+                            <div class="ui ribbon pink label"><h2>การดำเนินงาน</h2></div>
                             <br><br>
                             <p>1. บริการด้านการเลี้ยงดู</p>
                             <ul>
@@ -169,7 +169,7 @@
                 <div class="row" id="t1">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>เด็กที่ได้รับการสงเคราะห์ และคุ้มครองสวัสดิภาพ</h2></div>
+                            <div class="ui ribbon pink label"><h2>เด็กที่ได้รับการสงเคราะห์ และคุ้มครองสวัสดิภาพ</h2></div>
                             <br><br>
                             <p>เป็นเด็กชาย อายุ 7-18 ปี ที่มีลักษณะดังนี้</p>
                             <ul>
@@ -185,7 +185,7 @@
                 <div class="row" id="t2">
                     <div class="caption" >
                         <div class="ui raised segment">
-                            <div class="ui ribbon green label"><h2>การนำเด็กเข้ารับการสงเคราะห์หรือคุ้มครองสวัสดิภาพ</h2></div>
+                            <div class="ui ribbon pink label"><h2>การนำเด็กเข้ารับการสงเคราะห์หรือคุ้มครองสวัสดิภาพ</h2></div>
                             <<br><br>
                             <p>1. กรุงเทพมหานคร ติดต่อที่สำนักงานคุ้มครองสวัสดิภาพหญิงและเด็ก</p>
                             <p>2. สถานคุ้มครองสวัสดิภาพเด็กภาคตะวันออกเฉียงเหนือจังหวัดขอนแก่น เลขที่ 36 หมู่ที่ 9 ตำบลโคกสูง อำเภออุบลรัตน์ จังหวัดขอนแก่น 40250 โทร 043-421251</p>

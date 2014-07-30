@@ -124,7 +124,7 @@ if ($strtitle != NULL) {
                             );
                             ?>
 
-                            <div class="ui ribbon green label" style="padding-right: 5%">
+                            <div class="ui ribbon pink label" style="padding-right: 5%">
                                 <h3 style="margin: 0px;padding: 0px"><?= $type ?></h3>                                
                             </div>
                             <p class="pull-right">

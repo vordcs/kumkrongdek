@@ -48,7 +48,7 @@
                     <div class="col-md-6 col-xs-12">
                         <div class="caption" >
                             <div class="ui raised segment">
-                                <div class="ui ribbon green label"><h3 style="margin: 0;"><?= $date ?></h3></div><br>
+                                <div class="ui ribbon pink label"><h3 style="margin: 0;"><?= $date ?></h3></div><br>
                                 <br>  
                                 <div class="row">                        
                                     <div class="col-xs-12 col-md-4">

@@ -67,7 +67,7 @@
                             <section id="type<?= $type_id ?>">                                
                                 <!--                                    <div class="caption" >-->
                                 <div class="ui raised segment">
-                                    <div class="ui ribbon green label" style="padding-right: 40%;"><h2><?= $type_name ?></h2></div>
+                                    <div class="ui ribbon pink label" style="padding-right: 40%;"><h2><?= $type_name ?></h2></div>
                                     <br>
                                     <div>
                                         <?php
