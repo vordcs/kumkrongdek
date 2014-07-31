@@ -154,22 +154,22 @@ class News_ad extends CI_Controller {
 
     public function unactive($id) {
         $data = array(
-            'news_status' => '1',
+            'news_status' => 'unactive',
         );
 
         $this->db->where('news_id', $id);
-        $this->db->update('News', $data);
+        $this->db->update('news', $data);
 
         redirect('News_ad', 'refresh');
     }
 
     public function active($id) {
         $data = array(
-            'news_status' => '2',
+            'news_status' => 'active',
         );
 
         $this->db->where('news_id', $id);
-        $this->db->update('News', $data);
+        $this->db->update('news', $data);
 
         redirect('News_ad', 'refresh');
     }

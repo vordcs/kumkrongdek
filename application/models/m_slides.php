@@ -81,6 +81,7 @@ Class m_slides extends CI_Model {
 
         $f_img = array(
             'name' => 'slide_img',
+            'accept' => 'image/gif,image/png,image/jpeg,image/jpg',
 //            'class' => 'form-control'
         );
 

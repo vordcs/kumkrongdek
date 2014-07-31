@@ -19,7 +19,16 @@ Class m_kindness extends CI_Model {
     }
 
     public function insert_kindness($f_data) {
+        
+            $this->db->trans_start();
         $this->db->insert('kindness', $f_data);
+        $kindness_id = $this->db->insert_id();
+        $this->db->trans_complete();
+
+        $this->load->model('m_upload');
+//        $this->m_upload->upload_multi_file('file', $kindness_id);
+        $this->m_upload->upload_multi_image('kindness','kindness_has_images','file', $kindness_id);
+        
     }
 
     public function update_kindness($id, $f_data) {

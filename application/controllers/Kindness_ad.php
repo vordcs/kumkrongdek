@@ -6,6 +6,7 @@ class Kindness_ad extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_kindness');
+        $this->output->cache(20);
            if ($this->session->userdata('loged_in') != TRUE) {
             redirect('admin');
         }
@@ -30,7 +31,7 @@ class Kindness_ad extends CI_Controller {
 //            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_kindness->insert_kindness($form_data);
-            redirect('Kindness_ad');
+//            redirect('Kindness_ad');
         }
 
 //        Load form add        
@@ -67,7 +68,7 @@ class Kindness_ad extends CI_Controller {
     }
 
     public function delete($id) {
-        $this->m_activitys->delete_activity($id);
+        $this->m_kindness->delete_kindness($id);
         redirect('Kindness_ad');
     }
 
@@ -115,7 +116,7 @@ class Kindness_ad extends CI_Controller {
         $this->db->where('kindness_id', $kindness_id);
         $this->db->update('kindness', $data);
 
-        redirect('kindness_ad', 'refresh');
+        redirect('Kindness_ad', 'refresh');
     }
 
     public function view_more($id) {

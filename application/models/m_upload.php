@@ -42,8 +42,7 @@ Class m_upload extends CI_Model {
                 $config2['image_library'] = 'gd2';
                 $config2['source_image'] = $finfo['full_path'];
                 $config2['create_thumb'] = TRUE;
-                $config2['new_image'] = 'assets/img/' . $folder . '/thumbs/' . $finfo['file_name'];
-                $config2['maintain_ratio'] = TRUE;
+                $config2['new_image'] = 'assets/img/' . $folder . '/thumbs/' . $finfo['file_name'];                
                 $config2['thumb_marker'] = '';
                 $config2['width'] = 1;
                 $config2['height'] = 200;
@@ -98,13 +97,13 @@ Class m_upload extends CI_Model {
                     if ($table == 'news_has_images') {
                         $f_news = array(
                             'news_id' => $id,
-                            'image_id' => $img_id,
+                            'image_id' => $image_id,
                         );
                         $this->db->insert('news_has_images', $f_news);
                     } else {
                         $f_kindness = array(
                             'kindness_id' => $id,
-                            'image_id' => $img_id,
+                            'image_id' => $image_id,
                         );
                         $this->db->insert('kindness_has_images', $f_kindness);
                     }

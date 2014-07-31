@@ -73,6 +73,33 @@
         </div>
     </div>
     <hr>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            รูปภาพอื่นๆ
+        </label>
+        <div class="col-sm-9" id="file">
+            <div id="r"></div>
+            <div class="row" id="row_file" >               
+                <div class="col-sm-3" >
+                    <input type="file" name="file[]" accept="image/gif,image/png,image/jpeg,image/jpg">
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-6">
+            <div class="col-sm-10 col-sm-offset-1" >
+                <button class="btn btn-default icon" type="button" onclick="JavaScript:addInputFile()">
+                    <i class="fa fa-plus fa-lg"></i>
+                </button>
+                <button class="btn btn-default" type="button" onclick="JavaScript:delInputFile()">
+                    <i class="fa fa-minus fa-lg"></i> 
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="form-group">            
         <div class="text-center">
             <input type="submit" class="btn btn-success btn-lg" name="save" value="บันทึก" >
@@ -87,7 +114,7 @@
 
         //<![CDATA[
         bkLib.onDomLoaded(function() {
-            new nicEditor().panelInstance('content');        
+            new nicEditor().panelInstance('content');
         });
 
 
@@ -105,4 +132,54 @@
         });
 
     });
+    function addInputFile() {
+
+        var num = $('#file .row').length;
+        if (num < 5) {
+            var row = document.getElementById('file');
+
+            //create div class = row        
+            var row_file = document.createElement('div');
+            row_file.setAttribute('style', 'padding-top:10px;');
+            row_file.setAttribute('class', 'row');
+            row_file.setAttribute('id', 'row_file' + num);
+            row.appendChild(row_file);
+            var div_row = document.getElementById('row_file' + num);
+
+            //create div class col-sm-3 foe input file
+            var div_3 = document.createElement('div');
+            div_3.setAttribute('class', 'col-sm-3');
+            div_3.setAttribute('id', 'div_file' + num);
+            div_row.appendChild(div_3);
+            var div_file = document.getElementById('div_file' + num);
+
+
+            var file = document.createElement('input');
+            file.setAttribute('type', "file");
+//        title.setAttribute('class', "form-control");
+            file.setAttribute('name', "file[]");
+            file.setAttribute('id', "file" + num);
+            file.setAttribute('accept', 'image/gif,image/png,image/jpeg,image/jpg');
+            file.setAttribute('required', 'true');
+            div_file.appendChild(file);
+        }
+
+////        alert('add :' + num);
+    }
+
+    function delInputFile() {
+
+
+        var num = $('#file .row').length;
+        num = num - 1;
+//        alert('#row_file'+num);
+        var id = '#row_file' + num;
+        id.toString();
+        if (num > 0) {
+            $(id).each(function() {
+                $(this).remove();
+            });
+        }
+
+    }
 </script> 
