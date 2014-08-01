@@ -104,7 +104,7 @@ Class m_home extends CI_Model {
         if ($highlight != NULL) {
             $this->db->where('activity_highlight', 1);
         }
-        $this->db->order_by('publish_date desc');
+        $this->db->order_by('publish_date desc,create_date desc');
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;

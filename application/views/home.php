@@ -392,12 +392,12 @@
         $(window).scroll(function() {
             var pt_scroll = $(this).scrollTop() + 80;
             if (pt_scroll >= $('#mainContent').offset().top) {
-                $('body').css('padding-top', '60px')
+//                $('body').css('padding-top', '60px')
                 $('#nav_fix_top').removeClass('hidden');
                 $('#nav_fix_top').fadeIn();
 
             } else {
-                $('body').css('padding-top', '0px')
+//                $('body').css('padding-top', '0px')
                 $('#nav_fix_top').fadeOut();
                 $('#nav_fix_top').addClass('hidden');
             }

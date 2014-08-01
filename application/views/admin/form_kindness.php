@@ -73,7 +73,7 @@
         </div>
     </div>
     <hr>
-    <div class="form-group">
+    <div class="form-group hidden">
         <label class="col-sm-3 control-label">
             รูปภาพอื่นๆ
         </label>
@@ -86,7 +86,7 @@
             </div>
         </div>        
     </div>
-    <div class="form-group">
+    <div class="form-group hidden">
         <label class="col-sm-3 control-label"></label>
         <div class="col-sm-6">
             <div class="col-sm-10 col-sm-offset-1" >

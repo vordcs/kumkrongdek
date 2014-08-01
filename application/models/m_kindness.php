@@ -8,7 +8,7 @@ Class m_kindness extends CI_Model {
     public function get_kindness($id = NULL) {
         $this->db->select('*');
         $this->db->from('kindness');
-        $this->db->join('images', 'image_id = kindness_img');
+        $this->db->join('images', 'image_id = kindness_img','left');
         if ($id != NULL) {
             $this->db->where('kindness_id', $id);
         }

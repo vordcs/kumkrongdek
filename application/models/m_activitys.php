@@ -8,7 +8,7 @@ Class m_activitys extends CI_Model {
     public function get_activitys($id = NULL) {
         $this->db->select('*');
         $this->db->from('activitys');
-        $this->db->join('images', 'image_id = activity_img');
+        $this->db->join('images', 'image_id = activity_img','left');
         if ($id != NULL) {
             $this->db->where('activity_id', $id);
         }
