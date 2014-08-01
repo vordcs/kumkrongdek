@@ -123,7 +123,7 @@ Class m_kindness extends CI_Model {
             'kindness_content' => form_textarea($f_kindness_content),
             'kindness_img' => form_upload($f_img),
             //            ''=>  form_input($f_),          
-            'kindness_status' => form_dropdown('kindness_status', $f_status, set_value('kindness_status'), 'class="form-control"'),
+//            'kindness_status' => form_dropdown('kindness_status', $f_status, set_value('kindness_status'), 'class="form-control"'),
             'kindness_highlight' => form_dropdown('kindness_highlight', $f_highlight, set_value('kindness_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
             'image' => NULL,

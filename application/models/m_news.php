@@ -150,8 +150,12 @@ Class m_news extends CI_Model {
         $new_file = $this->get_news_file($id);
         foreach ($new_file as $file) {
             $this->deleteFile($file['file_id']);
+            
             $this->db->where('file_id', $file['file_id']);
             $this->db->delete('news_has_files');
+            
+            $this->db->where('file_id', $file['file_id']);
+            $this->db->delete('files');
         }
 
         //delete image 

@@ -159,7 +159,7 @@ class News_ad extends CI_Controller {
 
         $this->db->where('news_id', $id);
         $this->db->update('news', $data);
-
+       
         redirect('News_ad', 'refresh');
     }
 

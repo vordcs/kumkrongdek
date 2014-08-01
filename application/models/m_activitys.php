@@ -78,17 +78,33 @@ Class m_activitys extends CI_Model {
     }
 
     public function delete_activity($id) {
+
+        //delete file
+        $img_activity = $this->get_image_activity($id);
+        foreach ($img_activity as $row) {
+            
+            unlink($row['image_path']);
+            unlink(img_path() . 'activitys/thumbs/' . $row['image_name']);
+
+            $this->db->where('image_id', $row['image_id']);
+            $this->db->delete('activitys_has_images');
+
+            $this->db->where('image_id', $row['image_id']);
+            $this->db->delete('images');
+        }
+
+
         //delete image
         $img_id = $this->get_image_id($id);
         $this->deleteImage($img_id);
 
-        //delete slide
-        $this->db->where('activity_id', $id);
-        $this->db->delete('activitys');
-
         //delete data in database
         $this->db->where('image_id', $img_id);
         $this->db->delete('images');
+
+        //delete activity
+        $this->db->where('activity_id', $id);
+        $this->db->delete('activitys');
     }
 
     public function set_form_add() {
@@ -211,7 +227,7 @@ Class m_activitys extends CI_Model {
         return $form_edit;
     }
 
-    public function set_form_search($controller=NULL) {
+    public function set_form_search($controller = NULL) {
 
         $f_date_search = array(
             'name' => 'date_search',
@@ -231,11 +247,11 @@ Class m_activitys extends CI_Model {
             $f_activity_type[$row['activity_type_id']] = $row['activity_type_name'];
         }
         if ($controller == NULL) {
-            $controller ='Activitys_ad';
+            $controller = 'Activitys_ad';
         }
 
         $form_search = array(
-            'form' => form_open( $controller.'/', array('class' => 'form-horizontal', 'id' => 'form_search')),
+            'form' => form_open($controller . '/', array('class' => 'form-horizontal', 'id' => 'form_search')),
             'status' => form_dropdown('status', $f_status_search, set_value('status'), 'class="form-control"'),
             'date' => form_input($f_date_search),
             'type' => form_dropdown('type', $f_activity_type, set_value('activity_type'), 'class="form-control"'),
@@ -295,7 +311,7 @@ Class m_activitys extends CI_Model {
             'activity_img' => $img_id,
             'activity_highlight' => $this->input->post('activity_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
-            'create_by'=> $this->session->userdata('first_name'),
+            'create_by' => $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
         );
         return $page_data;
@@ -309,7 +325,7 @@ Class m_activitys extends CI_Model {
             'activity_type' => $this->input->post('activity_type'),
             'activity_highlight' => $this->input->post('activity_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
-            'update_by'=> $this->session->userdata('first_name'),
+            'update_by' => $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
         );
         //img if not NULL
@@ -331,9 +347,9 @@ Class m_activitys extends CI_Model {
         return $row['image_id'];
     }
 
-    public function get_activity_type($type_id=NULL) {
-        
-         $this->db->select('*');
+    public function get_activity_type($type_id = NULL) {
+
+        $this->db->select('*');
         $this->db->from('activity_types');
         $this->db->order_by('activity_type_id');
         if ($type_id != NULL) {
@@ -341,7 +357,6 @@ Class m_activitys extends CI_Model {
         }
         $query = $this->db->get();
         return $query->result_array();
-
     }
 
 ///
@@ -357,7 +372,7 @@ Class m_activitys extends CI_Model {
                 'image_id' => $this->db->insert_id()
             );
             array_push($data_images, $temp);
-            //Move img to products
+            //Move img to activitys
             rename(img_path() . 'temp/' . $row['image_name'], $row['image_path']);
             rename(img_path() . 'temp/thumbs/' . $row['image_name'], img_path() . 'activitys/thumbs/' . $row['image_name']);
         }

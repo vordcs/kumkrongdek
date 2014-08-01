@@ -79,6 +79,7 @@ if ($strtitle != NULL) {
                                 } else {
                                     echo '<span class="icon"><i class="fa fa-bookmark fa-2x"></i></span>';
                                 }
+//                                echo $status;
                                 ?>
                                 <p class="pull-right">
                                     <?php
@@ -126,7 +127,7 @@ if ($strtitle != NULL) {
                                     if ($status == 'active') {
                                         echo '<span class="icon">' . anchor('#', '<i class="fa fa-times fa-lg"></i>&nbsp;ยกเลิก', $cancle) . '</span>';
                                     } else {
-
+//
                                         echo '<span class="icon">' . anchor('#', '<i class="fa fa-refresh fa-lg fa-spin"></i>&nbsp;ใช้งาน', $active) . '</span>';
                                         echo '<span class="icon">' . anchor('#', '<i class="fa fa-trash-o fa-lg"></i>&nbsp;ลบ', $delete) . '</span>';
                                     }

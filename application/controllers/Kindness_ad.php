@@ -6,8 +6,7 @@ class Kindness_ad extends CI_Controller {
         parent::__construct();
         $this->load->model('m_template');
         $this->load->model('m_kindness');
-        $this->output->cache(20);
-           if ($this->session->userdata('loged_in') != TRUE) {
+        if ($this->session->userdata('loged_in') != TRUE) {
             redirect('admin');
         }
     }
@@ -31,7 +30,7 @@ class Kindness_ad extends CI_Controller {
 //            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_kindness->insert_kindness($form_data);
-//            redirect('Kindness_ad');
+            redirect('Kindness_ad');
         }
 
 //        Load form add        
@@ -97,27 +96,52 @@ class Kindness_ad extends CI_Controller {
         $this->m_template->showTemplateAdmin();
     }
 
-    public function unactive($kindness_id) {
+    public function unactive($id) {
         $data = array(
-            'kindness_status' => '1',
+            'kindness_status' => 'unactive',
         );
 
-        $this->db->where('kindness_id', $kindness_id);
+        $this->db->where('kindness_id', $id);
         $this->db->update('kindness', $data);
 
-        redirect('Kindness_ad', 'refresh');
+//        $this->index();
+
+        redirect('Kindness_ad');
     }
 
-    public function active($kindness_id) {
+    public function active($id) {
         $data = array(
-            'kindness_status' => '2',
+            'kindness_status' => 'active',
         );
 
-        $this->db->where('kindness_id', $kindness_id);
+        $this->db->where('kindness_id', $id);
         $this->db->update('kindness', $data);
-
-        redirect('Kindness_ad', 'refresh');
+        
+//        $this->index();        
+        redirect('Kindness_ad');
     }
+
+//    public function unactive($kindness_id) {
+//        $data = array(
+//            'kindness_status' => 'unactive',
+//        );
+//
+//        $this->db->where('kindness_id', $kindness_id);
+//        $this->db->update('kindness', $data);
+//
+//        redirect('Kindness_ad', 'refresh');
+//    }
+//
+//    public function active($kindness_id) {
+//        $data = array(
+//            'kindness_status' => 'active',
+//        );
+//
+//        $this->db->where('kindness_id', $kindness_id);
+//        $this->db->update('kindness', $data);
+//
+//        redirect('Kindness_ad', 'refresh');
+//    }
 
     public function view_more($id) {
 
