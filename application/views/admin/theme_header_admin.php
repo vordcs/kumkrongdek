@@ -110,7 +110,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="">ระบบจัดการหน้าเว็ปไซต์</a>
+                    <a class="navbar-brand" href="" style="font-size: 1.1em;">ระบบจัดการหน้าเว็ปไซต์</a>
                 </div>
                 <!-- /.navbar-header -->
                 <ul class="nav navbar-top-links navbar-right visible-md visible-lg">                     
@@ -190,7 +190,7 @@
                             </li>
                             <!--Kindness-->
                             <li>  
-                                <?= anchor('Kindness_ad', '<i class="fa fa-play fa-fw"></i>&nbsp;ผู้ใหญ่ใจดี') ?>
+                                <?= anchor('Kindness_ad', '<i class="fa fa-heart fa-fw"></i>&nbsp;ผู้ใหญ่ใจดี') ?>
                             </li>
                             <!--Newsletter-->
                             <li>

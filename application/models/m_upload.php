@@ -17,6 +17,26 @@ Class m_upload extends CI_Model {
         return $config;
     }
 
+    private function resize_image($src_path, $file_path) {
+        $this->load->library('image_lib');
+        // to re-size for thumbnail images un-comment and set path here and in json array
+        $config = array();
+        $config['image_library'] = 'gd2';
+        $config['source_image'] = $src_path;
+        $config['create_thumb'] = TRUE;
+        $config['new_image'] = $file_path . 'thumbs/';
+        $config['thumb_marker'] = '';
+        $config['width'] = 1;
+        $config['height'] = 200;
+        $config['maintain_ratio'] = TRUE;
+        $config['master_dim'] = 'height';
+        $this->image_lib->clear();
+        $this->image_lib->initialize($config);
+        $rs = $this->image_lib->resize();
+
+        return $rs;
+    }
+
     public function upload_image($folder, $input_file, $img_id = NULL) {
 
         if (!empty($_FILES[$input_file]['name'])) {
@@ -42,7 +62,7 @@ Class m_upload extends CI_Model {
                 $config2['image_library'] = 'gd2';
                 $config2['source_image'] = $finfo['full_path'];
                 $config2['create_thumb'] = TRUE;
-                $config2['new_image'] = 'assets/img/' . $folder . '/thumbs/' . $finfo['file_name'];                
+                $config2['new_image'] = 'assets/img/' . $folder . '/thumbs/' . $finfo['file_name'];
                 $config2['thumb_marker'] = '';
                 $config2['width'] = 1;
                 $config2['height'] = 200;
@@ -74,15 +94,20 @@ Class m_upload extends CI_Model {
         }
     }
 
-    public function upload_multi_image($folder, $table, $input_file, $id) {
-        $this->load->library('upload');
-        $_FILES = $this->multifile($_FILES['file']);
+    public function upload_multi_image($folder, $table, $input_name, $id) {
+        $_FILES = $this->multifile($_FILES[$input_name]);
         foreach ($_FILES as $file => $file_data) {
             // No problems with the file
             if ($file_data['error'] == 0) {
-                $this->upload->initialize($this->set_upload_image($folder));
+//                $this->upload->initialize($this->set_upload_image($folder));
+                $this->load->library('upload', $this->set_upload_image($folder));
                 // So lets upload
-                if (($finfo = $this->upload->do_upload($file))) {
+                if ($this->upload->do_upload($file)) {
+
+                    $finfo = $this->upload->data();
+
+                    $this->resize_image($finfo['full_path'], $finfo['file_path']);
+
                     //insert to database
                     $data_img = array(
                         'image_name' => $finfo['file_name'],
@@ -90,6 +115,7 @@ Class m_upload extends CI_Model {
                         'image_small' => $folder . '/thumbs/' . $finfo['file_name'],
                         'image_path' => $finfo['file_path'],
                     );
+
                     $this->db->trans_start();
                     $this->db->insert('images', $data_img);
                     $image_id = $this->db->insert_id();
@@ -172,40 +198,44 @@ Class m_upload extends CI_Model {
         $this->load->library('upload');
         $i = 0;
         $_FILES = $this->multifile($_FILES[$input_name]);
-        foreach ($_FILES as $file => $file_data) {
-            // No problems with the file
-            if ($file_data['error'] == 0) {
-                // So lets upload  
-                $this->upload->initialize($this->set_upload_file());
+        if (count($_FILES) > 0) {
+            foreach ($_FILES as $file => $file_data) {
+                // No problems with the file
+                if ($file_data['error'] == 0) {
+                    // So lets upload  
+                    $this->upload->initialize($this->set_upload_file());
 //                $this->upload->do_upload($file);
-                if ($this->upload->do_upload($file)) {
-                    $finfo = $this->upload->data();
-                    //insert to database
-                    $data_file = array(
-                        'file_name' => $finfo['file_name'],
-                        'file_path' => $finfo['file_path'],
-                        'file_full_path' => $finfo['full_path'],
-                    );
-                    $this->db->trans_start();
-                    $this->db->insert('files', $data_file);
-                    $f_id = $this->db->insert_id();
-                    $this->db->trans_complete();
-                    $t = $this->input->post('txtTitle');
-                    if ($t[$i] == NULL || $t[$i] == '') {
-                        $title = $finfo['orig_name'];
-                    } else {
-                        $title = $t[$i];
+                    if ($this->upload->do_upload($file)) {
+                        $finfo = $this->upload->data();
+                        //insert to database
+                        $data_file = array(
+                            'file_name' => $finfo['file_name'],
+                            'file_path' => $finfo['file_path'],
+                            'file_full_path' => $finfo['full_path'],
+                        );
+                        $this->db->trans_start();
+                        $this->db->insert('files', $data_file);
+                        $f_id = $this->db->insert_id();
+                        $this->db->trans_complete();
+                        $t = $this->input->post('txtTitle');
+                        if ($t[$i] == NULL || $t[$i] == '') {
+                            $title = $finfo['orig_name'];
+                        } else {
+                            $title = $t[$i];
+                        }
+                        $f = array(
+                            'news_id' => $id,
+                            'file_id' => $f_id,
+                            'title' => $title,
+                        );
+                        $this->db->insert('news_has_files', $f);
                     }
-                    $f = array(
-                        'news_id' => $id,
-                        'file_id' => $f_id,
-                        'title' => $title,
-                    );
-                    $this->db->insert('news_has_files', $f);
                 }
+                $i++;
             }
-            $i++;
         }
+
+        $_FILES[$input_name]['name'] = NULL;
     }
 
     private function set_upload_file() {
@@ -256,43 +286,3 @@ Class m_upload extends CI_Model {
     }
 
 }
-
-//  $_FILES = $this->multifile($_FILES[$input_name]);
-//        $i = 0;
-//        foreach ($_FILES as $file => $file_data) {
-//            $this->upload->initialize($this->set_upload_file());
-//            $this->upload->do_upload($file);
-//
-//            $finfo = $this->upload->data();
-//            //insert to database
-//            $data_file = array(
-//                'file_name' => $finfo['file_name'],
-//                'file_path' => $finfo['file_path'],
-//                'file_full_path' => $finfo['full_path'],
-//            );
-//            if ($file_id == NULL) {
-//                $this->db->trans_start();
-//                $this->db->insert('files', $data_file);
-//                $file_id = $this->db->insert_id();
-//                $this->db->trans_complete();
-//                $t = $this->input->post('txtTitle');
-//                if ($t[$i] == NULL || $t[$i] == '') {
-//                    $title = $finfo['orig_name'];
-//                } else {
-//                    $title = $t[$i];
-//                }
-//                $f = array(
-//                    'news_id' => $id,
-//                    'file_id' => $file_id,
-//                    'title' => $title,
-//                );
-//                $this->db->insert('news_has_files', $f);
-//            } else {
-//                $this->deleteFile($file_id);
-//                $this->db->where('file_id', $file_id);
-//                $this->db->update('files', $data_file);
-////                        return $file_id;
-//            }
-//
-//            $i++;
-//        }

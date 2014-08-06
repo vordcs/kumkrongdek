@@ -26,7 +26,7 @@
         </div>
     </div> 
     <div class="form-group <?= (form_error('kindness_content')) ? 'has-error' : '' ?>">
-        <label class="col-sm-3 control-label">เนื่อหา</label>
+        <label class="col-sm-3 control-label">เนื้อหา</label>
         <div class="col-sm-6">
             <?php echo $form['kindness_content']; ?>                 
         </div>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <hr>
-    <div class="form-group hidden">
+    <div class="form-group <?= (form_error('userfile')) ? 'has-error' : '' ?>">
         <label class="col-sm-3 control-label">
             รูปภาพอื่นๆ
         </label>
@@ -81,24 +81,16 @@
             <div id="r"></div>
             <div class="row" id="row_file" >               
                 <div class="col-sm-3" >
-                    <input type="file" name="file[]" accept="image/gif,image/png,image/jpeg,image/jpg">
+                    <input type="file" name="userfile[]" id="userfile" multiple accept="image/gif,image/png,image/jpeg,image/jpg"/>
+                    <!--<input type="file" name="file[]" accept="image/gif,image/png,image/jpeg,image/jpg">-->
+                </div>
+                <div class="col-sm-4" id="error">                
+                    <?php echo form_error('userfile', '<font color="error">', '</font>'); ?>
                 </div>
             </div>
         </div>        
     </div>
-    <div class="form-group hidden">
-        <label class="col-sm-3 control-label"></label>
-        <div class="col-sm-6">
-            <div class="col-sm-10 col-sm-offset-1" >
-                <button class="btn btn-default icon" type="button" onclick="JavaScript:addInputFile()">
-                    <i class="fa fa-plus fa-lg"></i>
-                </button>
-                <button class="btn btn-default" type="button" onclick="JavaScript:delInputFile()">
-                    <i class="fa fa-minus fa-lg"></i> 
-                </button>
-            </div>
-        </div>
-    </div>
+   
     <hr>
     <div class="form-group">            
         <div class="text-center">
@@ -106,6 +98,32 @@
             <?= anchor('Kindness_ad', 'ยกเลิก', 'class="btn btn-danger btn-lg"'); ?>   
         </div>
     </div>
+    <?php
+//    print_r($form['file_news']);
+    if (count($form['image_kindness']) > 0) {
+        ?>
+        <div class="form-group" id="img_show">
+            <label class="col-sm-3 control-label">รูปภาพอื่นๆ : </label>
+            <div class="col-sm-9">               
+                <div class="row">
+                    <?php
+                    foreach ($form['image_kindness'] as $img) {
+                        ?>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="image_id[]" value="<?= $img['image_id'] ?>" checked="true"> 
+                                    <?= img($img['image_small'], array('class' => 'img-responsive thumbnail')) ?>   
+                                </label>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>  
+                </div>                    
+            </div>        
+        </div>
+    <?php } ?>
 
     <?= form_close() ?>
 </div>
@@ -132,54 +150,4 @@
         });
 
     });
-    function addInputFile() {
-
-        var num = $('#file .row').length;
-        if (num < 5) {
-            var row = document.getElementById('file');
-
-            //create div class = row        
-            var row_file = document.createElement('div');
-            row_file.setAttribute('style', 'padding-top:10px;');
-            row_file.setAttribute('class', 'row');
-            row_file.setAttribute('id', 'row_file' + num);
-            row.appendChild(row_file);
-            var div_row = document.getElementById('row_file' + num);
-
-            //create div class col-sm-3 foe input file
-            var div_3 = document.createElement('div');
-            div_3.setAttribute('class', 'col-sm-3');
-            div_3.setAttribute('id', 'div_file' + num);
-            div_row.appendChild(div_3);
-            var div_file = document.getElementById('div_file' + num);
-
-
-            var file = document.createElement('input');
-            file.setAttribute('type', "file");
-//        title.setAttribute('class', "form-control");
-            file.setAttribute('name', "file[]");
-            file.setAttribute('id', "file" + num);
-            file.setAttribute('accept', 'image/gif,image/png,image/jpeg,image/jpg');
-            file.setAttribute('required', 'true');
-            div_file.appendChild(file);
-        }
-
-////        alert('add :' + num);
-    }
-
-    function delInputFile() {
-
-
-        var num = $('#file .row').length;
-        num = num - 1;
-//        alert('#row_file'+num);
-        var id = '#row_file' + num;
-        id.toString();
-        if (num > 0) {
-            $(id).each(function() {
-                $(this).remove();
-            });
-        }
-
-    }
 </script> 

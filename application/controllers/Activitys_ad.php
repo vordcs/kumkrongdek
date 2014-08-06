@@ -89,8 +89,8 @@ class Activitys_ad extends CI_Controller {
             $type = $row['activity_type'];
             $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['activity_status'];
-            $create = '  | สร้าง : ' . $this->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
-            $update = 'แก้ไข : ' . $this->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+            $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
         }
 
         $data = array(

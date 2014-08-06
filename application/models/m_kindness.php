@@ -5,38 +5,41 @@ if (!defined('BASEPATH'))
 
 Class m_kindness extends CI_Model {
 
-    public function get_kindness($id = NULL) {
-        $this->db->select('*');
-        $this->db->from('kindness');
-        $this->db->join('images', 'image_id = kindness_img','left');
-        if ($id != NULL) {
-            $this->db->where('kindness_id', $id);
-        }
-        $this->db->order_by("publish_date desc,create_date desc");
-        $rs = $this->db->get();
-        $itemp = $rs->result_array();
-        return $itemp;
-    }
-
     public function insert_kindness($f_data) {
-        
-            $this->db->trans_start();
+
+        $this->db->trans_start();
         $this->db->insert('kindness', $f_data);
         $kindness_id = $this->db->insert_id();
         $this->db->trans_complete();
 
         $this->load->model('m_upload');
-//        $this->m_upload->upload_multi_file('file', $kindness_id);
-        $this->m_upload->upload_multi_image('kindness','kindness_has_images','file', $kindness_id);
-        
+        $this->m_upload->upload_multi_image('kindness', 'kindness_has_images', 'userfile', $kindness_id);
     }
 
     public function update_kindness($id, $f_data) {
+        $this->load->model('m_upload');
+        $this->m_upload->upload_multi_image('kindness', 'kindness_has_images', 'userfile', $id);
+
         $this->db->where('kindness_id', $id);
         $this->db->update('kindness', $f_data);
     }
 
     public function delete_kindness($id) {
+
+        //delete kindness has image
+        $image = $this->get_image_kindness($id);
+        foreach ($image as $img) {
+            $img_id = (int) $img['image_id'];
+
+            $this->deleteImage($img_id);
+
+            $this->db->where('image_id', $img_id);
+            $this->db->delete('kindness_has_images');
+
+            $this->db->where('image_id', $img_id);
+            $this->db->delete('images');
+        }
+
         //delete image
         $img_id = $this->get_image_id($id);
         $this->deleteImage($img_id);
@@ -48,6 +51,33 @@ Class m_kindness extends CI_Model {
         //delete data in database
         $this->db->where('image_id', $img_id);
         $this->db->delete('images');
+    }
+
+    public function get_kindness($id = NULL) {
+        $this->db->select('*');
+        $this->db->from('kindness');
+        $this->db->join('images', 'image_id = kindness_img', 'left');
+        if ($id != NULL) {
+            $this->db->where('kindness_id', $id);
+        }
+        $this->db->order_by("publish_date desc,create_date desc");
+        $rs = $this->db->get();
+        $itemp = $rs->result_array();
+        return $itemp;
+    }
+
+    public function get_image_kindness($id = NULL) {
+
+        $this->db->select();
+        $this->db->from('kindness_has_images');
+        $this->db->join('images', 'kindness_has_images.image_id = images.image_id', 'left');
+        if ($id != NULL) {
+            $this->db->where('kindness_id', $id);
+        }
+        $query = $this->db->get();
+
+        $result = $query->result_array();
+        return $result;
     }
 
     public function search_kindness($status, $str_th_date = NULL) {
@@ -127,6 +157,7 @@ Class m_kindness extends CI_Model {
             'kindness_highlight' => form_dropdown('kindness_highlight', $f_highlight, set_value('kindness_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
             'image' => NULL,
+            'image_kindness' => NULL,
         );
 
         return $form_add;
@@ -177,6 +208,7 @@ Class m_kindness extends CI_Model {
             'kindness_highlight' => form_dropdown('kindness_highlight', $f_highlight, (set_value('kindness_highlight') == NULL) ? $data['kindness_highlight'] : set_value('kindness_highlight'), 'class="form-control"'),
             'publish_date' => form_input($f_publish_date),
             'image' => $data['image_small'],
+            'image_kindness' => $this->get_image_kindness($data['kindness_id']),
         );
 
         return $form_edit;
@@ -209,6 +241,8 @@ Class m_kindness extends CI_Model {
         $this->form_validation->set_rules('kindness_subtitle', 'ชื่อเรื่องรอง', 'required|trim|xss_clean');
         $this->form_validation->set_rules('kindness_content', 'เนื้อหา', 'required|trim|xss_clean');
         $this->form_validation->set_rules('publish_date', 'วันเผยแพร่', 'required|trim|xss_clean');
+        
+        $this->form_validation->set_rules('userfile', 'รูปภาพอื่นๆ', 'callback_file_check');
 
         if (empty($_FILES['kindness_img']['name'])) {
             $this->form_validation->set_rules('kindness_img', 'รูปภาพ', 'required|xss_clean');
@@ -235,7 +269,7 @@ Class m_kindness extends CI_Model {
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
             'kindness_img' => $img_id,
             'kindness_highlight' => $this->input->post('kindness_highlight'),
-            'create_by'=> $this->session->userdata('first_name'),
+            'create_by' => $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );
@@ -250,7 +284,7 @@ Class m_kindness extends CI_Model {
             'kindness_content' => $this->input->post('kindness_content'),
             'kindness_highlight' => $this->input->post('kindness_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
-            'update_by'=> $this->session->userdata('first_name'),
+            'update_by' => $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
 //            ''=>$this->input->post(''),
         );
@@ -259,6 +293,33 @@ Class m_kindness extends CI_Model {
         if (!empty($_FILES['kindness_img']['name'])) {
             $this->load->model('m_upload');
             $this->m_upload->upload_image('kindness', 'kindness_img', $this->get_image_id($id));
+        }
+
+        $image = $this->input->post('image_id');
+        $kindness_image = $this->get_image_kindness($id);
+        $num = count($image);
+        if (count($image) != count($kindness_image)) {
+            $i = $num;
+            for ($i = 0; $i < count($kindness_image); $i++) {
+                $checked = FALSE;
+                for ($j = 0; $j < $num; $j++) {
+                    if ($kindness_image[$i]['image_id'] == $image[$j]) {
+                        $checked = TRUE;
+                    }
+                }
+                if ($checked == FALSE) {
+
+                    $img_id = $kindness_image[$i]['image_id'];
+
+                    $this->deleteImage($img_id);
+
+                    $this->db->where('image_id', $img_id);
+                    $this->db->delete('kindness_has_images');
+
+                    $this->db->where('image_id', $img_id);
+                    $this->db->delete('images');
+                }
+            }
         }
 
         return $page_data;

@@ -250,13 +250,13 @@ Class m_slides extends CI_Model {
                 $config2['image_library'] = 'gd2';
                 $config2['source_image'] = $finfo['full_path'];
                 $config2['create_thumb'] = TRUE;
-                $config2['new_image'] = 'assets/img/slides/thumbs/' . $finfo['file_name'];
+                $config2['new_image'] = 'assets/img/slides/thumbs/';
                 $config2['maintain_ratio'] = TRUE;
                 $config2['thumb_marker'] = '';
                 $config2['width'] = 1;
-                $config2['height'] = 450;
-                $config2['maintain_ratio'] = TRUE;
+                $config2['height'] = 450;                
                 $config2['master_dim'] = 'height';
+                $config2['maintain_ratio'] = TRUE;
                 $this->load->library('image_lib', $config2);
                 $this->image_lib->resize();
 

@@ -7,8 +7,8 @@ class News_ad extends CI_Controller {
         $this->load->model('m_template');
         $this->load->model('m_news');
         $this->load->model('m_upload');
-        
-           if ($this->session->userdata('loged_in') != TRUE) {
+
+        if ($this->session->userdata('loged_in') != TRUE) {
             redirect('admin');
         }
     }
@@ -92,7 +92,7 @@ class News_ad extends CI_Controller {
             'create' => $create,
             'update' => $update,
         );
-        $data['images'] = NULL;
+        $data['images'] = $this->m_news->get_news_images($id);
         $data['file'] = $this->m_news->get_news_file($id);
         $strtype = $this->m_news->get_news_type($type);
         $data['type'] = $strtype[0]['news_type_name'];
@@ -107,10 +107,10 @@ class News_ad extends CI_Controller {
         $data = array();
         if ($this->m_news->validation_add() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_news->get_post_form_add();
-//            $this->m_template->set_Debug($form_data);
+            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_news->insert_news($form_data);
-            redirect('News_ad');
+//            redirect('News_ad');
         }
         //Load form add  
         $data['form'] = $this->m_news->set_form_add();
@@ -127,7 +127,7 @@ class News_ad extends CI_Controller {
             $this->m_template->set_Debug($form_data);
             //update data
             $this->m_news->update_news($id, $form_data);
-            redirect('News_ad');
+//            redirect('News_ad');
         }
         //      get detail and sent to load form
         $detail = $this->m_news->get_news($id);
@@ -159,7 +159,7 @@ class News_ad extends CI_Controller {
 
         $this->db->where('news_id', $id);
         $this->db->update('news', $data);
-       
+
         redirect('News_ad', 'refresh');
     }
 
@@ -167,10 +167,10 @@ class News_ad extends CI_Controller {
         $data = array(
             'news_status' => 'active',
         );
-
-        $this->db->where('news_id', $id);
-        $this->db->update('news', $data);
-
+        if ($id != NULL) {
+            $this->db->where('news_id', $id);
+            $this->db->update('news', $data);
+        }
         redirect('News_ad', 'refresh');
     }
 

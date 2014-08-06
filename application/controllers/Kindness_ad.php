@@ -27,7 +27,7 @@ class Kindness_ad extends CI_Controller {
         $data = array();
         if ($this->m_kindness->validation_add() == TRUE && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_kindness->get_post_form_add();
-//            $this->m_template->set_Debug($form_data);
+            $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_kindness->insert_kindness($form_data);
             redirect('Kindness_ad');
@@ -116,32 +116,10 @@ class Kindness_ad extends CI_Controller {
 
         $this->db->where('kindness_id', $id);
         $this->db->update('kindness', $data);
-        
+
 //        $this->index();        
         redirect('Kindness_ad');
     }
-
-//    public function unactive($kindness_id) {
-//        $data = array(
-//            'kindness_status' => 'unactive',
-//        );
-//
-//        $this->db->where('kindness_id', $kindness_id);
-//        $this->db->update('kindness', $data);
-//
-//        redirect('Kindness_ad', 'refresh');
-//    }
-//
-//    public function active($kindness_id) {
-//        $data = array(
-//            'kindness_status' => 'active',
-//        );
-//
-//        $this->db->where('kindness_id', $kindness_id);
-//        $this->db->update('kindness', $data);
-//
-//        redirect('Kindness_ad', 'refresh');
-//    }
 
     public function view_more($id) {
 
@@ -153,8 +131,8 @@ class Kindness_ad extends CI_Controller {
             $content = $row['kindness_content'];
             $date = $this->m_datetime->DateThai($row['publish_date']);
             $status = $row['kindness_status'];
-            $create = '  | สร้าง : ' . $this->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
-            $update = 'แก้ไข : ' . $this->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
+            $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
         }
 //
         $data = array(
@@ -170,7 +148,7 @@ class Kindness_ad extends CI_Controller {
             'update' => $update,
         );
 //
-        $data['images'] = NULL;
+        $data['images'] = $this->m_kindness->get_image_kindness($id);
         $data['file'] = NULL;
         $data['type'] = NULL;
 //        $this->m_template->set_Debug($kindness);
@@ -179,46 +157,21 @@ class Kindness_ad extends CI_Controller {
         $this->m_template->showTemplateAdmin();
     }
 
-    function DateThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate));
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear";
-        }
-    }
-
-    function DateTimeThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
-        }
-    }
-
     public function textarea_check($str) {
         if ($str == '<br>') {
             return FALSE;
         } else {
             return TRUE;
         }
+    }
+
+    public function file_check() {
+        if (count($_FILES['userfile']['name']) <= 10) {
+            return TRUE;
+        }
+
+        $this->form_validation->set_message('file_check', 'จำนวนรูปภาพมากกว่า 10 รูป');
+        return FALSE;
     }
 
 }

@@ -5,18 +5,72 @@ if (!defined('BASEPATH'))
 
 Class m_news extends CI_Model {
 
-    function getDatetimeNow() {
-        return date('Y-m-d H:i:s');
+//    end view mode 
+
+    public function insert_news($f_data) {
+        $this->db->trans_start();
+        $this->db->insert('news', $f_data);
+        $new_id = $this->db->insert_id();
+        $this->db->trans_complete();
+
+        if ($new_id != NULL) {
+            $this->load->model('m_upload');
+//            $this->m_upload->upload_multi_image('news', 'news_has_images', 'userfile', $new_id);
+        }
+        $_FILES['userfile']['name'] = NULL;
+        if ($new_id != NULL)
+            $this->m_upload->upload_multi_file('file', $new_id);
     }
 
-    function getDateToday() {
-        return date('Y-m-d');
+    public function update_news($id, $f_data) {
+        $this->load->model('m_upload');
+
+        $this->m_upload->upload_multi_file('file', $id);
+
+        $this->db->where('news_id', $id);
+        $this->db->update('news', $f_data);
     }
 
-    function setDateFomat($input_date) {
-        $d = new DateTime($input_date);
-        $date = $d->format('Y-m-d');
-        return $date;
+    public function delete_news($id) {
+
+        //delete file
+        $new_file = $this->get_news_file($id);
+        if (count($new_file) > 0) {
+            foreach ($new_file as $file) {
+                $this->deleteFile($file['file_id']);
+
+                $this->db->where('file_id', $file['file_id']);
+                $this->db->delete('news_has_files');
+
+                $this->db->where('file_id', $file['file_id']);
+                $this->db->delete('files');
+            }
+        }
+
+        //delete news image 
+
+        $new_image = $this->get_news_images($id);
+        if (count($new_image) > 0) {
+            foreach ($new_image as $img) {
+                $img_id = (int) $img['image_id'];
+
+                $this->deleteImage($img_id);
+
+                $this->db->where('image_id', $img_id);
+                $this->db->delete('news_has_images');
+
+                $this->db->where('image_id', $img_id);
+                $this->db->delete('images');
+            }
+        }
+
+        //delete image 
+        $img_id = $this->get_image_id($id);
+        $this->deleteImage($img_id);
+
+        //delete
+        $this->db->where('news_id', $id);
+        $this->db->delete('news');
     }
 
 //    view mode
@@ -25,8 +79,7 @@ Class m_news extends CI_Model {
         $this->db->select('*');
         $this->db->from('news');
         $this->db->order_by("create_date desc,publish_date desc");
-
-        $this->db->join('images', 'image_id = news_img');
+        $this->db->join('images', 'news_img =image_id', 'left');
         if ($id != NULL) {
             $this->db->where('news_id', $id);
         }
@@ -63,21 +116,13 @@ Class m_news extends CI_Model {
         return $result;
     }
 
-    public function get_news_image($id = NULL) {
+    public function get_news_images($news_id = NULL) {
+
         $this->db->select();
-        $this->db->from('activitys_has_images');
-        $this->db->join('images', 'activitys_has_images.image_id = images.image_id', 'left');
-        if ($activity_id != NULL) {
-            $this->db->where('activity_id', $activity_id);
-        }
-        $query = $this->db->get();
-        $this->db->select('*');
-        $this->db->from('files');
-        $this->db->join('news_has_files', 'news_has_files.file_id = files.file_id');
-//        $this->db->join('products', 'products_has_images.product_id = products.id', 'left');
-//        $this->db->join('product_types', 'products.product_type_id=product_types.id', 'left');
-        if ($id != NULL) {
-            $this->db->where('news_has_files.file_id', $id);
+        $this->db->from('news_has_images');
+        $this->db->join('images', 'news_has_images.image_id = images.image_id', 'left');
+        if ($news_id != NULL) {
+            $this->db->where('news_id', $news_id);
         }
         $query = $this->db->get();
         $result = $query->result_array();
@@ -110,65 +155,6 @@ Class m_news extends CI_Model {
         $rs = $this->db->get();
         $itemp = $rs->result_array();
         return $itemp;
-    }
-
-    public function get_images_by_news($id) {
-//        $this->db->select('*');
-//        $this->db->from('images');
-//        $this->db->join('news_has_images', 'news.image_id = images_id');
-////        $this->db->join('products', 'products_has_images.product_id = products.id', 'left');
-////        $this->db->join('product_types', 'products.product_type_id=product_types.id', 'left');
-//        $this->db->where('product_id', $id);
-//        $query = $this->db->get();
-//        $result = $query->result_array();
-//        return $result;
-    }
-
-//    end view mode 
-
-    public function insert_news($f_data) {
-        $this->db->trans_start();
-        $this->db->insert('news', $f_data);
-        $new_id = $this->db->insert_id();
-        $this->db->trans_complete();
-
-        $this->load->model('m_upload');
-        $this->m_upload->upload_multi_file('file', $new_id);
-//        $this->m_upload->upload_multi_image('news','news_has_images','images', $new_id);
-    }
-
-    public function update_news($id, $f_data) {
-        $this->load->model('m_upload');
-        $this->m_upload->upload_multi_file('file', $id);
-        $this->db->where('news_id', $id);
-        $this->db->update('news', $f_data);
-    }
-
-    public function delete_news($id) {
-
-        //delete file
-        $new_file = $this->get_news_file($id);
-        foreach ($new_file as $file) {
-            $this->deleteFile($file['file_id']);
-            
-            $this->db->where('file_id', $file['file_id']);
-            $this->db->delete('news_has_files');
-            
-            $this->db->where('file_id', $file['file_id']);
-            $this->db->delete('files');
-        }
-
-        //delete image 
-        $img_id = $this->get_image_id($id);
-        $this->deleteImage($img_id);
-
-        //delete file in folder
-        $file_id = $this->get_file_id($id);
-        $this->deleteFile($file_id);
-
-        //delete
-        $this->db->where('news_id', $id);
-        $this->db->delete('news');
     }
 
     public function set_form_add() {
@@ -305,7 +291,7 @@ Class m_news extends CI_Model {
         return $form_edit;
     }
 
-    public function set_form_search($controller=NULL) {
+    public function set_form_search($controller = NULL) {
         $f_news_type = array();
         $temp = $this->get_news_type();
         foreach ($temp as $row) {
@@ -322,11 +308,11 @@ Class m_news extends CI_Model {
             '1' => 'ไม่ใช้งาน',
             '2' => 'ใช้งาน',
         );
-        if($controller==NULL){
-            $controller='News_ad/';
-        }  
+        if ($controller == NULL) {
+            $controller = 'News_ad/';
+        }
         $form_search = array(
-            'form' => form_open($controller .'/', array('class' => 'form-horizontal', 'id' => 'form_search', 'name' => 'form_search')),
+            'form' => form_open($controller . '/', array('class' => 'form-horizontal', 'id' => 'form_search', 'name' => 'form_search')),
             'status' => form_dropdown('status', $f_status_search, (set_value('status') == NULL) ? $this->input->post('status') : set_value('status'), 'class="form-control"'),
             'type' => form_dropdown('type', $f_news_type, (set_value('type') == NULL) ? $this->input->post('type') : set_value('type'), 'class="form-control"'),
             'date' => form_input($f_date_search),
@@ -369,7 +355,7 @@ Class m_news extends CI_Model {
             'news_img' => $img_id,
             'news_highlight' => $this->input->post('news_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
-            'create_by'=> $this->session->userdata('first_name'),
+            'create_by' => $this->session->userdata('first_name'),
             'create_date' => $this->m_datetime->getDatetimeNow(),
         );
 
@@ -383,7 +369,7 @@ Class m_news extends CI_Model {
             'news_content' => $this->input->post('news_content'),
             'news_highlight' => $this->input->post('news_highlight'),
             'publish_date' => $this->m_datetime->setDateFomat($this->input->post('publish_date')),
-            'update_by'=> $this->session->userdata('first_name'),
+            'update_by' => $this->session->userdata('first_name'),
             'update_date' => $this->m_datetime->getDatetimeNow(),
         );
 
@@ -489,6 +475,83 @@ Class m_news extends CI_Model {
         $row = $query->row_array();
 
         unlink($row['file_full_path']);
+    }
+
+    public function upload_multi_file($input_name, $id) {
+        $this->load->library('upload');
+        $i = 0;
+        $_FILES = $this->multifile($_FILES[$input_name]);
+        foreach ($_FILES as $file => $file_data) {
+            // No problems with the file
+            if ($file_data['error'] == 0) {
+                // So lets upload  
+                $this->upload->initialize($this->set_upload_file());
+//                $this->upload->do_upload($file);
+                if ($this->upload->do_upload($file)) {
+                    $finfo = $this->upload->data();
+                    //insert to database
+                    $data_file = array(
+                        'file_name' => $finfo['file_name'],
+                        'file_path' => $finfo['file_path'],
+                        'file_full_path' => $finfo['full_path'],
+                    );
+                    $this->db->trans_start();
+                    $this->db->insert('files', $data_file);
+                    $f_id = $this->db->insert_id();
+                    $this->db->trans_complete();
+                    $t = $this->input->post('txtTitle');
+                    if ($t[$i] == NULL || $t[$i] == '') {
+                        $title = $finfo['orig_name'];
+                    } else {
+                        $title = $t[$i];
+                    }
+                    $f = array(
+                        'news_id' => $id,
+                        'file_id' => $f_id,
+                        'title' => $title,
+                    );
+                    $this->db->insert('news_has_files', $f);
+                }
+            }
+            $i++;
+        }
+    }
+
+    private function set_upload_file() {
+//  upload an image options
+        $config = array();
+        $config['upload_path'] = "assets/upload";
+        $config['allowed_types'] = 'pdf|gif|jpg|png|doc|docx|zip';
+        $config['max_size'] = 0;
+//        $config['overwrite'] = FALSE;
+        $config['encrypt_name'] = TRUE;
+
+
+        return $config;
+    }
+
+    // Codeigniter Upload Multiple File
+    public function multifile($filedata) { // $_FILES['files'];
+        if (count($filedata) == 0)
+            return FALSE;
+
+        $files = array();
+        $all_files = $filedata['name'];
+        $i = 0;
+
+        foreach ($all_files as $filename) {
+            $files[++$i]['name'] = $filename;
+            $files[$i]['type'] = current($filedata['type']);
+            next($filedata['type']);
+            $files[$i]['tmp_name'] = current($filedata['tmp_name']);
+            next($filedata['tmp_name']);
+            $files[$i]['error'] = current($filedata['error']);
+            next($filedata['error']);
+            $files[$i]['size'] = current($filedata['size']);
+            next($filedata['size']);
+        }
+
+        return $files;
     }
 
 }

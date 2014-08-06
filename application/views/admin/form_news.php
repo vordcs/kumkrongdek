@@ -74,22 +74,24 @@
         <label class="col-sm-3 control-label">
             เอกสาร
         </label>
-        <div class="col-sm-9" id="file">
-            <div id="r"></div>
+        <div class="col-sm-9" id="file">            
             <div class="row" id="row_file" >
                 <div class="col-sm-6">
                     <input type="text" class="form-control" name="txtTitle[]">
                 </div>
+
                 <div class="col-sm-3" >
                     <input type="file" name="file[]" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf">
                 </div>
+
             </div>
         </div>        
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label"></label>
-        <div class="col-sm-6">
+        <div class="col-sm-6">            
             <div class="col-sm-10 col-sm-offset-1" >
+                <span class="help-block">ไม่เกิน 5 ไฟล์</span>
                 <button class="btn btn-default icon" type="button" onclick="JavaScript:addInputFile()">
                     <i class="fa fa-plus fa-lg"></i>
                 </button>
@@ -120,35 +122,35 @@
         </div>
     </div>
 
-    <!--    <div class="form-group" style="padding: 2% ;margin-left: 5%;">
-            <label class="col-sm-3 control-label">รูปภาพอื่น ๆ </label>
-            <div class="col-sm-5">
-                <input type="file" name="images[]" accept="image/gif,image/png,image/jpeg,image/jpg" multiple>  
-            </div>
-    
-        </div>-->
+    <div class="form-group hidden">
+        <label class="col-sm-3 control-label">รูปภาพอื่น ๆ </label>
+        <div class="col-sm-5">
+            <!--<input type="file" name="images[]" accept="image/gif,image/png,image/jpeg,image/jpg" multiple>-->  
+            <input type="file" name="userfile[]" id="userfile" accept="image/gif,image/png,image/jpeg,image/jpg" multiple />
+            <span class="help-block">จำนวนรูปภาพไม่เกิน 10 รูปภาพ</span>
+        </div>
+
+    </div>
     <?php
 //    print_r($form['file_news']);
     if (count($form['file_news']) > 0) {
         ?>
         <div class="form-group" id="img_show">
             <label class="col-sm-3 control-label">เอกสาร :</label>
-            <div class="col-sm-5">               
-
+            <div class="col-sm-5">  
                 <?php
                 foreach ($form['file_news'] as $f) {
                     ?>
 
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="files_id[]" value="<?=$f['file_id']?>" checked="true">
-                            <a href="<?= upload_url().$f['file_name'] ?>">
-                                <?= $f['file_name'] ?>
+                            <input type="checkbox" name="files_id[]" value="<?= $f['file_id'] ?>" checked="true">
+                            <a href="<?= upload_url() . $f['file_name'] ?>">
+                                <?= $f['title'] ?>
                             </a>
 
                         </label>
                     </div>
-
                     <?php
                 }
                 ?>                      
@@ -195,47 +197,49 @@
 
         var row = document.getElementById('file');
 
-        //create div class = row        
-        var row_file = document.createElement('div');
-        row_file.setAttribute('style', 'padding-top:10px;');
-        row_file.setAttribute('class', 'row');
-        row_file.setAttribute('id', 'row_file' + num);
-        row.appendChild(row_file);
-        var div_row = document.getElementById('row_file' + num);
+        if (num < 5) {
 
-        //create div class  col-sm-6 for input title
-        var div_6 = document.createElement('div');
-        div_6.setAttribute('class', 'col-sm-6');
-        div_6.setAttribute('id', 'div_title' + num);
-        div_row.appendChild(div_6);
-        var div_title = document.getElementById('div_title' + num);
+            //create div class = row        
+            var row_file = document.createElement('div');
+            row_file.setAttribute('style', 'padding-top:10px;');
+            row_file.setAttribute('class', 'row');
+            row_file.setAttribute('id', 'row_file' + num);
+            row.appendChild(row_file);
+            var div_row = document.getElementById('row_file' + num);
 
-        // Create input text
-        var title = document.createElement('input');
-        title.setAttribute('type', "text");
-        title.setAttribute('class', "form-control");
-        title.setAttribute('name', "txtTitle[]");
-        title.setAttribute('id', "txt" + num);
-        div_title.appendChild(title);
+            //create div class  col-sm-6 for input title
+            var div_6 = document.createElement('div');
+            div_6.setAttribute('class', 'col-sm-6');
+            div_6.setAttribute('id', 'div_title' + num);
+            div_row.appendChild(div_6);
+            var div_title = document.getElementById('div_title' + num);
 
-        //create div class col-sm-3 foe input file
-        var div_3 = document.createElement('div');
-        div_3.setAttribute('class', 'col-sm-3');
-        div_3.setAttribute('id', 'div_file' + num);
-        div_row.appendChild(div_3);
-        var div_file = document.getElementById('div_file' + num);
+            // Create input text
+            var title = document.createElement('input');
+            title.setAttribute('type', "text");
+            title.setAttribute('class', "form-control");
+            title.setAttribute('name', "txtTitle[]");
+            title.setAttribute('id', "txt" + num);
+            div_title.appendChild(title);
+
+            //create div class col-sm-3 foe input file
+            var div_3 = document.createElement('div');
+            div_3.setAttribute('class', 'col-sm-3');
+            div_3.setAttribute('id', 'div_file' + num);
+            div_row.appendChild(div_3);
+            var div_file = document.getElementById('div_file' + num);
 
 
-        var file = document.createElement('input');
-        file.setAttribute('type', "file");
+            var file = document.createElement('input');
+            file.setAttribute('type', "file");
 //        title.setAttribute('class', "form-control");
-        file.setAttribute('name', "file[]");
-        file.setAttribute('id', "file" + num);
-        file.setAttribute('accept', 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf');
-        file.setAttribute('required', 'true');
-        div_file.appendChild(file);
+            file.setAttribute('name', "file[]");
+            file.setAttribute('id', "file" + num);
+            file.setAttribute('accept', 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf');
+            file.setAttribute('required', 'true');
+            div_file.appendChild(file);
 
-
+        }
 ////        alert('add :' + num);
     }
 
