@@ -241,7 +241,7 @@ Class m_kindness extends CI_Model {
         $this->form_validation->set_rules('kindness_subtitle', 'ชื่อเรื่องรอง', 'required|trim|xss_clean');
         $this->form_validation->set_rules('kindness_content', 'เนื้อหา', 'required|trim|xss_clean');
         $this->form_validation->set_rules('publish_date', 'วันเผยแพร่', 'required|trim|xss_clean');
-        
+
         $this->form_validation->set_rules('userfile', 'รูปภาพอื่นๆ', 'callback_file_check');
 
         if (empty($_FILES['kindness_img']['name'])) {
@@ -297,12 +297,29 @@ Class m_kindness extends CI_Model {
 
         $image = $this->input->post('image_id');
         $kindness_image = $this->get_image_kindness($id);
-        $num = count($image);
+        $num_image = count($image);
+
+        if ($this->input->post('image_id') == NULL && count($kindness_image) > 0) {
+            //delete kindness has image
+            foreach ($kindness_image as $img) {
+                $img_id = (int) $img['image_id'];
+
+                $this->deleteImage($img_id);
+
+                $this->db->where('image_id', $img_id);
+                $this->db->delete('kindness_has_images');
+
+                $this->db->where('image_id', $img_id);
+                $this->db->delete('images');
+            }
+            return $page_data;
+        }
+
         if (count($image) != count($kindness_image)) {
-            $i = $num;
+            $i = $num_image;
             for ($i = 0; $i < count($kindness_image); $i++) {
                 $checked = FALSE;
-                for ($j = 0; $j < $num; $j++) {
+                for ($j = 0; $j < $num_image; $j++) {
                     if ($kindness_image[$i]['image_id'] == $image[$j]) {
                         $checked = TRUE;
                     }

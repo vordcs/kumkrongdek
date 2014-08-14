@@ -45,7 +45,9 @@ class Kindness_ad extends CI_Controller {
 
         if ($this->m_kindness->validation_edit() && $this->form_validation->run() == TRUE) {
             $form_data = $this->m_kindness->get_post_form_edit($id);
-//            $this->m_template->set_Debug($form_data);
+//            $d['num_select'] = $this->input->post('image_id');
+//            $d['num_all'] = count($this->m_kindness->get_image_kindness($id));            
+//            $this->m_template->set_Debug($d);
             //update data
             $this->m_kindness->update_kindness($id, $form_data);
             redirect('Kindness_ad');

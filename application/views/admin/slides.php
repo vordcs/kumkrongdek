@@ -21,26 +21,8 @@
     <div class="col-sm-4"></div>
 
 </div>
-<div class="row content">
+<div class="row content">    
     <?php
-
-    function DateTimeThai($strDate) {
-        if ($strDate == NULL) {
-            return '-';
-        } else {
-            $date = new DateTime($strDate);
-            $strYear = date("Y", strtotime($strDate)) + 543;
-            $strMonth = date("n", strtotime($strDate));
-            $strDay = date("j", strtotime($strDate));
-            $strHour = date("H", strtotime($strDate));
-            $strMinute = date("i", strtotime($strDate));
-            $strSeconds = date("s", strtotime($strDate));
-            $strMonthCut = Array("", "มกราคม.", "กุมภาพัธ์.", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
-            $strMonthThai = $strMonthCut[$strMonth];
-            return "$strDay $strMonthThai $strYear " . " เวลา $strHour:$strMinute ";
-        }
-    }
-
     if (count($slides) <= 0) {
         ?>
         <div class="well">        
@@ -52,6 +34,9 @@
         </div>
         <?php
     } else {
+        ?>
+
+        <?php
 //    for ($i = 0; $i < 5; $i++) { 
         foreach ($slides as $row) {
             $controller = "Slides";
@@ -61,82 +46,95 @@
             $img = $row['image_small'];
             $status = $row['slide_status'];
 
-            $create = 'สร้าง : ' . DateTimeThai($row['create_date']);
-            $update = 'แก้ไข : ' . DateTimeThai($row['update_date']);
-            ?>
-            <div id="itemp-slide" class="col-sm-6 col-md-4">  
-                <div class="thumbnail"> 
-                    <a class="fancybox" rel="gallery<?= $id ?>" href="<?= img_url() . $img ?>">
-                        <?= img($img, array('class' => 'img-responsive', 'width' => '100%', 'height' => '200px')); ?>
-                    </a>
-                    <div class="caption">  
-                        <span class="pull-right"><?= ($row['slide_link'] == NULL) ? $row['slide_link'] : anchor($row['slide_link'], '<i class="fa fa-link fa-2x"></i>', ''); ?></span> 
-                        <h3><?= $row['slide_title'] ?></h3>                    
-                        <div class="description">
-                            <?= $row['slide_subtitle'] ?>
-                        </div>                   
+            $create = '  | สร้าง : ' . $this->m_datetime->DateTimeThai($row['create_date']) . ' โดย: ' . $row['create_by'];
+            $update = 'แก้ไข : ' . $this->m_datetime->DateTimeThai($row['update_date']) . ' โดย: ' . $row['update_by'];
 
-                        <?php
-                        $delete = array(
-                            'type' => "button",
-                            'class' => "btn btn-danger",
-                            'data-id' => "2",
-                            'data-title' => "ลบสไลด์",
-                            'data-info' => $row['slide_title'],
-                            'data-toggle' => "modal",
-                            'data-target' => "#confirm",
-                            'data-href' => 'Slides/delete/' . $row['slide_id'],
-                        );
-                        $cancle = array(
-                            'type' => "button",
-                            'class' => "btn btn-warning",
-                            'data-id' => "3",
-                            'data-title' => "ยกเลิกสไลด์",
-                            'data-info' => $row['slide_title'],
-                            'data-toggle' => "modal",
-                            'data-target' => "#confirm",
-                            'data-href' => 'Slides/unactive/' . $row['slide_id'],
-                        );
-                        $active = array(
-                            'type' => "button",
-                            'class' => "btn btn-success",
-                            'data-id' => "4",
-                            'data-title' => "ใช้งานสไลด์",
-                            'data-info' => $row['slide_title'],
-                            'data-toggle' => "modal",
-                            'data-target' => "#confirm",
-                            'data-href' => 'Slides/active/' . $row['slide_id'],
-                        );
-                        echo '<p class="text-center">';
-                        echo anchor('Slides/edit/' . $row['slide_id'], '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', 'type="button" class="btn btn-info"') . '&nbsp;&nbsp';
-                        if ($row['slide_status'] == 'active') {
-                            echo anchor('#', '<i class="fa fa-times fa-lg"></i>&nbsp;ยกเลิก', $cancle);
-                        } else {
-                            echo anchor('#', '<i class="fa fa-refresh fa-lg fa-spin"></i>&nbsp;ใช้งาน', $active) . '&nbsp;&nbsp';
-                            echo anchor('#', '<i class="fa fa-trash-o fa-lg"></i>&nbsp;ลบ', $delete);
-                        }
-                        echo '</p>';
-                        ?>
-                        <hr>
-                        <div>
-                            <p class="text-muted">
-                                <small>
-                                    <?= $update ?>
-                                </small>                                
-                                <br>
-                                <small>
-                                    <?= $create ?>
-                                </small>                                
-                            </p>
+
+            $edit = array(
+                'type' => "button",
+                'class' => "btn btn-info",
+            );
+            $delete = array(
+                'type' => "button",
+                'class' => "btn btn-danger",
+                'data-id' => "2",
+                'data-title' => "ลบข่าว",
+                'data-info' => $title,
+                'data-toggle' => "modal",
+                'data-target' => "#confirm",
+                'data-href' => $controller . '/delete/' . $id,
+            );
+            $cancle = array(
+                'type' => "button",
+                'class' => "btn btn-warning",
+                'data-id' => "3",
+                'data-title' => "ยกเลิกข่าว",
+                'data-info' => $title,
+                'data-toggle' => "modal",
+                'data-target' => "#confirm",
+                'data-href' => $controller . '/unactive/' . $id,
+            );
+            $active = array(
+                'type' => "button",
+                'class' => "btn btn-success",
+                'data-id' => "4",
+                'data-title' => "ใช้งานข่าว",
+                'data-info' => $title,
+                'data-toggle' => "modal",
+                'data-target' => "#confirm",
+                'data-href' => $controller . '/active/' . $id,
+            );
+            ?>
+            <div class="col-xs-12 col-md-10 col-md-offset-1 ">
+                <div class="ui segment ">
+                    <div class="ui inverted relaxed divided list">
+                        <div class="item">
+                            <div class="pull-right">    
+                                <?php
+                                echo anchor('Slides/edit/' . $row['slide_id'], '<i class="fa fa-pencil fa-lg"></i>&nbsp;แก้ไข', 'type="button" class="btn btn-info"') . '&nbsp;&nbsp';
+                                if ($status == 'active') {
+                                    echo anchor('#', '<i class="fa fa-times fa-lg"></i>&nbsp;ยกเลิก', $cancle);
+                                } else {
+                                    echo anchor('#', '<i class="fa fa-refresh fa-lg fa-spin"></i>&nbsp;ใช้งาน', $active) . '&nbsp;&nbsp';
+                                    echo anchor('#', '<i class="fa fa-trash-o fa-lg"></i>&nbsp;ลบ', $delete);
+                                }
+                                ?>
+
+                            </div>
+                            <div class="image">
+                                <a class="fancybox" rel="gallery<?= $id ?>" href="<?= img_url() . $img ?>">
+                                    <?= img($img, array('class' => 'ui small left floated image img-responsive', 'width' => '100%', 'height' => '200px')); ?>
+                                </a>
+                                <!--<img class="ui small left floated image" src="/images/demo/photo.jpg">-->
+                            </div>     
+                            <div class="content">
+                                <div class="header"><?= $title ?></div>
+                                <?= $subtitle ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class=""><?= ($row['slide_link'] == NULL) ? $row['slide_link'] : anchor($row['slide_link'], '<i class="fa fa-link fa-fw"></i>', ''); ?></p>
+                            <div class="pull-right">
+                                <p class="text-muted">
+                                    <small>
+                                        <?= $update ?>
+                                    </small>   
+                                    <small>
+                                        <?= $create ?>
+                                    </small>                                
+                                </p>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-            </div>        
+            </div>
             <?php
         }
     }
     ?>
+
 </div>
+
+
 
 

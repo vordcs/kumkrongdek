@@ -110,7 +110,7 @@ class News_ad extends CI_Controller {
             $this->m_template->set_Debug($form_data);
             //insert data
             $this->m_news->insert_news($form_data);
-//            redirect('News_ad');
+            redirect('News_ad');
         }
         //Load form add  
         $data['form'] = $this->m_news->set_form_add();
@@ -127,7 +127,7 @@ class News_ad extends CI_Controller {
             $this->m_template->set_Debug($form_data);
             //update data
             $this->m_news->update_news($id, $form_data);
-//            redirect('News_ad');
+            redirect('News_ad');
         }
         //      get detail and sent to load form
         $detail = $this->m_news->get_news($id);

@@ -381,6 +381,20 @@ Class m_news extends CI_Model {
         $file = $this->input->post('files_id');
         $news_file = $this->get_news_file($id);
         $num_file = count($file);
+
+        if ($this->input->post('files_id') == NULL && count($news_file) > 0) {
+            foreach ($news_file as $file) {
+                $this->deleteFile($file['file_id']);
+
+                $this->db->where('file_id', $file['file_id']);
+                $this->db->delete('news_has_files');
+
+                $this->db->where('file_id', $file['file_id']);
+                $this->db->delete('files');
+            }
+            return $page_data;
+        }
+
         if (count($file) != count($news_file)) {
             $i = $num_file;
             for ($i = 0; $i < count($news_file); $i++) {
