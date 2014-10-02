@@ -10,13 +10,10 @@ $(document).ready(function() {
         if (pt_scroll >= $('#mainContent').offset().top) {
             $('#scroll-top').removeClass('hidden');
             $('#scroll-top').fadeIn();
-//             $('#nav_fix_top').removeClass('hidden');
 
         } else {
-//            $('#scroll-top').addClass('hidden');
             $('#scroll-top').fadeOut();
 
-//            $('#nav_fix_top').addClass('hidden');
         }
     });
     $('#scroll-top').click(function() {

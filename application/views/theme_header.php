@@ -11,7 +11,6 @@
         <?php echo css('bootstrap.min.css'); ?>
         <?php echo css('bootstrap-theme.css'); ?>
         <?php echo css('font-awesome.css'); ?>
-        <?php // echo css('docs.min.css'); ?> 
 
         <?php echo css('style.css'); ?>
 
@@ -58,14 +57,13 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand brand visible-xs">สถานคุ้มครองสวัสดิภาพเด็ก ขอนแก่น</a>
-                    <!--<a class="navbar-brand">สถานคุ้มครองสวัสดิภาพเด็ก<br>ภาคตะวันออกเฉียงเหนือ</a>-->
-                    <!--<a class="navbar-brand" href="<?= base_url('') ?>"><?php
+                    <?php
                     $img_propr = array(
                         'class' => 'img-responsive',
                         'width' => '60%'
                             )
                     ?>
-                    <?= img('favicon.png', $img_propr); ?></a>-->
+                    <?= img('favicon.png', $img_propr); ?>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">

@@ -258,7 +258,7 @@
     $(document).ready(function() {
 
         $("#owl-hightlight").owlCarousel({
-            autoPlay: 3000, //Set AutoPlay to 3 seconds
+            autoPlay: 3000, 
 
             items: 4,
             stopOnHover: true,
@@ -274,19 +274,16 @@
 
         $('.datepicker').datepicker({
             language: 'th-th',
-//            language: 'en',
             format: 'yyyy-m-d',
         });
         $('.date-search').datepicker({
             language: 'th-th',
-//            language: 'en',
             format: 'MM yyyy',
             viewMode: "months",
             minViewMode: "months",
         });
         $('.year-picker').datepicker({
             language: 'th-th',
-//            language: 'en',
             format: 'yyyy',
             viewMode: "years",
             minViewMode: "years",

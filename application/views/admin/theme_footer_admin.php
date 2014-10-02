@@ -53,22 +53,18 @@
             openEffect: 'none',
             closeEffect: 'none'
         });
-        //<![CDATA[   
         $('.datepicker').datepicker({
             language: 'th-th',
-//            language: 'en',
             format: 'yyyy-m-d',
         });
         $('.date-search').datepicker({
             language: 'th-th',
-//            language: 'en',
             format: 'MM yyyy',
             viewMode: "months",
             minViewMode: "months",
         });
         $('.year-picker').datepicker({
             language: 'th-th',
-//            language: 'en',
             format: 'yyyy',
             viewMode: "years",
             minViewMode: "years",
@@ -91,26 +87,26 @@
         $('.modal-title').html('<i class="fa fa-info-circle fa-lg"></i> คุณต้องการ <strong>' + title + '</strong>');
         $('.modal-body').html('<strong>' + title + '</strong> : ' + info + '');
 
-        if (id == 1) //edit
+        if (id == 1)
         {
             $('#btn_yes').show();
             $('#btn_delete').hide();
             $(this).find('.yes').attr('href', $(e.relatedTarget).data('href'));
 
-        } else if (id == 2) //delete 
+        } else if (id == 2)
         {
             $('#btn_yes').hide();
             $('#btn_delete').show();
             $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
 
         }
-        else if (id == 3) //cancle
+        else if (id == 3)
         {
             $('#btn_yes').show();
             $('#btn_delete').hide();
             $(this).find('.yes').attr('href', $(e.relatedTarget).data('href'));
 
-        } else if (id == 4) //active
+        } else if (id == 4)
         {
             $('#btn_yes').show();
             $('#btn_delete').hide();

@@ -4,7 +4,7 @@
     <head>
 
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <meta name="author" content="VoRDcs">
         <base href="<?php echo base_url(); ?>"> 
         <link rel="shortcut icon" href="<?php echo base_url() . 'assets/img/favicon.png'; ?>">
@@ -81,19 +81,16 @@
                     var pt_scroll = $(this).scrollTop() + 80;
                     if (pt_scroll >= $('.content').offset().top) {
                         $('#scroll-top').removeClass('hidden');
-//                        $('#scroll-top').fadeIn();
                     } else {
                         $('#scroll-top').addClass('hidden');
-//                        $('#scroll-top').fadeOut();
                     }
                 });
                 $('#scroll-top').click(function() {
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, 600);
+                    $("html, body").animate({scrollTop: 0}, 600);
                     return false;
                 });
             });
+
         </script>
 
     </head>

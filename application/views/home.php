@@ -368,14 +368,12 @@
 <script>
     $(document).ready(function() {
         $("#owl-1").owlCarousel({
-//            items: 1,
             autoPlay: 5000,
             stopOnHover: true,
             navigation: false,
             paginationSpeed: 1000,
             goToFirstSpeed: 2000,
             singleItem: true,
-//            autoHeight: true,
             transitionStyle: "fade"
         });
 
@@ -392,12 +390,10 @@
         $(window).scroll(function() {
             var pt_scroll = $(this).scrollTop() + 80;
             if (pt_scroll >= $('#mainContent').offset().top) {
-//                $('body').css('padding-top', '60px')
                 $('#nav_fix_top').removeClass('hidden');
                 $('#nav_fix_top').fadeIn();
 
             } else {
-//                $('body').css('padding-top', '0px')
                 $('#nav_fix_top').fadeOut();
                 $('#nav_fix_top').addClass('hidden');
             }
